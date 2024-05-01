@@ -1,10 +1,132 @@
+import 'package:career_compass/screens/auth/register.dart';
+import 'package:career_compass/style/app_colors.dart';
+import 'package:career_compass/widgets/textfield.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    TextEditingController email = TextEditingController();
+    TextEditingController password = TextEditingController();
+    return Scaffold(
+      backgroundColor: AppColors.mainColor,
+      body: Center(
+        child: Stack(clipBehavior: Clip.none, children: [
+          Container(
+            height: 400,
+            width: 350,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: AppColors.grey,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 40, right: 20, left: 20),
+              child: Column(
+                children: [
+                  customTextField(
+                      title: 'email',
+                      hint: 'enter your email',
+                      controller: email,
+                      maxLines: 1,
+                      borderColor: AppColors.amber),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  customTextField(
+                      title: 'password',
+                      hint: 'enter your password',
+                      controller: password,
+                      maxLines: 1,
+                      borderColor: AppColors.amber),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  // const Text(
+                  //   '______ OR _______',
+                  //   style: TextStyle(color: Colors.black),
+                  // ),
+
+                  const SizedBox(
+                    height: 15,
+                  ),
+
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Row(
+                    children: [
+                      SizedBox(
+                        width: 50,
+                      ),
+                      Expanded(
+                          child: Divider(
+                        thickness: 2,
+                        color: Colors.black,
+                      )),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Text('OR'),
+                      ),
+                      Expanded(
+                          child: Divider(
+                        thickness: 2,
+                        color: Colors.black,
+                      )),
+                      SizedBox(
+                        width: 50,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  MaterialButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const RegisterScreen()),
+                      );
+                    },
+                    child: const Text('Create Account'),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/splash_screen');
+                    },
+                    child: Container(
+                      height: 50,
+                      width: 150,
+                      decoration: BoxDecoration(
+                          color: AppColors.mainColor,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: const Center(
+                        child: Text('Login'),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            top: -50,
+            right: 140,
+            child: CircleAvatar(
+              radius: 40,
+              backgroundColor: AppColors.grey,
+              child: const Icon(Icons.person_2_sharp),
+            ),
+          )
+        ]),
+      ),
+    );
   }
 }

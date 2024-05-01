@@ -1,4 +1,6 @@
+
 import 'package:career_compass/style/app_colors.dart';
+import 'package:career_compass/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -6,6 +8,9 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController companyname = TextEditingController();
+    TextEditingController email = TextEditingController();
+    TextEditingController password = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 250,
@@ -17,45 +22,67 @@ class RegisterScreen extends StatelessWidget {
           fit: BoxFit.fitHeight,
         ),
         backgroundColor: AppColors.mainColor,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(100),
           ),
         ),
       ),
       //  ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 40,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                height: 110,
-                width: 100,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.amber),
+              const SizedBox(
+                height: 20,
               ),
-              SizedBox(
-                width: 60,
+              customTextField(
+                  title: 'Company Name',
+                  hint: 'Enter the name',
+                  controller: companyname,
+                  maxLines: 1,
+                  borderColor: AppColors.amber),
+              const SizedBox(
+                height: 20,
               ),
-              Container(
-                height: 110,
-                width: 100,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.amber),
+              customTextField(
+                  title: 'Email',
+                  hint: 'Enter the email',
+                  controller: email,
+                  maxLines: 1,
+                  borderColor: AppColors.amber),
+              const SizedBox(
+                height: 20,
+              ),
+              customTextField(
+                  title: 'Password',
+                  hint: 'Enter the password',
+                  controller: password,
+                  maxLines: 1,
+                  borderColor: AppColors.amber),
+              const SizedBox(
+                height: 20,
+              ),
+              MaterialButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/splash_screen');
+                },
+                child: Container(
+                  height: 50,
+                  width: 150,
+                  decoration: BoxDecoration(
+                      color: AppColors.mainColor,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: const Center(
+                    child: Text('Register'),
+                  ),
+                ),
               ),
             ],
           ),
-          Text('dd'),
-          Text('data'),
-          Text('data'),
-          ElevatedButton(onPressed: () {}, child: Text('register'))
-        ],
+        ),
       ),
     );
   }
