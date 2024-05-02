@@ -1,15 +1,14 @@
-import 'package:career_compass/screens/auth/register.dart';
+import 'package:career_compass/screens/start.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/textfield.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    bool type = StartScreen.type;
     TextEditingController email = TextEditingController();
     TextEditingController password = TextEditingController();
     return Scaffold(
@@ -28,7 +27,7 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 children: [
                   customTextField(
-                      title: 'email',
+                      title: type ? 'email' : 'company email',
                       hint: 'enter your email',
                       controller: email,
                       maxLines: 1,
@@ -86,11 +85,8 @@ class LoginScreen extends StatelessWidget {
                   ),
                   MaterialButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const RegisterScreen()),
-                      );
+                      Navigator.pushNamed(context,
+                          type ? '/register_employee' : '/register_company');
                     },
                     child: const Text('Create Account'),
                   ),
@@ -99,7 +95,8 @@ class LoginScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/splash_screen');
+                      Navigator.pushNamed(
+                          context, type ? '/home_employee' : '/home_company');
                     },
                     child: Container(
                       height: 50,

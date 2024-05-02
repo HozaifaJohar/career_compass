@@ -1,4 +1,4 @@
-
+import 'package:career_compass/screens/start.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/textfield.dart';
 import 'package:flutter/material.dart';
@@ -8,18 +8,17 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool type = StartScreen.type;
+    final screenHeight = MediaQuery.of(context).size.height;
     TextEditingController companyname = TextEditingController();
     TextEditingController email = TextEditingController();
     TextEditingController password = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 250,
-        centerTitle: true,
-        title: Image.asset(
+        flexibleSpace: Image.asset(
           'images/logoCompass.jpg',
-          height: 500,
-          width: 400,
-          fit: BoxFit.fitHeight,
+          fit: BoxFit.cover,
         ),
         backgroundColor: AppColors.mainColor,
         shape: const RoundedRectangleBorder(
@@ -28,27 +27,25 @@ class RegisterScreen extends StatelessWidget {
           ),
         ),
       ),
-      //  ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              //@ _@ how to use mediaquery
               const SizedBox(
-                height: 20,
+                height: 75,
               ),
+              // customTextField(
+              //     title: 'Company Name',
+              //     hint: 'Enter the name',
+              //     controller: companyname,
+              //     maxLines: 1,
+              //     borderColor: AppColors.amber),
+
               customTextField(
-                  title: 'Company Name',
-                  hint: 'Enter the name',
-                  controller: companyname,
-                  maxLines: 1,
-                  borderColor: AppColors.amber),
-              const SizedBox(
-                height: 20,
-              ),
-              customTextField(
-                  title: 'Email',
+                  title: type ? 'company email' : 'email',
                   hint: 'Enter the email',
                   controller: email,
                   maxLines: 1,

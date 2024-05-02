@@ -3,6 +3,7 @@ import 'package:career_compass/style/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class StartScreen extends StatelessWidget {
+  static bool type = true;
   const StartScreen({super.key});
 
   @override
@@ -22,6 +23,7 @@ class StartScreen extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
+                type = true;
                 Navigator.pushNamed(context, '/login_screen');
               },
               child: Container(
@@ -43,6 +45,7 @@ class StartScreen extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
+                type = false;
                 Navigator.pushNamed(context, '/login_screen');
               },
               child: Container(

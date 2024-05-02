@@ -1,10 +1,13 @@
-import 'package:career_compass/screens/auth/homepage.dart';
-import 'package:career_compass/screens/auth/login.dart';
-import 'package:career_compass/screens/auth/register.dart';
-import 'package:career_compass/screens/auth/start.dart';
+import 'package:career_compass/screens/employee_screens/home_employee.dart';
+import 'package:career_compass/screens/employee_screens/register_employee.dart';
+import 'package:career_compass/screens/login.dart';
+import 'package:career_compass/screens/company_screens/home_company.dart';
+import 'package:career_compass/screens/company_screens/register_company.dart';
+import 'package:career_compass/screens/register.dart';
+import 'package:career_compass/screens/start.dart';
 import 'package:flutter/material.dart';
 
-import 'screens/auth/splash.dart';
+import 'screens/splash.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,11 +23,15 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       home: const StartScreen(),
       routes: {
-        '/register_screen': (context) => const RegisterScreen(),
+        '/start_screen': (context) => const StartScreen(),
+        'register_screen': (context) => const RegisterScreen(),
         '/login_screen': (context) => const LoginScreen(),
-        '/start_screen':(context)=> const StartScreen(),
-        '/splash_screen':(context)=> const SplashScreen(),
-        '/home_page':(context) => const HomePage(),
+        //'/splash_screen': (context) => const SplashScreen(),
+        '/register_company': (context) => const ResisterCompanyScreen(),
+        '/home_company': (context) => const HomePageCompany(),
+
+        '/register_employee': (context) => const RegisterEmployeeScreen(),
+        '/home_employee': (context) => const HomePageEmployee(),
       },
     );
   }
