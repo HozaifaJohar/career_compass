@@ -1,3 +1,4 @@
+import 'package:career_compass/screens/employee_screens/employee_information.dart';
 import 'package:career_compass/screens/employee_screens/home_employee.dart';
 import 'package:career_compass/screens/employee_screens/register_employee.dart';
 import 'package:career_compass/screens/login.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: const StartScreen(),
+      home: const RegisterEmployeeScreen(),
       routes: {
         '/start_screen': (context) => const StartScreen(),
         'register_screen': (context) => const RegisterScreen(),
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
 
         '/register_employee': (context) => const RegisterEmployeeScreen(),
         '/home_employee': (context) => const HomePageEmployee(),
+        '/scientific_information': (context) => const ScientificInformation(),
       },
     );
   }

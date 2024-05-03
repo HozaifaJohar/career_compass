@@ -45,11 +45,11 @@ class RegisterScreen extends StatelessWidget {
               //     borderColor: AppColors.amber),
 
               customTextField(
-                  title: type ? 'company email' : 'email',
+                  title: type ? 'email' : 'Company email',
                   hint: 'Enter the email',
                   controller: email,
                   maxLines: 1,
-                  borderColor: AppColors.amber),
+                  borderColor: AppColors.amber,border: 50),
               const SizedBox(
                 height: 20,
               ),
@@ -58,7 +58,7 @@ class RegisterScreen extends StatelessWidget {
                   hint: 'Enter the password',
                   controller: password,
                   maxLines: 1,
-                  borderColor: AppColors.amber),
+                  borderColor: AppColors.amber,border: 50),
               const SizedBox(
                 height: 20,
               ),

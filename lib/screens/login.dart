@@ -31,7 +31,8 @@ class LoginScreen extends StatelessWidget {
                       hint: 'enter your email',
                       controller: email,
                       maxLines: 1,
-                      borderColor: AppColors.amber),
+                      borderColor: AppColors.amber,
+                      border: 50),
                   const SizedBox(
                     height: 30,
                   ),
@@ -40,19 +41,8 @@ class LoginScreen extends StatelessWidget {
                       hint: 'enter your password',
                       controller: password,
                       maxLines: 1,
-                      borderColor: AppColors.amber),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  // const Text(
-                  //   '______ OR _______',
-                  //   style: TextStyle(color: Colors.black),
-                  // ),
-
-                  const SizedBox(
-                    height: 15,
-                  ),
-
+                      borderColor: AppColors.amber,
+                      border: 50),
                   const SizedBox(
                     height: 20,
                   ),
@@ -85,8 +75,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   MaterialButton(
                     onPressed: () {
-                      Navigator.pushNamed(context,
-                          type ? '/register_employee' : '/register_company');
+                      Navigator.pushNamed(context, 'register_screen');
                     },
                     child: const Text('Create Account'),
                   ),

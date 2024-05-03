@@ -6,6 +6,7 @@ Widget customTextField({
   TextEditingController? controller,
   int? maxLines = 1,
   Color? borderColor,
+  double? border
 }) {
   return Column(
     children: [
@@ -13,12 +14,13 @@ Widget customTextField({
         enabled: true,
         controller: controller,
         maxLines: maxLines,
+        
         decoration: InputDecoration(
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(50.0),
+            borderRadius: BorderRadius.circular(border!),
           ),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(50),
+              borderRadius: BorderRadius.circular(border),
               borderSide: BorderSide(color: borderColor!)),
           labelText: title,
         ),
