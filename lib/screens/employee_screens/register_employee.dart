@@ -1,8 +1,7 @@
 import 'package:career_compass/screens/start.dart';
+import 'package:career_compass/style/app_colors.dart';
+import 'package:career_compass/widgets/textField.dart';
 import 'package:flutter/material.dart';
-
-import '../../style/app_colors.dart';
-import '../../widgets/textfield.dart';
 
 class RegisterEmployeeScreen extends StatefulWidget {
   const RegisterEmployeeScreen({super.key});
@@ -36,8 +35,9 @@ class _RegisterEmployeeScreenState extends State<RegisterEmployeeScreen> {
           elevation: 15,
           backgroundColor: AppColors.mainColor,
           title: const Text(
-            'YOUR INFORMATIOM',
+            'YOUR\n I N F O R M A T I O N',
             style: TextStyle(color: Colors.white),
+            textAlign: TextAlign.center,
           ),
           centerTitle: true,
           shape: const RoundedRectangleBorder(
@@ -46,13 +46,16 @@ class _RegisterEmployeeScreenState extends State<RegisterEmployeeScreen> {
             bottomRight: Radius.circular(90),
           )),
           bottom: const PreferredSize(
-              preferredSize: Size.fromHeight(100), child: SizedBox()),
+              preferredSize: Size.fromHeight(65), child: SizedBox()),
         ),
         body: Padding(
           padding: const EdgeInsets.all(10),
           child: SingleChildScrollView(
             child: Column(
               children: [
+                SizedBox(
+                  height: 10,
+                ),
                 customTextField(
                     title: 'First Name',
                     hint: 'Type Here please',
@@ -189,8 +192,13 @@ class _RegisterEmployeeScreenState extends State<RegisterEmployeeScreen> {
                       decoration: BoxDecoration(
                           color: AppColors.mainColor,
                           borderRadius: BorderRadius.circular(50)),
-                      child: const Center(
-                        child: Text('Continue'),
+                      child: Center(
+                        child: Text(
+                          'Continue',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ),
                   ),

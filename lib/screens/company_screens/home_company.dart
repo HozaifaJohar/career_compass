@@ -1,3 +1,5 @@
+import 'package:career_compass/style/app_colors.dart';
+import 'package:career_compass/widgets/waves.dart';
 import 'package:flutter/material.dart';
 
 class HomePageCompany extends StatelessWidget {
@@ -6,8 +8,62 @@ class HomePageCompany extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('homepage of company'),
+      // appBar: AppBar(
+      //   toolbarHeight: 130,
+      //   flexibleSpace: Container(
+      //     child: Stack(
+      //       children: [
+      //         Opacity(
+      //           opacity: 0.5,
+      //           child: ClipPath(
+      //             clipper: WaveClipper(),
+      //             child: Container(
+      //               height: 160,
+      //               color: AppColors.mainColor,
+      //             ),
+      //           ),
+      //         ),
+      //         ClipPath(
+      //           clipper: WaveClipper(),
+      //           child: Container(
+      //             height: 140,
+      //             color: AppColors.mainColor,
+      //           ),
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+      ),
+      body: Column(
+        children: [
+          Stack(
+            children: [
+              Opacity(
+                opacity: 0.5,
+                child: ClipPath(
+                  clipper: WaveClipper(),
+                  child: Container(
+                    height: 160,
+                    color: AppColors.mainColor,
+                  ),
+                ),
+              ),
+              ClipPath(
+                clipper: WaveClipper(),
+                child: Container(
+                  height: 140,
+                  color: AppColors.mainColor,
+                ),
+              ),
+            ],
+          ),
+          Text('hello')
+        ],
       ),
     );
   }

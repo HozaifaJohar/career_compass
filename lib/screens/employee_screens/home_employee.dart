@@ -10,6 +10,5 @@ class HomePageEmployee extends StatelessWidget {
         child: Text('homepage of employee'),
       ),
     );
-    ;
   }
 }
