@@ -22,7 +22,7 @@ class HomePageCompany extends StatelessWidget {
                 child: ClipPath(
                   clipper: WaveClipper(),
                   child: Container(
-                    height: 160,
+                    height: 140,
                     color: AppColors.mainColor,
                   ),
                 ),
@@ -30,7 +30,7 @@ class HomePageCompany extends StatelessWidget {
               ClipPath(
                 clipper: WaveClipper(),
                 child: Container(
-                  height: 140,
+                  height: 120,
                   color: AppColors.mainColor,
                 ),
               ),
