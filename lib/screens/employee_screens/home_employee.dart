@@ -36,7 +36,7 @@ class HomePageEmployee extends StatelessWidget {
               ),
             ],
           ),
-          Text('hello')
+          const Text('hello')
         ],
       ),
     );
