@@ -9,10 +9,10 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool type = StartScreen.type;
-    final screenHeight = MediaQuery.of(context).size.height;
     TextEditingController companyname = TextEditingController();
     TextEditingController email = TextEditingController();
     TextEditingController password = TextEditingController();
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
