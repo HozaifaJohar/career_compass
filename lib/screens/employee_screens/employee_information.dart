@@ -463,7 +463,12 @@ class _ScientificInformationState extends State<ScientificInformation> {
                         color: AppColors.mainColor,
                         borderRadius: BorderRadius.circular(10)),
                     child: const Center(
-                      child: Text('Complete'),
+                      child: Text(
+                        'Complete',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
                 )
