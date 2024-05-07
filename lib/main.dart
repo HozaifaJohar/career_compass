@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: ResisterCompanyScreen(),
+      home: StartScreen(),
       routes: {
         '/start_screen': (context) => const StartScreen(),
         'register_screen': (context) => const RegisterScreen(),
