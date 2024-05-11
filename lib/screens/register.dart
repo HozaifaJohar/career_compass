@@ -1,17 +1,19 @@
+import 'package:career_compass/provider/type_provider.dart';
 import 'package:career_compass/screens/start.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    bool type = StartScreen.type;
-    TextEditingController companyname = TextEditingController();
-    TextEditingController email = TextEditingController();
-    TextEditingController password = TextEditingController();
+    bool type = Provider.of<TypeProvider>(context).type;
+    TextEditingController _companyname = TextEditingController();
+    TextEditingController _email = TextEditingController();
+    TextEditingController _password = TextEditingController();
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -59,7 +61,7 @@ class RegisterScreen extends StatelessWidget {
                   customTextField(
                       title: type ? 'email' : 'Company email',
                       hint: 'Enter the email',
-                      controller: email,
+                      controller: _email,
                       maxLines: 1,
                       borderColor: AppColors.amber,
                       border: 50),
@@ -69,7 +71,7 @@ class RegisterScreen extends StatelessWidget {
                   customTextField(
                       title: 'Password',
                       hint: 'Enter the password',
-                      controller: password,
+                      controller: _password,
                       maxLines: 1,
                       borderColor: AppColors.amber,
                       border: 50),
@@ -82,6 +84,13 @@ class RegisterScreen extends StatelessWidget {
                           type ? '/register_employee' : '/register_company');
                     },
                     child: GestureDetector(
+                      // onTap: () {
+                      //   if (type) {
+                      //     // RegisterEmployee().register(name: , email: email, password: password, gender: gender, phone: phone)
+                      //   } else {
+                      //     //RegisterCompany().register()
+                      //   }
+                      // },
                       child: Container(
                         height: 50,
                         width: 150,

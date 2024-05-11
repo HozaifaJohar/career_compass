@@ -1,14 +1,16 @@
+import 'package:career_compass/provider/type_provider.dart';
 import 'package:career_compass/screens/start.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    bool type = StartScreen.type;
+    bool type = Provider.of<TypeProvider>(context).type;
     TextEditingController email = TextEditingController();
     TextEditingController password = TextEditingController();
     return Scaffold(

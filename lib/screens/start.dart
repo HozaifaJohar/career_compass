@@ -1,10 +1,11 @@
+import 'package:career_compass/provider/type_provider.dart';
 import 'package:career_compass/style/app_colors.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class StartScreen extends StatelessWidget {
-  static bool type = true;
-  const StartScreen({super.key});
+  StartScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class StartScreen extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                type = true;
+                Provider.of<TypeProvider>(context, listen: false).setType(true);
                 Navigator.pushNamed(context, '/login_screen');
               },
               child: Container(
@@ -45,7 +46,8 @@ class StartScreen extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                type = false;
+                Provider.of<TypeProvider>(context, listen: false)
+                    .setType(false);
                 Navigator.pushNamed(context, '/login_screen');
               },
               child: Container(

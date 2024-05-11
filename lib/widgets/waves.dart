@@ -6,7 +6,7 @@ class WaveClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     // depugPrint(size.path);
-    var path = new Path();
+    var path = Path();
     path.lineTo(0, size.height); //start path with this if you are making
     //(note : the height is from the container in the ClipPath that have waveClipper as clipper:)
     var firstStart = Offset(size.width / 5, size.height);
@@ -26,5 +26,13 @@ class WaveClipper extends CustomClipper<Path> {
     path.lineTo(size.width, 0);
     path.close();
     return path;
+  }
+
+  @override
+  bool shouldReclip(covariant WaveClipper oldClipper) {
+    // Implement logic to determine if the clipper should reclip.
+    // This should return true if the old clipper differs from the current clipper in a way that affects the clipped path.
+    // For instance, you might compare properties of the two clippers.
+    return false; // Update with actual reclip conditions.
   }
 }

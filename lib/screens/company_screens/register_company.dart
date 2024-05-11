@@ -3,7 +3,7 @@ import 'package:career_compass/widgets/textField.dart';
 import 'package:flutter/material.dart';
 
 class ResisterCompanyScreen extends StatefulWidget {
-  ResisterCompanyScreen({super.key});
+  const ResisterCompanyScreen({super.key});
 
   @override
   State<ResisterCompanyScreen> createState() => _ResisterCompanyScreenState();
@@ -11,6 +11,8 @@ class ResisterCompanyScreen extends StatefulWidget {
 
 class _ResisterCompanyScreenState extends State<ResisterCompanyScreen> {
   final TextEditingController _companyName = TextEditingController();
+  final TextEditingController _companyPhone = TextEditingController();
+  final TextEditingController _describtion = TextEditingController();
   String city = 'Select location';
 
   @override
@@ -34,12 +36,12 @@ class _ResisterCompanyScreenState extends State<ResisterCompanyScreen> {
             preferredSize: Size.fromHeight(65), child: SizedBox()),
       ),
       body: Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
-                height: 10,
+              const SizedBox(
+                height: 20,
               ),
               customTextField(
                 title: 'Company Name',
@@ -49,15 +51,15 @@ class _ResisterCompanyScreenState extends State<ResisterCompanyScreen> {
                 controller: _companyName,
                 border: 10,
               ),
-              SizedBox(
-                height: 10,
+              const SizedBox(
+                height: 20,
               ),
               customTextField(
-                title: 'Company Name',
+                title: 'Company Phone',
                 hint: 'Type Here please',
                 maxLines: 1,
                 borderColor: AppColors.amber,
-                controller: _companyName,
+                controller: _companyPhone,
                 border: 10,
               ),
               const SizedBox(
@@ -180,7 +182,7 @@ class _ResisterCompanyScreenState extends State<ResisterCompanyScreen> {
                       borderRadius: BorderRadius.circular(10)),
                   child: ListTile(
                     title: const Text(
-                      'Company Location',
+                      'City',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text(city),
@@ -189,6 +191,51 @@ class _ResisterCompanyScreenState extends State<ResisterCompanyScreen> {
               ),
               const SizedBox(
                 height: 20,
+              ),
+              customTextField(
+                title: 'Address',
+                hint: 'Type Here please',
+                maxLines: 1,
+                borderColor: AppColors.amber,
+                controller: _companyPhone,
+                border: 10,
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              customTextField(
+                title: 'Describe your company',
+                minLines: 3,
+                maxLines: 4,
+                borderColor: AppColors.amber,
+                controller: _describtion,
+                border: 10,
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    'home_company',
+                  );
+                },
+                child: Container(
+                  width: 100,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: AppColors.mainColor,
+                      borderRadius: BorderRadius.circular(50)),
+                  child: const Center(
+                    child: Text(
+                      'Register',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

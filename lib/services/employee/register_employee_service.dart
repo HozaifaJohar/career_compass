@@ -1,11 +1,9 @@
-import 'dart:convert';
 import 'package:career_compass/constant/url.dart';
 import 'package:career_compass/helper/api.dart';
 import 'package:career_compass/models/user_employee.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class RegisterEmployee {
+class RegisterEmployeeSrevice {
   String url = AppString.baseUrl;
   Future<UserEmployee> register({
     required String name,
