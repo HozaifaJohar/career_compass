@@ -9,12 +9,12 @@ class ScientificInformation extends StatefulWidget {
 }
 
 class _ScientificInformationState extends State<ScientificInformation> {
-  String jobLevelSelected = '...';
-  String jobTypeSelected = '...';
-  String jobRoleSelected = '...';
-  String citySelected = '..';
-  String experienceSelected = '...';
-  String educateSelected = '..';
+  String jobLevelSelected = '';
+  String jobTypeSelected = '';
+  String jobRoleSelected = '';
+  String citySelected = '';
+  String experienceSelected = '';
+  String educateSelected = '';
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;

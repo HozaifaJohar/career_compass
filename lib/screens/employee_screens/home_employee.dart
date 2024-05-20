@@ -9,10 +9,6 @@ class HomePageEmployee extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-      ),
       body: Column(
         children: [
           Stack(

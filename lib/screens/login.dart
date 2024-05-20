@@ -87,7 +87,10 @@ class LoginScreen extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Navigator.pushNamed(
-                          context, type ? '/home_employee' : '/home_company');
+                          context,
+                          type
+                              ? '/navigation_employee'
+                              : '/navigation_company');
                     },
                     child: Container(
                       height: 50,

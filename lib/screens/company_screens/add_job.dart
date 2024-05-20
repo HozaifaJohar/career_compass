@@ -1,6 +1,8 @@
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/waves.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class AddJob extends StatefulWidget {
   const AddJob({super.key});
@@ -10,14 +12,14 @@ class AddJob extends StatefulWidget {
 }
 
 class _AddJobState extends State<AddJob> {
-  String jobTitleSelected = '...';
-  String jobLevelSelected = '...';
-  String jobTypeSelected = '...';
-  String jobRoleSelected = '...';
-  String citySelected = '..';
-  String experienceSelected = '...';
+  String jobTitleSelected = '';
+  String jobLevelSelected = '';
+  String jobTypeSelected = '';
+  String jobRoleSelected = '';
+  String citySelected = '';
+  String experienceSelected = '';
   String educateSelected = '';
-  String genderSelected = '..';
+  String genderSelected = '';
   List<String> jobTitle = [
     'Angular Developer',
     'Devops Engineer',
@@ -192,485 +194,484 @@ class _AddJobState extends State<AddJob> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                Opacity(
-                  opacity: 0.5,
-                  child: ClipPath(
-                    clipper: WaveClipper(),
-                    child: Container(
-                      height: 140,
-                      color: AppColors.mainColor,
-                    ),
-                  ),
-                ),
-                ClipPath(
+    return Expanded(
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              Opacity(
+                opacity: 0.5,
+                child: ClipPath(
                   clipper: WaveClipper(),
                   child: Container(
-                    height: 120,
+                    height: 140,
                     color: AppColors.mainColor,
                   ),
                 ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      showModalBottomSheet(
-                          shape: const BeveledRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(50),
-                                  topRight: Radius.circular(50))),
-                          context: context,
-                          builder: (BuildContext context) {
-                            return Container(
-                              decoration: const BoxDecoration(
-                                  color: Color.fromARGB(255, 222, 219, 219),
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(50),
-                                      topRight: Radius.circular(50))),
-                              child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: ListView.builder(
-                                      itemCount: jobTitle.length,
-                                      itemBuilder: (context, index) {
-                                        return ListTile(
-                                          title: Text(
-                                            jobTitle[index],
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          onTap: () {
-                                            setState(() {
-                                              jobTitleSelected =
-                                                  jobTitle[index];
-                                              Navigator.pop(context);
-                                            });
-                                          },
-                                        );
-                                      })),
-                            );
-                          });
-                    },
-                    child: Container(
-                      height: 80,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 238, 230, 230),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: ListTile(
-                        title: const Text(
-                          'Job Title',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              ClipPath(
+                clipper: WaveClipper(),
+                child: Container(
+                  height: 120,
+                  color: AppColors.mainColor,
+                ),
+              ),
+            ],
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                            shape: const BeveledRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(50),
+                                    topRight: Radius.circular(50))),
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Container(
+                                decoration: const BoxDecoration(
+                                    color: Color.fromARGB(255, 222, 219, 219),
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(50),
+                                        topRight: Radius.circular(50))),
+                                child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: ListView.builder(
+                                        itemCount: jobTitle.length,
+                                        itemBuilder: (context, index) {
+                                          return ListTile(
+                                            title: Text(
+                                              jobTitle[index],
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            onTap: () {
+                                              setState(() {
+                                                jobTitleSelected =
+                                                    jobTitle[index];
+                                                Navigator.pop(context);
+                                              });
+                                            },
+                                          );
+                                        })),
+                              );
+                            });
+                      },
+                      child: Container(
+                        height: 80,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 238, 230, 230),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: ListTile(
+                          title: const Text(
+                            'Job Title',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(jobTitleSelected),
                         ),
-                        subtitle: Text(jobTitleSelected),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  ///////////////////////////////////////////////////////////////////////
-                  GestureDetector(
-                    onTap: () {
-                      showModalBottomSheet(
-                          shape: const BeveledRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(50),
-                                  topRight: Radius.circular(50))),
-                          context: context,
-                          builder: (BuildContext context) {
-                            return Container(
-                              decoration: const BoxDecoration(
-                                  color: Color.fromARGB(255, 222, 219, 219),
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(50),
-                                      topRight: Radius.circular(50))),
-                              child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: ListView.builder(
-                                      itemCount: jobLevel.length,
-                                      itemBuilder: (context, index) {
-                                        return ListTile(
-                                          title: Text(
-                                            jobLevel[index],
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          onTap: () {
-                                            setState(() {
-                                              jobLevelSelected =
-                                                  jobLevel[index];
-                                              Navigator.pop(context);
-                                            });
-                                          },
-                                        );
-                                      })),
-                            );
-                          });
-                    },
-                    child: Container(
-                      height: 80,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 238, 230, 230),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: ListTile(
-                        title: const Text(
-                          'Job Level',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    ///////////////////////////////////////////////////////////////////////
+                    GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                            shape: const BeveledRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(50),
+                                    topRight: Radius.circular(50))),
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Container(
+                                decoration: const BoxDecoration(
+                                    color: Color.fromARGB(255, 222, 219, 219),
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(50),
+                                        topRight: Radius.circular(50))),
+                                child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: ListView.builder(
+                                        itemCount: jobLevel.length,
+                                        itemBuilder: (context, index) {
+                                          return ListTile(
+                                            title: Text(
+                                              jobLevel[index],
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            onTap: () {
+                                              setState(() {
+                                                jobLevelSelected =
+                                                    jobLevel[index];
+                                                Navigator.pop(context);
+                                              });
+                                            },
+                                          );
+                                        })),
+                              );
+                            });
+                      },
+                      child: Container(
+                        height: 80,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 238, 230, 230),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: ListTile(
+                          title: const Text(
+                            'Job Level',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(jobLevelSelected),
                         ),
-                        subtitle: Text(jobLevelSelected),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      showModalBottomSheet(
-                          shape: const BeveledRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(50),
-                                  topRight: Radius.circular(50))),
-                          context: context,
-                          builder: (BuildContext context) {
-                            return Container(
-                              decoration: const BoxDecoration(
-                                  color: Color.fromARGB(255, 222, 219, 219),
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(50),
-                                      topRight: Radius.circular(50))),
-                              child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: ListView.builder(
-                                      itemCount: jobType.length,
-                                      itemBuilder: (context, index) {
-                                        return ListTile(
-                                          title: Text(
-                                            jobType[index],
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          onTap: () {
-                                            setState(() {
-                                              jobTypeSelected = jobType[index];
-                                              Navigator.pop(context);
-                                            });
-                                          },
-                                        );
-                                      })),
-                            );
-                          });
-                    },
-                    child: Container(
-                      height: 80,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 238, 230, 230),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: ListTile(
-                        title: const Text(
-                          'Job Type',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                            shape: const BeveledRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(50),
+                                    topRight: Radius.circular(50))),
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Container(
+                                decoration: const BoxDecoration(
+                                    color: Color.fromARGB(255, 222, 219, 219),
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(50),
+                                        topRight: Radius.circular(50))),
+                                child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: ListView.builder(
+                                        itemCount: jobType.length,
+                                        itemBuilder: (context, index) {
+                                          return ListTile(
+                                            title: Text(
+                                              jobType[index],
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            onTap: () {
+                                              setState(() {
+                                                jobTypeSelected =
+                                                    jobType[index];
+                                                Navigator.pop(context);
+                                              });
+                                            },
+                                          );
+                                        })),
+                              );
+                            });
+                      },
+                      child: Container(
+                        height: 80,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 238, 230, 230),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: ListTile(
+                          title: const Text(
+                            'Job Type',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(jobTypeSelected),
                         ),
-                        subtitle: Text(jobTypeSelected),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      showModalBottomSheet(
-                          shape: const BeveledRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(50),
-                                  topRight: Radius.circular(50))),
-                          context: context,
-                          builder: (BuildContext context) {
-                            return Container(
-                              decoration: const BoxDecoration(
-                                  color: Color.fromARGB(255, 222, 219, 219),
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(50),
-                                      topRight: Radius.circular(50))),
-                              child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: ListView.builder(
-                                      itemCount: jobRole.length,
-                                      itemBuilder: (context, index) {
-                                        return ListTile(
-                                          title: Text(
-                                            jobRole[index],
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          onTap: () {
-                                            setState(() {
-                                              jobRoleSelected = jobRole[index];
-                                              Navigator.pop(context);
-                                            });
-                                          },
-                                        );
-                                      })),
-                            );
-                          });
-                    },
-                    child: Container(
-                      height: 80,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 238, 230, 230),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: ListTile(
-                        title: const Text(
-                          'Job Role',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                            shape: const BeveledRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(50),
+                                    topRight: Radius.circular(50))),
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Container(
+                                decoration: const BoxDecoration(
+                                    color: Color.fromARGB(255, 222, 219, 219),
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(50),
+                                        topRight: Radius.circular(50))),
+                                child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: ListView.builder(
+                                        itemCount: jobRole.length,
+                                        itemBuilder: (context, index) {
+                                          return ListTile(
+                                            title: Text(
+                                              jobRole[index],
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            onTap: () {
+                                              setState(() {
+                                                jobRoleSelected =
+                                                    jobRole[index];
+                                                Navigator.pop(context);
+                                              });
+                                            },
+                                          );
+                                        })),
+                              );
+                            });
+                      },
+                      child: Container(
+                        height: 80,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 238, 230, 230),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: ListTile(
+                          title: const Text(
+                            'Job Role',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(citySelected),
                         ),
-                        subtitle: Text(citySelected),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      showModalBottomSheet(
-                          shape: const BeveledRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(50),
-                                  topRight: Radius.circular(50))),
-                          context: context,
-                          builder: (BuildContext context) {
-                            return Container(
-                              decoration: const BoxDecoration(
-                                  color: Color.fromARGB(255, 222, 219, 219),
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(50),
-                                      topRight: Radius.circular(50))),
-                              child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: ListView.builder(
-                                      itemCount: city.length,
-                                      itemBuilder: (context, index) {
-                                        return ListTile(
-                                          title: Text(
-                                            city[index],
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          onTap: () {
-                                            setState(() {
-                                              citySelected = city[index];
-                                              Navigator.pop(context);
-                                            });
-                                          },
-                                        );
-                                      })),
-                            );
-                          });
-                    },
-                    child: Container(
-                      height: 80,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 238, 230, 230),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: ListTile(
-                        title: const Text(
-                          'City',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                            shape: const BeveledRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(50),
+                                    topRight: Radius.circular(50))),
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Container(
+                                decoration: const BoxDecoration(
+                                    color: Color.fromARGB(255, 222, 219, 219),
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(50),
+                                        topRight: Radius.circular(50))),
+                                child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: ListView.builder(
+                                        itemCount: city.length,
+                                        itemBuilder: (context, index) {
+                                          return ListTile(
+                                            title: Text(
+                                              city[index],
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            onTap: () {
+                                              setState(() {
+                                                citySelected = city[index];
+                                                Navigator.pop(context);
+                                              });
+                                            },
+                                          );
+                                        })),
+                              );
+                            });
+                      },
+                      child: Container(
+                        height: 80,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 238, 230, 230),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: ListTile(
+                          title: const Text(
+                            'City',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(citySelected),
                         ),
-                        subtitle: Text(citySelected),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      showModalBottomSheet(
-                          shape: const BeveledRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(50),
-                                  topRight: Radius.circular(50))),
-                          context: context,
-                          builder: (BuildContext context) {
-                            return Container(
-                              decoration: const BoxDecoration(
-                                  color: Color.fromARGB(255, 222, 219, 219),
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(50),
-                                      topRight: Radius.circular(50))),
-                              child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: ListView.builder(
-                                      itemCount: experience.length,
-                                      itemBuilder: (context, index) {
-                                        return ListTile(
-                                          title: Text(
-                                            experience[index],
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          onTap: () {
-                                            setState(() {
-                                              experienceSelected =
-                                                  experience[index];
-                                              Navigator.pop(context);
-                                            });
-                                          },
-                                        );
-                                      })),
-                            );
-                          });
-                    },
-                    child: Container(
-                      height: 80,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 238, 230, 230),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: ListTile(
-                        title: const Text(
-                          'Experience',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                            shape: const BeveledRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(50),
+                                    topRight: Radius.circular(50))),
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Container(
+                                decoration: const BoxDecoration(
+                                    color: Color.fromARGB(255, 222, 219, 219),
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(50),
+                                        topRight: Radius.circular(50))),
+                                child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: ListView.builder(
+                                        itemCount: experience.length,
+                                        itemBuilder: (context, index) {
+                                          return ListTile(
+                                            title: Text(
+                                              experience[index],
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            onTap: () {
+                                              setState(() {
+                                                experienceSelected =
+                                                    experience[index];
+                                                Navigator.pop(context);
+                                              });
+                                            },
+                                          );
+                                        })),
+                              );
+                            });
+                      },
+                      child: Container(
+                        height: 80,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 238, 230, 230),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: ListTile(
+                          title: const Text(
+                            'Experience',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(experienceSelected),
                         ),
-                        subtitle: Text(experienceSelected),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      showModalBottomSheet(
-                          shape: const BeveledRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(50),
-                                  topRight: Radius.circular(50))),
-                          context: context,
-                          builder: (BuildContext context) {
-                            return Container(
-                              decoration: const BoxDecoration(
-                                  color: Color.fromARGB(255, 222, 219, 219),
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(50),
-                                      topRight: Radius.circular(50))),
-                              child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: ListView.builder(
-                                      itemCount: education.length,
-                                      itemBuilder: (context, index) {
-                                        return ListTile(
-                                          title: Text(
-                                            education[index],
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          onTap: () {
-                                            setState(() {
-                                              educateSelected =
-                                                  education[index];
-                                              Navigator.pop(context);
-                                            });
-                                          },
-                                        );
-                                      })),
-                            );
-                          });
-                    },
-                    child: Container(
-                      height: 80,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 238, 230, 230),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: ListTile(
-                        title: const Text(
-                          'Education',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                            shape: const BeveledRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(50),
+                                    topRight: Radius.circular(50))),
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Container(
+                                decoration: const BoxDecoration(
+                                    color: Color.fromARGB(255, 222, 219, 219),
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(50),
+                                        topRight: Radius.circular(50))),
+                                child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: ListView.builder(
+                                        itemCount: education.length,
+                                        itemBuilder: (context, index) {
+                                          return ListTile(
+                                            title: Text(
+                                              education[index],
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            onTap: () {
+                                              setState(() {
+                                                educateSelected =
+                                                    education[index];
+                                                Navigator.pop(context);
+                                              });
+                                            },
+                                          );
+                                        })),
+                              );
+                            });
+                      },
+                      child: Container(
+                        height: 80,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 238, 230, 230),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: ListTile(
+                          title: const Text(
+                            'Education',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(educateSelected),
                         ),
-                        subtitle: Text(educateSelected),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      showModalBottomSheet(
-                          shape: const BeveledRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(50),
-                                  topRight: Radius.circular(50))),
-                          context: context,
-                          builder: (BuildContext context) {
-                            return Container(
-                              decoration: const BoxDecoration(
-                                  color: Color.fromARGB(255, 222, 219, 219),
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(50),
-                                      topRight: Radius.circular(50))),
-                              child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: ListView.builder(
-                                      itemCount: gender.length,
-                                      itemBuilder: (context, index) {
-                                        return ListTile(
-                                          title: Text(
-                                            gender[index],
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          onTap: () {
-                                            setState(() {
-                                              genderSelected = gender[index];
-                                              Navigator.pop(context);
-                                            });
-                                          },
-                                        );
-                                      })),
-                            );
-                          });
-                    },
-                    child: Container(
-                      height: 80,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 238, 230, 230),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: ListTile(
-                        title: const Text(
-                          'Gender',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                            shape: const BeveledRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(50),
+                                    topRight: Radius.circular(50))),
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Container(
+                                decoration: const BoxDecoration(
+                                    color: Color.fromARGB(255, 222, 219, 219),
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(50),
+                                        topRight: Radius.circular(50))),
+                                child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: ListView.builder(
+                                        itemCount: gender.length,
+                                        itemBuilder: (context, index) {
+                                          return ListTile(
+                                            title: Text(
+                                              gender[index],
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            onTap: () {
+                                              setState(() {
+                                                genderSelected = gender[index];
+                                                Navigator.pop(context);
+                                              });
+                                            },
+                                          );
+                                        })),
+                              );
+                            });
+                      },
+                      child: Container(
+                        height: 80,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 238, 230, 230),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: ListTile(
+                          title: const Text(
+                            'Gender',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(genderSelected),
                         ),
-                        subtitle: Text(genderSelected),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                ],
+                    const SizedBox(
+                      height: 20,
+                    ),
+                  ],
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
