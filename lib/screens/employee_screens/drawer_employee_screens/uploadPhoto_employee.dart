@@ -12,17 +12,36 @@ class UploadPhotoEmployee extends StatefulWidget {
 }
 
 class _UploadPhotoEmployeeState extends State<UploadPhotoEmployee> {
-  late File file;
+  File? _file;
 
-  Future pickerImage() async {
-    final myFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+  Future pickerImageFromGallery() async {
+    final returnedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (returnedImage == null) return;
     setState(() {
-      file = File(myFile!.path);
+      _file = File(returnedImage!.path);
+    });
+  }
+
+  Future pickerImageFromCamera() async {
+    final returnedImage =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    if (returnedImage == null) return;
+    setState(() {
+      _file = File(returnedImage!.path);
+    });
+  }
+
+  void _cancelImage() {
+    setState(() {
+      _file = null;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         elevation: 15,
@@ -43,10 +62,108 @@ class _UploadPhotoEmployeeState extends State<UploadPhotoEmployee> {
             preferredSize: Size.fromHeight(40), child: SizedBox()),
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: Column(
-        children: [
-          ElevatedButton(onPressed: pickerImage, child: Text('Upload Photo')),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: screenHeight / 9,
+            ),
+            _file != null
+                ? Stack(
+                    children: [
+                      Center(
+                        child: Image.file(
+                          _file!,
+                          height: 200,
+                          width: 200,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Positioned(
+                        top: screenHeight / 70,
+                        right: screenWidth / 3.5,
+                        child: GestureDetector(
+                          onTap: _cancelImage,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.mainColor.withOpacity(0.5),
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(
+                              Icons.close,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                : Center(
+                    child: Container(
+                      height: 200,
+                      width: 200,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: AppColors.mainColor,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child:
+                          const Center(child: Text('No Selected Image yet!')),
+                    ),
+                  ),
+            SizedBox(
+              height: screenHeight / 13,
+            ),
+            ElevatedButton.icon(
+              onPressed: pickerImageFromGallery,
+              icon: Icon(
+                Icons.photo_library,
+                color: AppColors.mainColor,
+              ),
+              label: Text(
+                'Upload From Gallery',
+                style: TextStyle(color: AppColors.mainColor),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton.icon(
+              onPressed: pickerImageFromCamera,
+              icon: Icon(
+                Icons.camera,
+                color: AppColors.mainColor,
+              ),
+              label: Text(
+                'Upload From Camera',
+                style: TextStyle(color: AppColors.mainColor),
+              ),
+            ),
+            SizedBox(
+              height: screenHeight / 20,
+            ),
+            GestureDetector(
+              onTap: () {},
+              child: Container(
+                width: 100,
+                height: 40,
+                decoration: BoxDecoration(
+                    color: AppColors.mainColor,
+                    borderRadius: BorderRadius.circular(50)),
+                child: const Center(
+                  child: Text(
+                    'Save',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

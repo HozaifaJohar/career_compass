@@ -22,7 +22,7 @@ class LoginScreen extends StatelessWidget {
             width: 350,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: AppColors.grey,
+              color: Colors.grey[300],
             ),
             child: Padding(
               padding: const EdgeInsets.only(top: 40, right: 20, left: 20),
@@ -112,7 +112,7 @@ class LoginScreen extends StatelessWidget {
             right: 140,
             child: CircleAvatar(
               radius: 40,
-              backgroundColor: AppColors.grey,
+              backgroundColor: Colors.grey[350],
               child: const Icon(Icons.person_2_sharp),
             ),
           )
