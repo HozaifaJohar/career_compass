@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:career_compass/style/app_colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UploadPhotoEmployee extends StatefulWidget {
@@ -109,36 +111,43 @@ class _UploadPhotoEmployeeState extends State<UploadPhotoEmployee> {
                         ),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child:
-                          const Center(child: Text('No Selected Image yet!')),
+                      child: const Center(
+                        child: Text('No Selected Image yet!'),
+                      ),
                     ),
                   ),
             SizedBox(
               height: screenHeight / 13,
             ),
-            ElevatedButton.icon(
-              onPressed: pickerImageFromGallery,
-              icon: Icon(
-                Icons.photo_library,
-                color: AppColors.mainColor,
-              ),
-              label: Text(
-                'Upload From Gallery',
-                style: TextStyle(color: AppColors.mainColor),
+            SizedBox(
+              width: 250,
+              child: ElevatedButton.icon(
+                onPressed: pickerImageFromGallery,
+                icon: Icon(
+                  Icons.photo_library,
+                  color: AppColors.mainColor,
+                ),
+                label: Text(
+                  'Upload From Gallery',
+                  style: TextStyle(color: AppColors.mainColor),
+                ),
               ),
             ),
             const SizedBox(
               height: 10,
             ),
-            ElevatedButton.icon(
-              onPressed: pickerImageFromCamera,
-              icon: Icon(
-                Icons.camera,
-                color: AppColors.mainColor,
-              ),
-              label: Text(
-                'Upload From Camera',
-                style: TextStyle(color: AppColors.mainColor),
+            SizedBox(
+              width: 250,
+              child: ElevatedButton.icon(
+                onPressed: pickerImageFromCamera,
+                icon: Icon(
+                  Icons.camera_alt,
+                  color: AppColors.mainColor,
+                ),
+                label: Text(
+                  'Upload From Camera',
+                  style: TextStyle(color: AppColors.mainColor),
+                ),
               ),
             ),
             SizedBox(
