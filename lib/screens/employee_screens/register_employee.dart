@@ -1,34 +1,48 @@
+import 'package:career_compass/screens/employee_screens/otp_employy.dart';
+import 'package:career_compass/services/employee/register_employee_service.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/textField.dart';
 import 'package:flutter/material.dart';
 
 class RegisterEmployeeScreen extends StatefulWidget {
-  const RegisterEmployeeScreen({super.key});
+  final String? email;
+  final String? password;
+  const RegisterEmployeeScreen({super.key, this.email, this.password});
 
   @override
   State<RegisterEmployeeScreen> createState() => _RegisterEmployeeScreenState();
 }
 
 class _RegisterEmployeeScreenState extends State<RegisterEmployeeScreen> {
+  String? _email;
+  String? _password;
+  @override
+  void initState() {
+    _email = widget.email;
+    _password = widget.password;
+    super.initState();
+  }
+
   _RegisterEmployeeScreenState() {
     selectedCity = city[0];
     selectedgender = gender[0];
     selectedNationality = nationality[0];
   }
+
   final city = ['Damascus', 'Hama', 'Homs', 'Aleppo', 'Daraa'];
   String selectedCity = "";
-  final gender = ['Male', 'Famale'];
+  final gender = ['male', 'famale'];
   String selectedgender = "";
   final nationality = ['Syrian', 'Indian'];
   String selectedNationality = "";
   final TextEditingController _dateController = TextEditingController();
-  final TextEditingController _firstname = TextEditingController();
-  final TextEditingController _lastname = TextEditingController();
+  final TextEditingController _fullname = TextEditingController();
   final TextEditingController _phone = TextEditingController();
   final TextEditingController _home = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    String homeAddress = '${_home.text}/$selectedCity';
     return Scaffold(
         appBar: AppBar(
           elevation: 15,
@@ -52,25 +66,15 @@ class _RegisterEmployeeScreenState extends State<RegisterEmployeeScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 customTextField(
-                    title: 'First Name',
+                    title: 'Full Name',
                     hint: 'Type Here please',
                     maxLines: 1,
                     borderColor: AppColors.amber,
-                    controller: _firstname,
-                    border: 10),
-                const SizedBox(
-                  height: 15,
-                ),
-                customTextField(
-                    title: 'Last Name',
-                    hint: 'Type Here please',
-                    maxLines: 1,
-                    borderColor: AppColors.amber,
-                    controller: _lastname,
+                    controller: _fullname,
                     border: 10),
                 const SizedBox(
                   height: 15,
@@ -157,46 +161,32 @@ class _RegisterEmployeeScreenState extends State<RegisterEmployeeScreen> {
                 const SizedBox(
                   height: 15,
                 ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  child: DropdownButton(
-                    isExpanded: true,
-                    value: selectedNationality,
-                    items: nationality
-                        .map((e) => DropdownMenuItem(
-                              value: e,
-                              child: Text(e),
-                            ))
-                        .toList(),
-                    onChanged: (val) {
-                      setState(() {
-                        selectedNationality = val as String;
-                      });
-                    },
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                MaterialButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/home_company');
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return const OtpEmployee();
+                    }));
+                    print(homeAddress);
+                    RegisterEmployeeSrevice().register(
+                        name: _fullname.text,
+                        email: _email!,
+                        password: _password!,
+                        gender: selectedgender,
+                        phone: _phone.text,
+                        homeaddress: homeAddress,
+                        birthdayDate: _dateController.text);
                   },
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/scientific_information');
-                    },
-                    child: Container(
-                      width: 100,
-                      decoration: BoxDecoration(
-                          color: AppColors.mainColor,
-                          borderRadius: BorderRadius.circular(50)),
-                      child: Center(
-                        child: Text(
-                          'Continue',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
+                  child: Container(
+                    width: 100,
+                    decoration: BoxDecoration(
+                        color: AppColors.mainColor,
+                        borderRadius: BorderRadius.circular(50)),
+                    child: const Center(
+                      child: Text(
+                        'Continue',
+                        style: TextStyle(
+                          color: Colors.white,
                         ),
                       ),
                     ),

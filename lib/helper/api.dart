@@ -14,7 +14,7 @@ class Api {
     // print('ddddddddddd');
     print(response.statusCode);
     // print('ddddddddddd');
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       // print('ddddddddddd');
       // print(jsonDecode(response.body));
       // print('ddddddddddd');
@@ -41,7 +41,7 @@ class Api {
       body: body,
       headers: headers,
     );
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       Map<String, dynamic> data = jsonDecode(response.body);
       return data;
     } else {
@@ -70,7 +70,7 @@ class Api {
       body: body,
       headers: headers,
     );
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       Map<String, dynamic> data = jsonDecode(response.body);
       return data;
     } else {

@@ -1,3 +1,4 @@
+import 'package:career_compass/screens/company_screens/otp_company.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/textField.dart';
 import 'package:flutter/material.dart';
@@ -221,17 +222,25 @@ class _ResisterCompanyScreenState extends State<ResisterCompanyScreen> {
                     'home_company',
                   );
                 },
-                child: Container(
-                  width: 100,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      color: AppColors.mainColor,
-                      borderRadius: BorderRadius.circular(50)),
-                  child: const Center(
-                    child: Text(
-                      'Register',
-                      style: TextStyle(
-                        color: Colors.white,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return const OtpCompany();
+                    }));
+                  },
+                  child: Container(
+                    width: 100,
+                    height: 40,
+                    decoration: BoxDecoration(
+                        color: AppColors.mainColor,
+                        borderRadius: BorderRadius.circular(50)),
+                    child: const Center(
+                      child: Text(
+                        'Register',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),

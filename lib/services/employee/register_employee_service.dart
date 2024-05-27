@@ -6,11 +6,15 @@ import 'package:http/http.dart' as http;
 class RegisterEmployeeSrevice {
   String url = AppString.baseUrl;
   Future<UserEmployee> register({
+    
     required String name,
     required String email,
     required String password,
     required String gender,
     required String phone,
+    required String homeaddress,
+    required String birthdayDate,
+
   }) async {
     Map<String, dynamic> data =
         await Api().post(url: '$url/employeeAuth/register', body: {
@@ -19,6 +23,8 @@ class RegisterEmployeeSrevice {
       "password": password,
       "gender": gender,
       "phone": phone,
+      "home_address":homeaddress,
+      "birthday_date":birthdayDate
     });
     return UserEmployee.fromJson(data);
   }

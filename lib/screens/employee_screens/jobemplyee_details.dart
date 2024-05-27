@@ -10,6 +10,12 @@ class EmployeJobDetails extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          iconTheme: const IconThemeData(color: Colors.white),
+        ),
         body: Container(
             decoration: const BoxDecoration(
               color: Color(0xFF5E72E2),
@@ -20,12 +26,12 @@ class EmployeJobDetails extends StatelessWidget {
                   children: [
                     Container(
                       width: screenWidth,
-                      height: screenHeight / 3,
+                      height: screenHeight / 5,
                       decoration: const BoxDecoration(color: Colors.white),
                     ),
                     Container(
                       width: screenWidth,
-                      height: screenHeight / 3,
+                      height: screenHeight / 5,
                       decoration: const BoxDecoration(
                         color: Color(0xFF5E72E2),
                         borderRadius:
@@ -55,7 +61,7 @@ class EmployeJobDetails extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
                   child: Container(
                     width: screenWidth,
-                    height: screenHeight / 1.5,
+                    height: screenHeight / 1.25,
                     decoration: const BoxDecoration(
                         color: Color.fromARGB(255, 255, 255, 255),
                         borderRadius:
@@ -64,6 +70,9 @@ class EmployeJobDetails extends StatelessWidget {
                       padding: const EdgeInsets.all(34.0),
                       child: Column(
                         children: [
+                          SizedBox(
+                            height: screenHeight / 5.5,
+                          ),
                           const Row(
                             children: [
                               Icon(Icons.work,

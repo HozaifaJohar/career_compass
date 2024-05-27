@@ -1,4 +1,5 @@
 import 'package:career_compass/provider/type_provider.dart';
+import 'package:career_compass/screens/employee_screens/register_employee.dart';
 import 'package:career_compass/screens/start.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/textfield.dart';
@@ -7,11 +8,15 @@ import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
+//  void _navigate(bool type){
+//   if(type==true){
+//     RegisterEmployeeScreen(email: _email,)
+//   }
 
+//  }
   @override
   Widget build(BuildContext context) {
     bool type = Provider.of<TypeProvider>(context).type;
-    TextEditingController _companyname = TextEditingController();
     TextEditingController _email = TextEditingController();
     TextEditingController _password = TextEditingController();
     final screenHeight = MediaQuery.of(context).size.height;
@@ -80,17 +85,19 @@ class RegisterScreen extends StatelessWidget {
                   ),
                   MaterialButton(
                     onPressed: () {
-                      Navigator.pushNamed(context,
-                          type ? '/register_employee' : '/register_company');
+                      if (type) {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return RegisterEmployeeScreen(
+                            email: _email.text,
+                            password: _password.text,
+                          );
+                        }));
+                      }
+                      // Navigator.pushNamed(context,
+                      //     type ? '/register_employee' : '/register_company');
                     },
                     child: GestureDetector(
-                      // onTap: () {
-                      //   if (type) {
-                      //     // RegisterEmployee().register(name: , email: email, password: password, gender: gender, phone: phone)
-                      //   } else {
-                      //     //RegisterCompany().register()
-                      //   }
-                      // },
                       child: Container(
                         height: 50,
                         width: 150,
