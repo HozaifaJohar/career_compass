@@ -57,43 +57,71 @@ class _ChangeInformationEmployeeState extends State<ChangeInformationEmployee> {
                 const SizedBox(
                   height: 10,
                 ),
-                customTextField(
-                    title: 'First Name',
-                    hint: 'Type Here please',
-                    maxLines: 1,
-                    borderColor: AppColors.amber,
-                    controller: _firstname,
-                    border: 10),
+                CustomTextField(
+                  title: 'First Name',
+                  hint: 'Type Here please',
+                  maxLines: 1,
+                  borderColor: AppColors.amber,
+                  controller: _firstname,
+                  border: 10,
+                  val: (value) {
+                    if (value!.isEmpty) {
+                      return 'pleas enter name';
+                    }
+                    return null;
+                  },
+                ),
                 const SizedBox(
                   height: 15,
                 ),
-                customTextField(
-                    title: 'Last Name',
-                    hint: 'Type Here please',
-                    maxLines: 1,
-                    borderColor: AppColors.amber,
-                    controller: _lastname,
-                    border: 10),
+                CustomTextField(
+                  title: 'Last Name',
+                  hint: 'Type Here please',
+                  maxLines: 1,
+                  borderColor: AppColors.amber,
+                  controller: _lastname,
+                  border: 10,
+                  val: (value) {
+                    if (value!.isEmpty) {
+                      return 'pleas enter password';
+                    }
+                    return null;
+                  },
+                ),
                 const SizedBox(
                   height: 15,
                 ),
-                customTextField(
-                    title: 'Home Address',
-                    hint: 'Type Here please',
-                    maxLines: 1,
-                    borderColor: AppColors.amber,
-                    controller: _home,
-                    border: 10),
+                CustomTextField(
+                  title: 'Home Address',
+                  hint: 'Type Here please',
+                  maxLines: 1,
+                  borderColor: AppColors.amber,
+                  controller: _home,
+                  border: 10,
+                  val: (value) {
+                    if (value!.isEmpty) {
+                      return 'pleas enter home address';
+                    }
+                    return null;
+                  },
+                ),
                 const SizedBox(
                   height: 15,
                 ),
-                customTextField(
-                    title: 'Mobile Phone',
-                    hint: 'Type Here please',
-                    maxLines: 1,
-                    borderColor: AppColors.amber,
-                    controller: _phone,
-                    border: 10),
+                CustomTextField(
+                  title: 'Mobile Phone',
+                  hint: 'Type Here please',
+                  maxLines: 1,
+                  borderColor: AppColors.amber,
+                  controller: _phone,
+                  border: 10,
+                  val: (value) {
+                    if (value!.isEmpty) {
+                      return 'pleas enter phone';
+                    }
+                    return null;
+                  },
+                ),
                 const SizedBox(
                   height: 15,
                 ),

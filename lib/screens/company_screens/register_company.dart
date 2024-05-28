@@ -44,24 +44,36 @@ class _ResisterCompanyScreenState extends State<ResisterCompanyScreen> {
               const SizedBox(
                 height: 20,
               ),
-              customTextField(
+              CustomTextField(
                 title: 'Company Name',
                 hint: 'Type Here please',
                 maxLines: 1,
                 borderColor: AppColors.amber,
                 controller: _companyName,
                 border: 10,
+                val: (value) {
+                  if (value!.isEmpty) {
+                    return 'pleas enter company name';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(
                 height: 20,
               ),
-              customTextField(
+              CustomTextField(
                 title: 'Company Phone',
                 hint: 'Type Here please',
                 maxLines: 1,
                 borderColor: AppColors.amber,
                 controller: _companyPhone,
                 border: 10,
+                val: (value) {
+                  if (value!.isEmpty) {
+                    return 'pleas enter company phone';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(
                 height: 20,
@@ -193,24 +205,36 @@ class _ResisterCompanyScreenState extends State<ResisterCompanyScreen> {
               const SizedBox(
                 height: 20,
               ),
-              customTextField(
+              CustomTextField(
                 title: 'Address',
                 hint: 'Type Here please',
                 maxLines: 1,
                 borderColor: AppColors.amber,
                 controller: _companyPhone,
                 border: 10,
+                val: (value) {
+                  if (value!.isEmpty) {
+                    return 'pleas enter company address';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(
                 height: 40,
               ),
-              customTextField(
+              CustomTextField(
                 title: 'Describe your company',
                 minLines: 3,
                 maxLines: 4,
                 borderColor: AppColors.amber,
                 controller: _describtion,
                 border: 10,
+                val: (value) {
+                  if (value!.isEmpty) {
+                    return 'pleas descripe your company at least in one line';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(
                 height: 40,

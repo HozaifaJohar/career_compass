@@ -41,12 +41,18 @@ class _ChangePasswordCompanyState extends State<ChangePasswordCompany> {
           ),
           Padding(
             padding: const EdgeInsets.all(10),
-            child: customTextField(
+            child: CustomTextField(
               title: 'Enter New Password',
               maxLines: 1,
               borderColor: AppColors.amber,
               controller: _changePassword,
               border: 10,
+              val: (value) {
+                if (value!.isEmpty) {
+                  return 'pleas enter password';
+                }
+                return null;
+              },
             ),
           ),
           const SizedBox(

@@ -69,33 +69,54 @@ class _RegisterEmployeeScreenState extends State<RegisterEmployeeScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                customTextField(
-                    title: 'Full Name',
-                    hint: 'Type Here please',
-                    maxLines: 1,
-                    borderColor: AppColors.amber,
-                    controller: _fullname,
-                    border: 10),
+                CustomTextField(
+                  title: 'Full Name',
+                  hint: 'Type Here please',
+                  maxLines: 1,
+                  borderColor: AppColors.amber,
+                  controller: _fullname,
+                  border: 10,
+                  val: (value) {
+                    if (value!.isEmpty) {
+                      return 'pleas enter name';
+                    }
+                    return null;
+                  },
+                ),
                 const SizedBox(
                   height: 15,
                 ),
-                customTextField(
-                    title: 'Home Address',
-                    hint: 'Type Here please',
-                    maxLines: 1,
-                    borderColor: AppColors.amber,
-                    controller: _home,
-                    border: 10),
+                CustomTextField(
+                  title: 'Home Address',
+                  hint: 'Type Here please',
+                  maxLines: 1,
+                  borderColor: AppColors.amber,
+                  controller: _home,
+                  border: 10,
+                  val: (value) {
+                    if (value!.isEmpty) {
+                      return 'pleas enter home address ';
+                    }
+                    return null;
+                  },
+                ),
                 const SizedBox(
                   height: 15,
                 ),
-                customTextField(
-                    title: 'Mobile Phone',
-                    hint: 'Type Here please',
-                    maxLines: 1,
-                    borderColor: AppColors.amber,
-                    controller: _phone,
-                    border: 10),
+                CustomTextField(
+                  title: 'Mobile Phone',
+                  hint: 'Type Here please',
+                  maxLines: 1,
+                  borderColor: AppColors.amber,
+                  controller: _phone,
+                  border: 10,
+                  val: (value) {
+                    if (value!.isEmpty) {
+                      return 'pleas enter number';
+                    }
+                    return null;
+                  },
+                ),
                 const SizedBox(
                   height: 15,
                 ),

@@ -28,23 +28,37 @@ class LoginScreen extends StatelessWidget {
               padding: const EdgeInsets.only(top: 40, right: 20, left: 20),
               child: Column(
                 children: [
-                  customTextField(
-                      title: type ? 'email' : 'company email',
-                      hint: 'enter your email',
-                      controller: email,
-                      maxLines: 1,
-                      borderColor: AppColors.amber,
-                      border: 50),
+                  CustomTextField(
+                    title: type ? 'email' : 'company email',
+                    hint: 'enter your email',
+                    controller: email,
+                    maxLines: 1,
+                    borderColor: AppColors.amber,
+                    border: 50,
+                    val: (value) {
+                      if (value!.isEmpty) {
+                        return 'pleas enter an email';
+                      }
+                      return null;
+                    },
+                  ),
                   const SizedBox(
                     height: 30,
                   ),
-                  customTextField(
-                      title: 'password',
-                      hint: 'enter your password',
-                      controller: password,
-                      maxLines: 1,
-                      borderColor: AppColors.amber,
-                      border: 50),
+                  CustomTextField(
+                    title: 'password',
+                    hint: 'enter your password',
+                    controller: password,
+                    maxLines: 1,
+                    borderColor: AppColors.amber,
+                    border: 50,
+                    val: (value) {
+                      if (value!.isEmpty) {
+                        return 'pleas enter password';
+                      }
+                      return null;
+                    },
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
