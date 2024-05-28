@@ -26,6 +26,7 @@ import 'package:career_compass/screens/company_screens/register_company.dart';
 
 import 'package:career_compass/screens/register.dart';
 import 'package:career_compass/screens/start.dart';
+import 'package:career_compass/services/employee/register_employee_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'screens/splash.dart';
@@ -33,6 +34,7 @@ import 'screens/splash.dart';
 void main() {
   runApp(MultiProvider(
     providers: [
+      ChangeNotifierProvider(create: (context) => RegisterEmployeeSrevice()),
       ChangeNotifierProvider(create: (context) => TypeProvider()),
       ChangeNotifierProvider(create: (context) => OntapNavigationCompany()),
       ChangeNotifierProvider(create: (context) => OntapNavigationEmployee())

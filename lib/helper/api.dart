@@ -42,7 +42,9 @@ class Api {
       headers: headers,
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
+      print(response.statusCode);
       Map<String, dynamic> data = jsonDecode(response.body);
+      print(data);
       return data;
     } else {
       throw Exception(

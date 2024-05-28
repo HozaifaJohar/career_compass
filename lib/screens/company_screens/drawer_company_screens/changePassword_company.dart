@@ -1,5 +1,6 @@
 import 'package:career_compass/style/app_colors.dart';
-import 'package:career_compass/widgets/textField.dart';
+
+import 'package:career_compass/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 
 class ChangePasswordCompany extends StatefulWidget {

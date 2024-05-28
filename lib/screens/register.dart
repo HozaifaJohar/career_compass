@@ -1,4 +1,5 @@
 import 'package:career_compass/provider/type_provider.dart';
+import 'package:career_compass/screens/company_screens/register_company.dart';
 import 'package:career_compass/screens/employee_screens/register_employee.dart';
 import 'package:career_compass/screens/start.dart';
 import 'package:career_compass/style/app_colors.dart';
@@ -17,10 +18,10 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool type = Provider.of<TypeProvider>(context).type;
-    TextEditingController _email = TextEditingController();
-    TextEditingController _password = TextEditingController();
+    TextEditingController email = TextEditingController();
+    TextEditingController password = TextEditingController();
     final screenHeight = MediaQuery.of(context).size.height;
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -36,7 +37,7 @@ class RegisterScreen extends StatelessWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 color: AppColors.mainColor,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(100),
                   bottomRight: Radius.circular(100),
                 ),
@@ -49,6 +50,7 @@ class RegisterScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Form(
+                key: formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -68,27 +70,14 @@ class RegisterScreen extends StatelessWidget {
                     ),
                     CustomTextField(
                       title: type ? 'email' : 'Company email',
-                      hint: 'Enter the email',
-                      controller: _email,
-                      maxLines: 1,
-                      borderColor: AppColors.amber,
-                      border: 50,
-                      val: (value) =>
-                          value!.isEmpty ? 'please enter valid email' : null,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CustomTextField(
-                      title: 'Password',
-                      hint: 'Enter the password',
-                      controller: _password,
+                      // hint: 'Enter the email',
+                      controller: email,
                       maxLines: 1,
                       borderColor: AppColors.amber,
                       border: 50,
                       val: (value) {
-                        if (value!.isEmpty) {
-                          return 'pleas enter password';
+                        if (value!.length < 3) {
+                          return 'Please enter your email';
                         }
                         return null;
                       },
@@ -96,33 +85,58 @@ class RegisterScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    MaterialButton(
-                      onPressed: () {
-                        if (type) {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return RegisterEmployeeScreen(
-                              email: _email.text,
-                              password: _password.text,
-                            );
-                          }));
+                    CustomTextField(
+                      title: 'Password',
+                      hint: 'Enter the password',
+                      controller: password,
+                      maxLines: 1,
+                      borderColor: AppColors.amber,
+                      border: 50,
+                      val: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter your password';
                         }
-                        // Navigator.pushNamed(context,
-                        //     type ? '/register_employee' : '/register_company');
+                        return null;
                       },
-                      child: GestureDetector(
-                        child: Container(
-                          height: 50,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              color: AppColors.mainColor,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: const Center(
-                            child: Text(
-                              'Register',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        {
+                          if (formKey.currentState!.validate()) {
+                            if (type) {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return RegisterEmployeeScreen(
+                                  email: email.text,
+                                  password: password.text,
+                                );
+                              }));
+                            } else {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return const ResisterCompanyScreen();
+                              }));
+                            }
+                          }
+                          return;
+                          // Navigator.pushNamed(context,
+                          //     type ? '/register_employee' : '/register_company');
+                        }
+                      },
+                      child: Container(
+                        height: 50,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            color: AppColors.mainColor,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: const Center(
+                          child: Text(
+                            'Register',
+                            style: TextStyle(
+                              color: Colors.white,
                             ),
                           ),
                         ),
