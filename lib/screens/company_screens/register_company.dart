@@ -47,34 +47,23 @@ class _ResisterCompanyScreenState extends State<ResisterCompanyScreen> {
               ),
               CustomTextField(
                 title: 'Company Name',
-                hint: 'Type Here please',
+                //hint: 'Type Here please',
                 maxLines: 1,
                 borderColor: AppColors.amber,
                 controller: _companyName,
                 border: 10,
-                val: (value) {
-                  if (value!.isEmpty) {
-                    return 'pleas enter company name';
-                  }
-                  return null;
-                },
+                validateMessage: 'plaese enter company name',
               ),
               const SizedBox(
                 height: 20,
               ),
               CustomTextField(
                 title: 'Company Phone',
-                hint: 'Type Here please',
                 maxLines: 1,
                 borderColor: AppColors.amber,
                 controller: _companyPhone,
                 border: 10,
-                val: (value) {
-                  if (value!.isEmpty) {
-                    return 'pleas enter company phone';
-                  }
-                  return null;
-                },
+                validateMessage: 'please enter company phone',
               ),
               const SizedBox(
                 height: 20,
@@ -208,17 +197,11 @@ class _ResisterCompanyScreenState extends State<ResisterCompanyScreen> {
               ),
               CustomTextField(
                 title: 'Address',
-                hint: 'Type Here please',
                 maxLines: 1,
                 borderColor: AppColors.amber,
                 controller: _companyPhone,
                 border: 10,
-                val: (value) {
-                  if (value!.isEmpty) {
-                    return 'pleas enter company address';
-                  }
-                  return null;
-                },
+                validateMessage: 'please enter company address',
               ),
               const SizedBox(
                 height: 40,
@@ -230,12 +213,8 @@ class _ResisterCompanyScreenState extends State<ResisterCompanyScreen> {
                 borderColor: AppColors.amber,
                 controller: _describtion,
                 border: 10,
-                val: (value) {
-                  if (value!.isEmpty) {
-                    return 'pleas descripe your company at least in one line';
-                  }
-                  return null;
-                },
+                validateMessage:
+                    'please describe your company at least in one line ',
               ),
               const SizedBox(
                 height: 40,

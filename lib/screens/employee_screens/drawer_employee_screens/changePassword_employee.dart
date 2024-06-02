@@ -48,12 +48,7 @@ class _ChangePasswordEmployeeState extends State<ChangePasswordEmployee> {
               borderColor: AppColors.amber,
               controller: _changePassword,
               border: 10,
-              val: (value) {
-                if (value!.isEmpty) {
-                  return 'pleas enter password';
-                }
-                return null;
-              },
+              validateMessage: 'enter valid password ',
             ),
           ),
           const SizedBox(

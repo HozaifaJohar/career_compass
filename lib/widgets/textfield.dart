@@ -1,43 +1,4 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
-typedef StringValidator = String? Function(String?);
-
-// Widget customTextField ({
-//   String? title,
-//   String? hint,
-//   TextEditingController? controller,
-//   int? maxLines,
-//   int? minLines,
-//   Color? borderColor,
-//   double? border,
-//   StringValidator? val,
-// }) {
-//   return Column(
-//     children: [
-//       Form(
-//         child: TextFormField(
-//           enabled: true,
-//           controller: controller,
-//           minLines: minLines,
-//           maxLines: maxLines,
-//           decoration: InputDecoration(
-//             border: OutlineInputBorder(
-//               borderRadius: BorderRadius.circular(border!),
-//             ),
-//             focusedBorder: OutlineInputBorder(
-//                 borderRadius: BorderRadius.circular(border),
-//                 borderSide: BorderSide(color: borderColor!)),
-//             labelText: title,
-//           ),
-//           validator: val,
-//         ),
-//       ),
-//     ],
-//   );
-// }
 
 class CustomTextField extends StatelessWidget {
   final String? title;
@@ -47,7 +8,8 @@ class CustomTextField extends StatelessWidget {
   final int? minLines;
   final Color? borderColor;
   final double? border;
-  final StringValidator? val;
+  final String? Function(String?)? validator;
+  final String validateMessage;
 
   const CustomTextField({
     this.title,
@@ -57,28 +19,33 @@ class CustomTextField extends StatelessWidget {
     this.minLines,
     this.borderColor,
     this.border,
-    this.val,
+    this.validator,
+    required this.validateMessage,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      child: TextFormField(
-        controller: controller,
-        maxLines: maxLines,
-        minLines: minLines,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(border!),
-          ),
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(border!),
-              borderSide: BorderSide(color: borderColor!)),
-          labelText: title,
+    return TextFormField(
+      controller: controller,
+      maxLines: maxLines,
+      minLines: minLines,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(border!),
         ),
-        validator: val,
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(border!),
+            borderSide: BorderSide(color: borderColor!)),
+        labelText: title,
       ),
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (String? value) {
+        if (value!.isEmpty) {
+          return validateMessage;
+        }
+        return null;
+      },
     );
   }
 }

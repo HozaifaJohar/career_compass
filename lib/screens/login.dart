@@ -35,12 +35,7 @@ class LoginScreen extends StatelessWidget {
                     maxLines: 1,
                     borderColor: AppColors.amber,
                     border: 50,
-                    val: (value) {
-                      if (value!.isEmpty) {
-                        return 'pleas enter an email';
-                      }
-                      return null;
-                    },
+                    validateMessage: 'please enter valid email',
                   ),
                   const SizedBox(
                     height: 30,
@@ -52,12 +47,7 @@ class LoginScreen extends StatelessWidget {
                     maxLines: 1,
                     borderColor: AppColors.amber,
                     border: 50,
-                    val: (value) {
-                      if (value!.isEmpty) {
-                        return 'pleas enter password';
-                      }
-                      return null;
-                    },
+                    validateMessage: 'please enter valid password ',
                   ),
                   const SizedBox(
                     height: 20,

@@ -48,17 +48,11 @@ class _ChangeInformationCompanyState extends State<ChangeInformationCompany> {
               ),
               CustomTextField(
                 title: 'Company Name',
-                hint: 'Type Here please',
                 maxLines: 1,
                 borderColor: AppColors.amber,
                 controller: _companyName,
                 border: 10,
-                val: (value) {
-                  if (value!.isEmpty) {
-                    return 'pleas enter company name';
-                  }
-                  return null;
-                },
+                validateMessage: 'please enter company name',
               ),
               const SizedBox(
                 height: 20,
@@ -70,6 +64,7 @@ class _ChangeInformationCompanyState extends State<ChangeInformationCompany> {
                 borderColor: AppColors.amber,
                 controller: _companyPhone,
                 border: 10,
+                validateMessage: 'please enter company phone number',
               ),
               const SizedBox(
                 height: 20,
@@ -203,17 +198,11 @@ class _ChangeInformationCompanyState extends State<ChangeInformationCompany> {
               ),
               CustomTextField(
                 title: 'Address',
-                hint: 'Type Here please',
                 maxLines: 1,
                 borderColor: AppColors.amber,
                 controller: _companyPhone,
                 border: 10,
-                val: (value) {
-                  if (value!.isEmpty) {
-                    return 'pleas enter company address ';
-                  }
-                  return null;
-                },
+                validateMessage: 'please enter company address',
               ),
               const SizedBox(
                 height: 40,
@@ -225,12 +214,8 @@ class _ChangeInformationCompanyState extends State<ChangeInformationCompany> {
                 borderColor: AppColors.amber,
                 controller: _describtion,
                 border: 10,
-                val: (value) {
-                  if (value!.isEmpty) {
-                    return 'pleas descripe your company at least in one line ';
-                  }
-                  return null;
-                },
+                validateMessage:
+                    'please describe your company at laest in one line ',
               ),
               const SizedBox(
                 height: 50,

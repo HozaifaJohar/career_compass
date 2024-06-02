@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
       home: StartScreen(),
       routes: {
         '/start_screen': (context) => StartScreen(),
-        'register_screen': (context) => const RegisterScreen(),
+        'register_screen': (context) => RegisterScreen(),
         '/login_screen': (context) => const LoginScreen(),
         'otp_company': (context) => const OtpCompany(),
         //'/splash_screen': (context) => const SplashScreen(),
@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
         '/changeInfo_company': (context) => const ChangeInformationCompany(),
         '/upload_logo': (context) => const UploadLogo(),
         //screens for employee section
-        '/register_employee': (context) => const RegisterEmployeeScreen(),
+        // '/register_employee': (context) => const RegisterEmployeeScreen(),
         'otp_employee': (context) => const OtpEmployee(),
         '/home_employee': (context) => const HomePageEmployee(),
         '/scientific_information': (context) => const ScientificInformation(),
