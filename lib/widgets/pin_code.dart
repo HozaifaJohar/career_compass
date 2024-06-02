@@ -19,7 +19,7 @@ class CustomPinCode extends StatefulWidget {
 }
 
 class _CustomPinCodeState extends State<CustomPinCode> {
-  final _pinputController = TextEditingController();
+//  final _pinputController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class _CustomPinCodeState extends State<CustomPinCode> {
     );
 
     return Pinput(
-      controller: _pinputController,
+      controller:widget.pinPutController,
       length: widget.length,
       defaultPinTheme: defaultPinTheme,
       focusedPinTheme: focusedPinTheme,
