@@ -7,6 +7,7 @@ class OtpCompany extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController pinCode = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         elevation: 15,
@@ -54,6 +55,7 @@ class OtpCompany extends StatelessWidget {
                 ),
               ),
               CustomPinCode(
+                pinPutController: pinCode,
                 length: 6,
                 onCompleted: (pin) {
                   debugPrint(pin);

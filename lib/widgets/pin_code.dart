@@ -5,11 +5,13 @@ import 'package:pinput/pinput.dart';
 class CustomPinCode extends StatefulWidget {
   final int length;
   final ValueChanged<String> onCompleted;
+  final TextEditingController pinPutController;
 
   const CustomPinCode({
     super.key,
     required this.length,
     required this.onCompleted,
+    required this.pinPutController,
   });
 
   @override

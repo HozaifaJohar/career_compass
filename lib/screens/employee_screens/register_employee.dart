@@ -1,4 +1,4 @@
-import 'package:career_compass/services/employee/register_employee_service.dart';
+import 'package:career_compass/services/employee/employee_auth/register_employee_service.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/textfield.dart';
 import 'package:flutter/material.dart';
@@ -179,11 +179,6 @@ class _RegisterEmployeeScreenState extends State<RegisterEmployeeScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) {
-                    //   return const OtpEmployee();
-                    // }));
-                    print(homeAddress);
                     if (_formKey.currentState!.validate()) {
                       Provider.of<RegisterEmployeeSrevice>(context,
                               listen: false)
@@ -196,7 +191,6 @@ class _RegisterEmployeeScreenState extends State<RegisterEmployeeScreen> {
                               homeAddress: homeAddress,
                               birthDayDate: _dateController.text);
                     }
-                    // RegisterEmployeeSrevice().register(map );
                   },
                   child: Container(
                     width: 100,

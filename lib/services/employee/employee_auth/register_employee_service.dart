@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:career_compass/constant/url.dart';
 import 'package:career_compass/helper/api.dart';
 import 'package:career_compass/models/user_employee.dart';
@@ -10,7 +12,7 @@ class RegisterEmployeeSrevice extends ChangeNotifier {
   // final bool _isLoggedIn = false;
   // bool get authenticated => _isLoggedIn;
 
-  Future<UserEmployee> register({
+  Future<int> register({
     required String name,
     required String email,
     required String password,
@@ -19,8 +21,8 @@ class RegisterEmployeeSrevice extends ChangeNotifier {
     required String homeAddress,
     required String birthDayDate,
   }) async {
-    print("hello");
-    Map<String, dynamic> data = await Api().post(
+    //Map<String, dynamic> data = await Api().post(
+    int data = await Api().post(
       url: '$url/employeeAuth/register',
       body: {
         "name": name,
@@ -32,7 +34,8 @@ class RegisterEmployeeSrevice extends ChangeNotifier {
         "birthday_date": birthDayDate,
       },
     );
-    return UserEmployee.fromJson(data);
+    //return UserEmployee.fromJson(data);
+    return data;
   }
 
 //   void register(Map userEmployee) async {

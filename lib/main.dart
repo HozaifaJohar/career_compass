@@ -18,7 +18,7 @@ import 'package:career_compass/screens/employee_screens/employee_information.dar
 import 'package:career_compass/screens/employee_screens/home_employee.dart';
 import 'package:career_compass/screens/employee_screens/jobemplyee_details.dart';
 import 'package:career_compass/screens/employee_screens/nav_employee_screen.dart';
-import 'package:career_compass/screens/employee_screens/otp_employy.dart';
+import 'package:career_compass/screens/employee_screens/otp_employee.dart';
 import 'package:career_compass/screens/employee_screens/register_employee.dart';
 import 'package:career_compass/screens/login.dart';
 import 'package:career_compass/screens/company_screens/home_company.dart';
@@ -26,7 +26,8 @@ import 'package:career_compass/screens/company_screens/register_company.dart';
 
 import 'package:career_compass/screens/register.dart';
 import 'package:career_compass/screens/start.dart';
-import 'package:career_compass/services/employee/register_employee_service.dart';
+import 'package:career_compass/services/employee/employee_auth/register_employee_service.dart';
+import 'package:career_compass/services/employee/employee_auth/resendCode_employee.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'screens/splash.dart';
@@ -34,6 +35,7 @@ import 'screens/splash.dart';
 void main() {
   runApp(MultiProvider(
     providers: [
+      ChangeNotifierProvider(create: (context) => ResendCodeEmployeeService()),
       ChangeNotifierProvider(create: (context) => RegisterEmployeeSrevice()),
       ChangeNotifierProvider(create: (context) => TypeProvider()),
       ChangeNotifierProvider(create: (context) => OntapNavigationCompany()),
@@ -52,7 +54,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: StartScreen(),
+      home: OtpEmployee(),
       routes: {
         '/start_screen': (context) => StartScreen(),
         'register_screen': (context) => RegisterScreen(),

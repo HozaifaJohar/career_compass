@@ -1,12 +1,17 @@
+import 'package:career_compass/services/employee/employee_auth/activation_employee.dart';
+import 'package:career_compass/services/employee/employee_auth/resendCode_employee.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/pin_code.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class OtpEmployee extends StatelessWidget {
   const OtpEmployee({super.key});
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController pinCode = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         elevation: 15,
@@ -54,6 +59,7 @@ class OtpEmployee extends StatelessWidget {
                 ),
               ),
               CustomPinCode(
+                pinPutController: pinCode,
                 length: 6,
                 onCompleted: (pin) {
                   debugPrint(pin);
@@ -63,9 +69,11 @@ class OtpEmployee extends StatelessWidget {
                 height: 10,
               ),
               MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  //Provider.of<ResendCodeEmployeeService>(context,listen: false).returnNewCode(email: '',);
+                },
                 child: const Text(
-                  'resent code?',
+                  'resend code?',
                   style: TextStyle(fontSize: 20),
                 ),
               ),
@@ -74,7 +82,9 @@ class OtpEmployee extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/scientific_information');
+                  print('${pinCode.text}hazoof');
+                  // Provider.of<ActivationEmployeeService>(context)
+                  //     .ReturnAccessToken(email: '', code: pinCode.text);
                 },
                 child: Container(
                   height: 50,
@@ -84,7 +94,7 @@ class OtpEmployee extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20)),
                   child: const Center(
                       child: Text(
-                    'Submet',
+                    'Submit',
                     style: TextStyle(color: Colors.white),
                   )),
                 ),
