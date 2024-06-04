@@ -104,7 +104,7 @@ class RegisterScreen extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) {
-                                      return const ResisterCompanyScreen();
+                                      return  ResisterCompanyScreen(email:email.text ,password: password.text,);
                                     },
                                   ),
                                 );

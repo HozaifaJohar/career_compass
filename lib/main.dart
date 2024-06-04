@@ -26,6 +26,8 @@ import 'package:career_compass/screens/company_screens/register_company.dart';
 
 import 'package:career_compass/screens/register.dart';
 import 'package:career_compass/screens/start.dart';
+import 'package:career_compass/services/company/activateotp_company.dart';
+import 'package:career_compass/services/company/auth_company.dart';
 import 'package:career_compass/services/employee/employee_auth/register_employee_service.dart';
 import 'package:career_compass/services/employee/employee_auth/resendCode_employee.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +41,9 @@ void main() {
       ChangeNotifierProvider(create: (context) => RegisterEmployeeSrevice()),
       ChangeNotifierProvider(create: (context) => TypeProvider()),
       ChangeNotifierProvider(create: (context) => OntapNavigationCompany()),
-      ChangeNotifierProvider(create: (context) => OntapNavigationEmployee())
+      ChangeNotifierProvider(create: (context) => OntapNavigationEmployee()),
+      ChangeNotifierProvider(create: (context) => AuthCompany()),
+       ChangeNotifierProvider(create: (context) => ActivicationCode()),
     ],
     child: const MyApp(),
   ));
@@ -54,17 +58,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: OtpEmployee(),
+      home: StartScreen(),
       routes: {
         '/start_screen': (context) => StartScreen(),
         'register_screen': (context) => RegisterScreen(),
         '/login_screen': (context) => const LoginScreen(),
-        'otp_company': (context) => const OtpCompany(),
+       // 'otp_company': (context) =>  OtpCompany(),
         //'/splash_screen': (context) => const SplashScreen(),
         //screens for company section
         '/compay_jobdetails': (context) => const CompanyJobDetails(),
         '/changePassword_company': (context) => const ChangePasswordCompany(),
-        '/register_company': (context) => const ResisterCompanyScreen(),
+        // '/register_company': (context) =>  ResisterCompanyScreen(),
         '/home_company': (context) => const HomePageCompany(),
         '/add_job': (context) => const AddJob(),
         '/navigation_company': (context) => const NavigationCompanyScreen(),

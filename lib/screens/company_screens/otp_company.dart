@@ -1,9 +1,12 @@
+import 'package:career_compass/services/company/activateotp_company.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/pin_code.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class OtpCompany extends StatelessWidget {
-  const OtpCompany({super.key});
+  String email;
+  OtpCompany({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +69,8 @@ class OtpCompany extends StatelessWidget {
               ),
               MaterialButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/home_company');
+                  Provider.of<ActivicationCode>(context,listen: false).resendcode(email);
+                  //  Navigator.pushNamed(context, '/home_company');
                 },
                 child: const Text(
                   'resent code?',
@@ -77,7 +81,10 @@ class OtpCompany extends StatelessWidget {
                 height: 10,
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Provider.of<ActivicationCode>(context, listen: false)
+                      .activicate(email, pinCode.text);
+                },
                 child: Container(
                   height: 50,
                   width: 150,

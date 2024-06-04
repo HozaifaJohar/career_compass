@@ -1,11 +1,16 @@
 import 'package:career_compass/screens/company_screens/otp_company.dart';
+import 'package:career_compass/services/company/auth_company.dart';
 import 'package:career_compass/style/app_colors.dart';
 
 import 'package:career_compass/widgets/textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ResisterCompanyScreen extends StatefulWidget {
-  const ResisterCompanyScreen({super.key});
+  final String email;
+  final String password;
+  const ResisterCompanyScreen(
+      {super.key, required this.email, required this.password});
 
   @override
   State<ResisterCompanyScreen> createState() => _ResisterCompanyScreenState();
@@ -15,10 +20,13 @@ class _ResisterCompanyScreenState extends State<ResisterCompanyScreen> {
   final TextEditingController _companyName = TextEditingController();
   final TextEditingController _companyPhone = TextEditingController();
   final TextEditingController _describtion = TextEditingController();
+   final TextEditingController _address = TextEditingController();
+
   String city = 'Select location';
 
   @override
   Widget build(BuildContext context) {
+    String address = '${city}/$_address ';
     return Scaffold(
       appBar: AppBar(
         elevation: 15,
@@ -199,7 +207,7 @@ class _ResisterCompanyScreenState extends State<ResisterCompanyScreen> {
                 title: 'Address',
                 maxLines: 1,
                 borderColor: AppColors.amber,
-                controller: _companyPhone,
+                controller: _address,
                 border: 10,
                 validateMessage: 'please enter company address',
               ),
@@ -228,9 +236,18 @@ class _ResisterCompanyScreenState extends State<ResisterCompanyScreen> {
                 },
                 child: GestureDetector(
                   onTap: () {
+                    Provider.of<AuthCompany>(context, listen: false).register(
+                        _companyName.text,
+                        widget.email,
+                        widget.password,
+                        _companyPhone.text,
+                        address,
+                        _describtion.text);
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return const OtpCompany();
+                      return OtpCompany(
+                        email: widget.email,
+                      );
                     }));
                   },
                   child: Container(

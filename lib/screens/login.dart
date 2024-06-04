@@ -1,5 +1,8 @@
 import 'package:career_compass/provider/type_provider.dart';
+import 'package:career_compass/screens/company_screens/home_company.dart';
+import 'package:career_compass/screens/employee_screens/home_employee.dart';
 import 'package:career_compass/screens/start.dart';
+import 'package:career_compass/services/company/auth_company.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/textfield.dart';
 import 'package:flutter/material.dart';
@@ -90,11 +93,19 @@ class LoginScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(
-                          context,
-                          type
-                              ? '/navigation_employee'
-                              : '/navigation_company');
+                      if (type) {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return HomePageEmployee();
+                        }));
+                      } else {
+                        Provider.of<AuthCompany>(context,listen: false)
+                            .login(email.text, password.text);
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return HomePageCompany();
+                        }));
+                      }
                     },
                     child: Container(
                       height: 50,
