@@ -6,15 +6,18 @@ import 'package:flutter/services.dart';
 class ActivationEmployeeService extends ChangeNotifier {
   String url = AppString.baseUrl;
 
-  Future<String> ReturnAccessToken({
+  Future<String> returnAccessToken({
     required String email,
     required String code,
   }) async {
-    String accessToken =
-        await Api().post(url: '$url/employeeAuth/activate', body: {
-      "email": email,
-      "activationCode": code,
-    });
+    String accessToken = await Api()
+        .post(url: '$url/employeeAuth/activate', body: {
+          "email": email,
+          "activationCode": code,
+        })
+        .then((value) => value["access_token"])
+        .onError((error, stackTrace) => "error");
+    print('acflidsjfaohg $accessToken');
     return accessToken;
   }
 }

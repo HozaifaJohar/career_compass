@@ -1,8 +1,8 @@
+import 'package:career_compass/screens/employee_screens/otp_employee.dart';
 import 'package:career_compass/services/employee/employee_auth/register_employee_service.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/textfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class RegisterEmployeeScreen extends StatefulWidget {
@@ -191,6 +191,11 @@ class _RegisterEmployeeScreenState extends State<RegisterEmployeeScreen> {
                               homeAddress: homeAddress,
                               birthDayDate: _dateController.text);
                     }
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                OtpEmployee(email: widget.email)));
                   },
                   child: Container(
                     width: 100,

@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class OtpEmployee extends StatelessWidget {
-  const OtpEmployee({super.key});
+  final String email;
+  const OtpEmployee({required this.email, super.key});
 
   @override
   Widget build(BuildContext context) {
+    var active;
     TextEditingController pinCode = TextEditingController();
 
     return Scaffold(
@@ -70,7 +72,10 @@ class OtpEmployee extends StatelessWidget {
               ),
               MaterialButton(
                 onPressed: () {
-                  //Provider.of<ResendCodeEmployeeService>(context,listen: false).returnNewCode(email: '',);
+                  Provider.of<ResendCodeEmployeeService>(context, listen: false)
+                      .returnNewCode(
+                    email: email,
+                  );
                 },
                 child: const Text(
                   'resend code?',
@@ -81,10 +86,15 @@ class OtpEmployee extends StatelessWidget {
                 height: 10,
               ),
               GestureDetector(
-                onTap: () {
-                  print('${pinCode.text}hazoof');
-                  // Provider.of<ActivationEmployeeService>(context)
-                  //     .ReturnAccessToken(email: '', code: pinCode.text);
+                onTap: () async {
+                  active = await Provider.of<ActivationEmployeeService>(context,
+                          listen: false)
+                      .returnAccessToken(email: email, code: pinCode.text);
+                  if (active == "error") {
+                    print('yaaaaahhahha $active');
+                  } else {
+                    print('gpt to home page $active');
+                  }
                 },
                 child: Container(
                   height: 50,

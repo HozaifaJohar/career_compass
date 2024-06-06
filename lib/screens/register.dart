@@ -104,21 +104,15 @@ class RegisterScreen extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) {
-                                      return  ResisterCompanyScreen(email:email.text ,password: password.text,);
+                                      return ResisterCompanyScreen(
+                                        email: email.text,
+                                        password: password.text,
+                                      );
                                     },
                                   ),
                                 );
                               }
-                              // print("validte is woriking");
-                              // ScaffoldMessenger.of(context).showSnackBar(
-                              //   SnackBar(
-                              //     content: Text('Processing Data'),
-                              //     backgroundColor: Colors.amber,
-                              //   ),
-                              // );
                             }
-                            // Navigator.pushNamed(context,
-                            //     type ? '/register_employee' : '/register_company');
                           }
                         },
                         child: Container(

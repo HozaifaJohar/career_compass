@@ -46,6 +46,11 @@ class Api {
       var data = jsonDecode(response.body);
       print('///${data}///');
       return data;
+    } else if (response.statusCode == 403) {
+      print(response.statusCode);
+      var data = jsonDecode(response.body);
+      print('///${data}///');
+      return;
     } else {
       throw Exception(
           'there is a problem with status code ${response.statusCode} with body ${jsonDecode(response.body)}');
