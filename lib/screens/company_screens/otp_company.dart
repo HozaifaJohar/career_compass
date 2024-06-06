@@ -63,13 +63,15 @@ class OtpCompany extends StatelessWidget {
                 onCompleted: (pin) {
                   debugPrint(pin);
                 },
+                validateMessage: 'invalid code please enter full code',
               ),
               const SizedBox(
                 height: 10,
               ),
               MaterialButton(
                 onPressed: () {
-                  Provider.of<ActivicationCode>(context,listen: false).resendcode(email);
+                  Provider.of<ActivicationCode>(context, listen: false)
+                      .resendcode(email);
                   //  Navigator.pushNamed(context, '/home_company');
                 },
                 child: const Text(

@@ -6,12 +6,14 @@ class CustomPinCode extends StatefulWidget {
   final int length;
   final ValueChanged<String> onCompleted;
   final TextEditingController pinPutController;
+  final String validateMessage;
 
   const CustomPinCode({
     super.key,
     required this.length,
     required this.onCompleted,
     required this.pinPutController,
+    required this.validateMessage,
   });
 
   @override
@@ -44,12 +46,18 @@ class _CustomPinCodeState extends State<CustomPinCode> {
     );
 
     return Pinput(
-      controller:widget.pinPutController,
+      controller: widget.pinPutController,
       length: widget.length,
       defaultPinTheme: defaultPinTheme,
       focusedPinTheme: focusedPinTheme,
       onCompleted: (pin) {
         widget.onCompleted(pin);
+      },
+      validator: (String? value) {
+        if (value!.isEmpty || value.length < 6) {
+          return widget.validateMessage;
+        }
+        return null;
       },
     );
   }

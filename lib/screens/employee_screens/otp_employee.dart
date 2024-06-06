@@ -7,11 +7,12 @@ import 'package:provider/provider.dart';
 
 class OtpEmployee extends StatelessWidget {
   final String email;
-  const OtpEmployee({required this.email, super.key});
+  OtpEmployee({required this.email, super.key});
 
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    var active;
+    var isActive;
     TextEditingController pinCode = TextEditingController();
 
     return Scaffold(
@@ -40,76 +41,98 @@ class OtpEmployee extends StatelessWidget {
         child: Container(
           margin: const EdgeInsets.only(top: 40),
           width: double.infinity,
-          child: Column(
-            children: [
-              const Text(
-                "Verification",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 40),
-                child: const Text(
-                  "Enter the code sent to your email",
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                const Text(
+                  "Verification",
                   style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 18,
+                    color: Colors.black,
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
-              CustomPinCode(
-                pinPutController: pinCode,
-                length: 6,
-                onCompleted: (pin) {
-                  debugPrint(pin);
-                },
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              MaterialButton(
-                onPressed: () {
-                  Provider.of<ResendCodeEmployeeService>(context, listen: false)
-                      .returnNewCode(
-                    email: email,
-                  );
-                },
-                child: const Text(
-                  'resend code?',
-                  style: TextStyle(fontSize: 20),
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 40),
+                  child: const Text(
+                    "Enter the code sent to your email",
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 18,
+                    ),
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              GestureDetector(
-                onTap: () async {
-                  active = await Provider.of<ActivationEmployeeService>(context,
-                          listen: false)
-                      .returnAccessToken(email: email, code: pinCode.text);
-                  if (active == "error") {
-                    print('yaaaaahhahha $active');
-                  } else {
-                    print('gpt to home page $active');
-                  }
-                },
-                child: Container(
-                  height: 50,
-                  width: 150,
-                  decoration: BoxDecoration(
-                      color: AppColors.mainColor,
-                      borderRadius: BorderRadius.circular(20)),
-                  child: const Center(
-                      child: Text(
-                    'Submit',
-                    style: TextStyle(color: Colors.white),
-                  )),
+                CustomPinCode(
+                  pinPutController: pinCode,
+                  length: 6,
+                  onCompleted: (pin) {
+                    debugPrint(pin);
+                  },
+                  validateMessage: 'invalid code please enter full code',
                 ),
-              )
-            ],
+                const SizedBox(
+                  height: 10,
+                ),
+                MaterialButton(
+                  onPressed: () {
+                    Provider.of<ResendCodeEmployeeService>(context,
+                            listen: false)
+                        .returnNewCode(
+                      email: email,
+                    );
+                  },
+                  child: const Text(
+                    'resend code?',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    if (_formKey.currentState!.validate()) {
+                      isActive = await Provider.of<ActivationEmployeeService>(
+                              context,
+                              listen: false)
+                          .returnAccessToken(email: email, code: pinCode.text);
+                      if (isActive == "error") {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Container(
+                              height: 90,
+                              decoration: BoxDecoration(
+                                color: AppColors.amber.withOpacity(0.5),
+                              ),
+                              child: const Text(
+                                'inCorrect code please try reSend code again',
+                              ),
+                            ),
+                            behavior: SnackBarBehavior.floating,
+                            backgroundColor: Colors.transparent,
+                          ),
+                        );
+                      } else {
+                        Navigator.pushNamed(context, '/navigation_employee');
+                      }
+                    }
+                  },
+                  child: Container(
+                    height: 50,
+                    width: 150,
+                    decoration: BoxDecoration(
+                        color: AppColors.mainColor,
+                        borderRadius: BorderRadius.circular(20)),
+                    child: const Center(
+                        child: Text(
+                      'Submit',
+                      style: TextStyle(color: Colors.white),
+                    )),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
