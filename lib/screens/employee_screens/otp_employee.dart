@@ -1,8 +1,12 @@
 import 'package:career_compass/services/employee/employee_auth/activation_employee.dart';
 import 'package:career_compass/services/employee/employee_auth/resendCode_employee.dart';
 import 'package:career_compass/style/app_colors.dart';
+import 'package:career_compass/widgets/flash_message.dart';
 import 'package:career_compass/widgets/pin_code.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 class OtpEmployee extends StatelessWidget {
@@ -99,15 +103,11 @@ class OtpEmployee extends StatelessWidget {
                           .returnAccessToken(email: email, code: pinCode.text);
                       if (isActive == "error") {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Container(
-                              height: 90,
-                              decoration: BoxDecoration(
-                                color: AppColors.amber.withOpacity(0.5),
-                              ),
-                              child: const Text(
-                                'inCorrect code please try reSend code again',
-                              ),
+                          const SnackBar(
+                            elevation: 0,
+                            content: FlashMessage(
+                              errorText:
+                                  "error code, please press resend code.",
                             ),
                             behavior: SnackBarBehavior.floating,
                             backgroundColor: Colors.transparent,

@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget {
       body: Center(
         child: Stack(clipBehavior: Clip.none, children: [
           Container(
-            height: 400,
+            height: 405,
             width: 350,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
@@ -99,7 +99,7 @@ class LoginScreen extends StatelessWidget {
                           return HomePageEmployee();
                         }));
                       } else {
-                        Provider.of<AuthCompany>(context,listen: false)
+                        Provider.of<AuthCompany>(context, listen: false)
                             .login(email.text, password.text);
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
