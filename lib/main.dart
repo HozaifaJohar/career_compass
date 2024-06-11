@@ -7,7 +7,6 @@ import 'package:career_compass/screens/company_screens/drawer_company_screens/ch
 import 'package:career_compass/screens/company_screens/drawer_company_screens/changePassword_company.dart';
 import 'package:career_compass/screens/company_screens/drawer_company_screens/uploadLogo_company.dart';
 import 'package:career_compass/screens/company_screens/nav_company_screens.dart';
-import 'package:career_compass/screens/company_screens/otp_company.dart';
 import 'package:career_compass/screens/employee_screens/drawer_employee_screens/appliedJobs_employee.dart';
 import 'package:career_compass/screens/employee_screens/drawer_employee_screens/changeInfo_employee.dart';
 import 'package:career_compass/screens/employee_screens/drawer_employee_screens/changePassword_employee.dart';
@@ -18,11 +17,8 @@ import 'package:career_compass/screens/employee_screens/employee_information.dar
 import 'package:career_compass/screens/employee_screens/home_employee.dart';
 import 'package:career_compass/screens/employee_screens/jobemplyee_details.dart';
 import 'package:career_compass/screens/employee_screens/nav_employee_screen.dart';
-import 'package:career_compass/screens/employee_screens/otp_employee.dart';
-import 'package:career_compass/screens/employee_screens/register_employee.dart';
 import 'package:career_compass/screens/login.dart';
 import 'package:career_compass/screens/company_screens/home_company.dart';
-import 'package:career_compass/screens/company_screens/register_company.dart';
 
 import 'package:career_compass/screens/register.dart';
 import 'package:career_compass/screens/start.dart';
@@ -33,7 +29,6 @@ import 'package:career_compass/services/employee/employee_auth/register_employee
 import 'package:career_compass/services/employee/employee_auth/resendCode_employee.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'screens/splash.dart';
 
 void main() {
   runApp(MultiProvider(
