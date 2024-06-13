@@ -1,8 +1,12 @@
+import 'package:career_compass/models/static.dart';
+import 'package:career_compass/models/subcatygory.dart';
+import 'package:career_compass/services/company/get_static.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/waves.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:career_compass/models/static.dart';
 
 class AddJob extends StatefulWidget {
   const AddJob({super.key});
@@ -12,6 +16,9 @@ class AddJob extends StatefulWidget {
 }
 
 class _AddJobState extends State<AddJob> {
+  late Future<Static> _futureStatic;
+  late Future<List<Subcategory>> _subCatygory;
+
   String jobTitleSelected = '';
   String jobLevelSelected = '';
   String jobTypeSelected = '';
@@ -193,9 +200,16 @@ class _AddJobState extends State<AddJob> {
     'Doctorate'
   ];
   @override
+  void initState() {
+    super.initState();
+    _futureStatic = GetStatic().getAllStatic();
+    _subCatygory = GetStatic().getSubcategory();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
+    return Scaffold(
+      body: Column(
         children: [
           Stack(
             children: [
@@ -244,23 +258,34 @@ class _AddJobState extends State<AddJob> {
                                         topRight: Radius.circular(50))),
                                 child: Padding(
                                     padding: const EdgeInsets.all(10.0),
-                                    child: ListView.builder(
-                                        itemCount: jobTitle.length,
-                                        itemBuilder: (context, index) {
-                                          return ListTile(
-                                            title: Text(
-                                              jobTitle[index],
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            onTap: () {
-                                              setState(() {
-                                                jobTitleSelected =
-                                                    jobTitle[index];
-                                                Navigator.pop(context);
+                                    child: FutureBuilder<Static>(
+                                      future: _futureStatic,
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasData) {
+                                          final data = snapshot.data!;
+                                          return ListView.builder(
+                                              itemCount: data.categories.length,
+                                              itemBuilder: (context, index) {
+                                                return ListTile(
+                                                  title: Text(
+                                                    data.categories[index].name,
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                  onTap: () {
+                                                    setState(() {
+                                                      jobTitleSelected = data
+                                                          .categories[index]
+                                                          .name;
+                                                      Navigator.pop(context);
+                                                    });
+                                                  },
+                                                );
                                               });
-                                            },
-                                          );
-                                        })),
+                                        } else {
+                                          return const CircularProgressIndicator();
+                                        }
+                                      },
+                                    )),
                               );
                             });
                       },
@@ -300,22 +325,32 @@ class _AddJobState extends State<AddJob> {
                                         topRight: Radius.circular(50))),
                                 child: Padding(
                                     padding: const EdgeInsets.all(10.0),
-                                    child: ListView.builder(
-                                        itemCount: jobLevel.length,
-                                        itemBuilder: (context, index) {
-                                          return ListTile(
-                                            title: Text(
-                                              jobLevel[index],
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            onTap: () {
-                                              setState(() {
-                                                jobLevelSelected =
-                                                    jobLevel[index];
-                                                Navigator.pop(context);
-                                              });
-                                            },
-                                          );
+                                    child: FutureBuilder<Static>(
+                                        future: _futureStatic,
+                                        builder: (context, snapshot) {
+                                          if (snapshot.hasData) {
+                                            final data = snapshot.data!;
+                                            return ListView.builder(
+                                                itemCount: data.levels.length,
+                                                itemBuilder: (context, index) {
+                                                  return ListTile(
+                                                    title: Text(
+                                                      data.levels[index].name,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                    onTap: () {
+                                                      setState(() {
+                                                        jobLevelSelected = data
+                                                            .levels[index].name;
+                                                        Navigator.pop(context);
+                                                      });
+                                                    },
+                                                  );
+                                                });
+                                          } else {
+                                            return const Text('nodata');
+                                          }
                                         })),
                               );
                             });
@@ -355,22 +390,33 @@ class _AddJobState extends State<AddJob> {
                                         topRight: Radius.circular(50))),
                                 child: Padding(
                                     padding: const EdgeInsets.all(10.0),
-                                    child: ListView.builder(
-                                        itemCount: jobType.length,
-                                        itemBuilder: (context, index) {
-                                          return ListTile(
-                                            title: Text(
-                                              jobType[index],
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            onTap: () {
-                                              setState(() {
-                                                jobTypeSelected =
-                                                    jobType[index];
-                                                Navigator.pop(context);
-                                              });
-                                            },
-                                          );
+                                    child: FutureBuilder<Static>(
+                                        future: _futureStatic,
+                                        builder: (context, snapshot) {
+                                          if (snapshot.hasData) {
+                                            final data = snapshot.data!;
+                                            return ListView.builder(
+                                                itemCount: data.jobTypes.length,
+                                                itemBuilder: (context, index) {
+                                                  return ListTile(
+                                                    title: Text(
+                                                      data.jobTypes[index].name,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                    onTap: () {
+                                                      setState(() {
+                                                        jobTypeSelected = data
+                                                            .jobTypes[index]
+                                                            .name;
+                                                        Navigator.pop(context);
+                                                      });
+                                                    },
+                                                  );
+                                                });
+                                          } else {
+                                            return const Text('no data');
+                                          }
                                         })),
                               );
                             });
@@ -410,22 +456,32 @@ class _AddJobState extends State<AddJob> {
                                         topRight: Radius.circular(50))),
                                 child: Padding(
                                     padding: const EdgeInsets.all(10.0),
-                                    child: ListView.builder(
-                                        itemCount: jobRole.length,
-                                        itemBuilder: (context, index) {
-                                          return ListTile(
-                                            title: Text(
-                                              jobRole[index],
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            onTap: () {
-                                              setState(() {
-                                                jobRoleSelected =
-                                                    jobRole[index];
-                                                Navigator.pop(context);
-                                              });
-                                            },
-                                          );
+                                    child: FutureBuilder<List<Subcategory>>(
+                                        future: _subCatygory,
+                                        builder: (context, snapshot) {
+                                          if (snapshot.hasData) {
+                                            final data = snapshot.data;
+                                            return ListView.builder(
+                                                itemCount: data!.length,
+                                                itemBuilder: (context, index) {
+                                                  return ListTile(
+                                                    title: Text(
+                                                      data[index].name,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                    onTap: () {
+                                                      setState(() {
+                                                        // jobRoleSelected =
+                                                        //     jobRole[index];
+                                                        Navigator.pop(context);
+                                                      });
+                                                    },
+                                                  );
+                                                });
+                                          } else {
+                                            return CircularProgressIndicator();
+                                          }
                                         })),
                               );
                             });
