@@ -1,3 +1,4 @@
+import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/provider/onTap_nav_company.dart';
 import 'package:career_compass/provider/onTap_nav_employee.dart';
 import 'package:career_compass/provider/type_provider.dart';
@@ -25,17 +26,23 @@ import 'package:career_compass/screens/start.dart';
 import 'package:career_compass/services/company/activateotp_company.dart';
 import 'package:career_compass/services/company/auth_company.dart';
 import 'package:career_compass/services/employee/employee_auth/activation_employee.dart';
+import 'package:career_compass/services/employee/employee_auth/login_employee_service.dart';
 import 'package:career_compass/services/employee/employee_auth/register_employee_service.dart';
 import 'package:career_compass/services/employee/employee_auth/resendCode_employee.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  //this two lines to call init() function before run the app...
+  WidgetsFlutterBinding.ensureInitialized();
+  await CashMemory.init();
+
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => ResendCodeEmployeeService()),
       ChangeNotifierProvider(create: (context) => ResendCodeEmployeeService()),
       ChangeNotifierProvider(create: (context) => ActivationEmployeeService()),
+      ChangeNotifierProvider(create: (context) => LogInEmployeeService()),
       ChangeNotifierProvider(create: (context) => RegisterEmployeeSrevice()),
       ChangeNotifierProvider(create: (context) => TypeProvider()),
       ChangeNotifierProvider(create: (context) => OntapNavigationCompany()),
@@ -60,9 +67,10 @@ class MyApp extends StatelessWidget {
       routes: {
         '/start_screen': (context) => StartScreen(),
         'register_screen': (context) => RegisterScreen(),
-        '/login_screen': (context) => const LoginScreen(),
+        '/login_screen': (context) => LoginScreen(),
         // 'otp_company': (context) =>  OtpCompany(),
         //'/splash_screen': (context) => const SplashScreen(),
+
         //screens for company section
         '/compay_jobdetails': (context) => const CompanyJobDetails(),
         '/changePassword_company': (context) => const ChangePasswordCompany(),
@@ -72,6 +80,7 @@ class MyApp extends StatelessWidget {
         '/navigation_company': (context) => const NavigationCompanyScreen(),
         '/changeInfo_company': (context) => const ChangeInformationCompany(),
         '/upload_logo': (context) => const UploadLogo(),
+
         //screens for employee section
         // '/register_employee': (context) => const RegisterEmployeeScreen(),
         // '/otp_employee': (context) => const OtpEmployee(),

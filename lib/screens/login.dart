@@ -1,15 +1,14 @@
 import 'package:career_compass/provider/type_provider.dart';
-import 'package:career_compass/screens/company_screens/home_company.dart';
-import 'package:career_compass/screens/employee_screens/home_employee.dart';
-import 'package:career_compass/screens/start.dart';
-import 'package:career_compass/services/company/auth_company.dart';
+import 'package:career_compass/services/employee/employee_auth/login_employee_service.dart';
 import 'package:career_compass/style/app_colors.dart';
+import 'package:career_compass/widgets/flash_message.dart';
 import 'package:career_compass/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  LoginScreen({super.key});
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -29,96 +28,113 @@ class LoginScreen extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.only(top: 40, right: 20, left: 20),
-              child: Column(
-                children: [
-                  CustomTextField(
-                    title: type ? 'email' : 'company email',
-                    hint: 'enter your email',
-                    controller: email,
-                    maxLines: 1,
-                    borderColor: AppColors.amber,
-                    border: 50,
-                    validateMessage: 'please enter valid email',
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  CustomTextField(
-                    title: 'password',
-                    hint: 'enter your password',
-                    controller: password,
-                    maxLines: 1,
-                    borderColor: AppColors.amber,
-                    border: 50,
-                    validateMessage: 'please enter valid password ',
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Row(
-                    children: [
-                      SizedBox(
-                        width: 50,
-                      ),
-                      Expanded(
-                          child: Divider(
-                        thickness: 2,
-                        color: Colors.black,
-                      )),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Text('OR'),
-                      ),
-                      Expanded(
-                          child: Divider(
-                        thickness: 2,
-                        color: Colors.black,
-                      )),
-                      SizedBox(
-                        width: 50,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  MaterialButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, 'register_screen');
-                    },
-                    child: const Text('Create Account'),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      if (type) {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return HomePageEmployee();
-                        }));
-                      } else {
-                        Provider.of<AuthCompany>(context, listen: false)
-                            .login(email.text, password.text);
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return HomePageCompany();
-                        }));
-                      }
-                    },
-                    child: Container(
-                      height: 50,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          color: AppColors.mainColor,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: const Center(
-                        child: Text('Login'),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    CustomTextField(
+                      title: type ? 'email' : 'company email',
+                      hint: 'enter your email',
+                      controller: email,
+                      maxLines: 1,
+                      borderColor: AppColors.amber,
+                      border: 50,
+                      validateMessage: 'please enter valid email',
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    CustomTextField(
+                      title: 'password',
+                      hint: 'enter your password',
+                      controller: password,
+                      maxLines: 1,
+                      borderColor: AppColors.amber,
+                      border: 50,
+                      validateMessage: 'please enter valid password ',
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Row(
+                      children: [
+                        SizedBox(
+                          width: 50,
+                        ),
+                        Expanded(
+                            child: Divider(
+                          thickness: 2,
+                          color: Colors.black,
+                        )),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          child: Text('OR'),
+                        ),
+                        Expanded(
+                            child: Divider(
+                          thickness: 2,
+                          color: Colors.black,
+                        )),
+                        SizedBox(
+                          width: 50,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    MaterialButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, 'register_screen');
+                      },
+                      child: const Text('Create Account'),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    GestureDetector(
+                      onTap: () async {
+                        if (_formKey.currentState!.validate()) {
+                          if (type) {
+                            var isActive =
+                                await Provider.of<LogInEmployeeService>(context,
+                                        listen: false)
+                                    .returnAccessToken(
+                                        email: email.text,
+                                        password: password.text);
+                            if (isActive == 'error') {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  elevation: 0,
+                                  content: FlashMessage(
+                                    errorText: "incorrect email or password",
+                                  ),
+                                  behavior: SnackBarBehavior.floating,
+                                  backgroundColor: Colors.transparent,
+                                ),
+                              );
+                            } else {
+                              Navigator.pushNamed(
+                                  context, '/navigation_employee');
+                            }
+                          } else {
+                            // Marah do what does you should do  :-)
+                          }
+                        }
+                      },
+                      child: Container(
+                        height: 50,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            color: AppColors.mainColor,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: const Center(
+                          child: Text('Login'),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

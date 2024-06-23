@@ -16,7 +16,6 @@ class OtpEmployee extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    var isActive;
     TextEditingController pinCode = TextEditingController();
 
     return Scaffold(
@@ -95,13 +94,13 @@ class OtpEmployee extends StatelessWidget {
                   height: 10,
                 ),
                 GestureDetector(
-                  onTap: () async {
+                  onTap: () {
                     if (_formKey.currentState!.validate()) {
-                      isActive = await Provider.of<ActivationEmployeeService>(
+                      var isActive = Provider.of<ActivationEmployeeService>(
                               context,
                               listen: false)
                           .returnAccessToken(email: email, code: pinCode.text);
-                      if (isActive == "error") {
+                      if (isActive == 'error') {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             elevation: 0,

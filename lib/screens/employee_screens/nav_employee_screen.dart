@@ -1,5 +1,5 @@
+import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/provider/onTap_nav_employee.dart';
-import 'package:career_compass/screens/employee_screens/drawer_employee_screens/filterJobs_employee.dart';
 import 'package:career_compass/screens/employee_screens/filter_employee_screen.dart';
 import 'package:career_compass/screens/employee_screens/home_employee.dart';
 import 'package:career_compass/screens/employee_screens/notification_employee.dart';
@@ -124,7 +124,16 @@ class NavigationEmployeeScreen extends StatelessWidget {
                   ListTile(
                     title: const Text('Logout'),
                     leading: const Icon(Icons.login),
-                    onTap: () {},
+                    onTap: () {
+                      CashMemory()
+                          .daleteCashItem(key: 'accessToken')
+                          .then((value) {
+                        Navigator.pushNamed(context, '/login_screen');
+                      }).catchError((error) {});
+                      // LogEmployeeService().logOut(
+                      //     accessToken:
+                      //         CashMemory().getCashData(key: 'accessToken'));
+                    },
                   ),
                   ListTile(
                     title: const Text('Change Language'),

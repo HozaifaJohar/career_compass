@@ -35,7 +35,7 @@ class FlashMessage extends StatelessWidget {
                       Text(
                         errorText,
                         style: const TextStyle(
-                          fontSize: 12,
+                          fontSize: 15,
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,

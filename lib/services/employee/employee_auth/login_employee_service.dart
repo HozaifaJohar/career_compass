@@ -2,30 +2,25 @@ import 'package:career_compass/constant/url.dart';
 import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/helper/api.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-class ActivationEmployeeService extends ChangeNotifier {
+class LogInEmployeeService extends ChangeNotifier {
   String url = AppString.baseUrl;
 
   Future<String> returnAccessToken({
     required String email,
-    required String code,
+    required String password,
   }) async {
-    String result = "";
-    var accessToken =
-        await Api().post(url: '$url/employeeAuth/activate', body: {
-      "email": email,
-      "activationCode": code,
+    var accessToken = await Api().post(url: '$url/employeeAuth/login', body: {
+      'email': email,
+      'password': password,
     });
+    var result = '';
     if (accessToken['statusCode'] == 403) {
       result = "error";
     } else {
       result = accessToken["access_token"];
       CashMemory().insertToCash(key: 'accessToken', value: result);
     }
-    // .then((value) => value["access_token"])
-    // .onError((error, stackTrace) => "error");
-    print('acflidsjfaohg $result');
     return result;
   }
 }
