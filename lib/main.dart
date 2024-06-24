@@ -49,7 +49,6 @@ void main() async {
       ChangeNotifierProvider(create: (context) => OntapNavigationEmployee()),
       ChangeNotifierProvider(create: (context) => AuthCompany()),
       ChangeNotifierProvider(create: (context) => ActivicationCode()),
-
     ],
     child: const MyApp(),
   ));
@@ -64,7 +63,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: AddJob(),
+      home: const ScientificInformation(),
       routes: {
         '/start_screen': (context) => StartScreen(),
         'register_screen': (context) => RegisterScreen(),
