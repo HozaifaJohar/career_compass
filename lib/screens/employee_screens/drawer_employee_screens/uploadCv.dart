@@ -1,6 +1,10 @@
 import 'dart:io';
 import 'dart:ui';
+import 'package:career_compass/constant/url.dart';
+import 'package:career_compass/core/shared_preferences.dart';
+import 'package:career_compass/helper/api.dart';
 import 'package:career_compass/style/app_colors.dart';
+import 'package:career_compass/widgets/flash_message.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +20,7 @@ class UploadCv extends StatefulWidget {
 }
 
 class _UploadCvState extends State<UploadCv> {
+  String url = AppString.baseUrl;
   File? _pickedPdf;
   String? path;
   String? pdfName;
@@ -35,7 +40,12 @@ class _UploadCvState extends State<UploadCv> {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('No Pdf selected'),
+          elevation: 0,
+          content: FlashMessage(
+            errorText: 'No Pdf Selected!',
+          ),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
         ),
       );
     }
@@ -157,7 +167,27 @@ class _UploadCvState extends State<UploadCv> {
               width: 150,
               child: ElevatedButton.icon(
                 //  onPressed: _pdfFile != null ? _uploadPDF : null,
-                onPressed: () {},
+                onPressed: () {
+                  if (_pickedPdf != null) {
+                    Api().postFiles(
+                      url: '$url/employees/upload-image',
+                      filePath: _pickedPdf!.path,
+                      key: 'file',
+                      token: CashMemory().getCashData(key: 'accessToken'),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        elevation: 0,
+                        content: FlashMessage(
+                          errorText: "NO File Selected Yet!",
+                        ),
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.transparent,
+                      ),
+                    );
+                  }
+                },
                 icon: Icon(
                   Icons.cloud_upload,
                   color: AppColors.mainColor,

@@ -20,6 +20,8 @@ class LogInEmployeeService extends ChangeNotifier {
     } else {
       result = accessToken["access_token"];
       CashMemory().insertToCash(key: 'accessToken', value: result);
+      // print(
+      //     'saved access toke successfully${CashMemory().getCashData(key: 'accessToken')}');
     }
     return result;
   }

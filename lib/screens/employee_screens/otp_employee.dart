@@ -94,11 +94,10 @@ class OtpEmployee extends StatelessWidget {
                   height: 10,
                 ),
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
                     if (_formKey.currentState!.validate()) {
-                      var isActive = Provider.of<ActivationEmployeeService>(
-                              context,
-                              listen: false)
+                      var isActive = await Provider.of<
+                              ActivationEmployeeService>(context, listen: false)
                           .returnAccessToken(email: email, code: pinCode.text);
                       if (isActive == 'error') {
                         ScaffoldMessenger.of(context).showSnackBar(

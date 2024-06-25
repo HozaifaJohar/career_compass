@@ -1,9 +1,11 @@
 import 'dart:io';
-
+import 'dart:ui';
+import 'package:career_compass/constant/url.dart';
+import 'package:career_compass/helper/api.dart';
+import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/style/app_colors.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:career_compass/widgets/flash_message.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UploadPhotoEmployee extends StatefulWidget {
@@ -15,13 +17,14 @@ class UploadPhotoEmployee extends StatefulWidget {
 
 class _UploadPhotoEmployeeState extends State<UploadPhotoEmployee> {
   File? _file;
+  String url = AppString.baseUrl;
 
   Future pickerImageFromGallery() async {
     final returnedImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (returnedImage == null) return;
     setState(() {
-      _file = File(returnedImage!.path);
+      _file = File(returnedImage.path);
     });
   }
 
@@ -30,7 +33,7 @@ class _UploadPhotoEmployeeState extends State<UploadPhotoEmployee> {
         await ImagePicker().pickImage(source: ImageSource.camera);
     if (returnedImage == null) return;
     setState(() {
-      _file = File(returnedImage!.path);
+      _file = File(returnedImage.path);
     });
   }
 
@@ -154,7 +157,27 @@ class _UploadPhotoEmployeeState extends State<UploadPhotoEmployee> {
               height: screenHeight / 20,
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                if (_file != null) {
+                  Api().postFiles(
+                    url: '$url/employees/upload-image',
+                    filePath: _file!.path,
+                    key: 'file',
+                    token: CashMemory().getCashData(key: 'accessToken'),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      elevation: 0,
+                      content: FlashMessage(
+                        errorText: "NO Image Selected Yet!",
+                      ),
+                      behavior: SnackBarBehavior.floating,
+                      backgroundColor: Colors.transparent,
+                    ),
+                  );
+                }
+              },
               child: Container(
                 width: 100,
                 height: 40,
