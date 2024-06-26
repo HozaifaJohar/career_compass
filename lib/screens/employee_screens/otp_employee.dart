@@ -112,7 +112,7 @@ class OtpEmployee extends StatelessWidget {
                           ),
                         );
                       } else {
-                        Navigator.pushNamed(context, '/navigation_employee');
+                        Navigator.pushNamed(context, '/scientific_information');
                       }
                     }
                   },

@@ -14,7 +14,7 @@ import 'package:career_compass/screens/employee_screens/drawer_employee_screens/
 import 'package:career_compass/screens/employee_screens/drawer_employee_screens/filterJobs_employee.dart';
 import 'package:career_compass/screens/employee_screens/drawer_employee_screens/uploadCv.dart';
 import 'package:career_compass/screens/employee_screens/drawer_employee_screens/uploadPhoto_employee.dart';
-import 'package:career_compass/screens/employee_screens/employee_information.dart';
+import 'package:career_compass/screens/employee_screens/scientific_information.dart';
 import 'package:career_compass/screens/employee_screens/home_employee.dart';
 import 'package:career_compass/screens/employee_screens/jobemplyee_details.dart';
 import 'package:career_compass/screens/employee_screens/nav_employee_screen.dart';
