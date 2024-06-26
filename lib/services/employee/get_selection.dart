@@ -1,5 +1,6 @@
 import 'package:career_compass/constant/url.dart';
 import 'package:career_compass/helper/api.dart';
+import 'package:career_compass/models/qual.dart';
 import 'package:career_compass/models/static.dart';
 import 'package:career_compass/models/subcatygory.dart';
 
@@ -13,11 +14,13 @@ class GetStaticForEmmployee {
     return Static.fromJson(response);
   }
 
-  Future<List<Subcategory>> getSubcategory() async {
+  Future<List<Qualification>> getSubcategory(String categories) async {
     String url = AppString.baseUrl;
-    List<dynamic> jsonData = await Api().get(url: '$url/sub-categories');
-    List<Subcategory> subCategory =
-        jsonData.map((json) => Subcategory.fromJson(json)).toList();
+   
+    List<dynamic> jsonData = await Api().get(
+        url: '$url/statics/get_their_subcategories?categories=$categories');
+    List<Qualification> subCategory =
+        jsonData.map((json) => Qualification.fromJson(json)).toList();
     print(jsonData);
     return subCategory;
   }

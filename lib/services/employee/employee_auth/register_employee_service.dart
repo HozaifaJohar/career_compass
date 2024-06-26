@@ -20,6 +20,7 @@ class RegisterEmployeeSrevice extends ChangeNotifier {
     required String phone,
     required String homeAddress,
     required String birthDayDate,
+    required String description,
   }) async {
     //Map<String, dynamic> data = await Api().post(
     int data = await Api().post(
@@ -32,6 +33,7 @@ class RegisterEmployeeSrevice extends ChangeNotifier {
         "phone": phone,
         "home_address": homeAddress,
         "birthday_date": birthDayDate,
+        "description":description
       },
     );
     //return UserEmployee.fromJson(data);

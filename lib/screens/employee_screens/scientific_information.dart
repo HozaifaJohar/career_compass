@@ -1,3 +1,4 @@
+import 'package:career_compass/models/qual.dart';
 import 'package:career_compass/models/static.dart';
 import 'package:career_compass/models/subcatygory.dart';
 import 'package:career_compass/services/employee/get_selection.dart';
@@ -15,11 +16,11 @@ class _ScientificInformationState extends State<ScientificInformation> {
   late Future<Static> _futureStatic;
   late Future<List<Subcategory>> _futuresubcategory;
   TextEditingController address = TextEditingController();
-  List<String> selectedJobTitles = [];
-  List<String> selectedJobRole = [];
+  List<String> selectedJobCategoey = [];
+  List<String> selectedJobQualification = [];
+  List<int> selectedJobId = [];
   String jobLevelSelected = '';
   String jobTypeSelected = '';
-  String jobRoleSelected = '';
   String citySelected = '';
   String experienceSelected = '';
   String educateSelected = '';
@@ -27,76 +28,13 @@ class _ScientificInformationState extends State<ScientificInformation> {
   void initState() {
     super.initState();
     _futureStatic = GetStaticForEmmployee().getAllStatic();
-    _futuresubcategory = GetStaticForEmmployee().getSubcategory();
+    // _futuresubcategory = GetStaticForEmmployee().getSubcategory(selectedJobId);
   }
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
 
-    List<String> jobLevel = [
-      'Student',
-      'Fresh Graduate',
-      'Junior Professional',
-      'Senior Professional',
-      'Manager',
-      'Director/Top Management'
-    ];
-    List<String> jobType = [
-      'Full Time',
-      'Contract',
-      'FreeLancer/Project',
-      'Intership',
-      'Volunteering',
-      'Work From Home'
-    ];
-    List<String> jobRole = [
-      'Administration/Operations/Management',
-      'Data Entry/Archiving',
-      'Strategy/Consulting',
-      'Research and Development/Statistic/Analyst',
-      'IT/Software Development',
-      'Banking/Insurance',
-      'House Keeping/ Office boys/ Porter',
-      'Translation/Writing/Editorial',
-      'Marketing/ PR /Advertising',
-      '  Graphic Design / Animation / Art',
-      'Education / Teaching / Training',
-      'Social Media / Journalism / Puublishing',
-      'Quality',
-      'Safety / Guard Services',
-      'Customer Service / Support',
-      'Maufacturing / Production',
-      'Sport / Nutrition / Physiotherapy',
-      'Pharming and Agriculture',
-      'Divers / Delivery',
-      'Secretarial / Resptionist',
-      'Tourism / Travel / Hotels',
-      'Pharmaceutical',
-      'Medical / Healthcare / Nursing ',
-      'Dentists / Prosthodontics',
-      'Technician / Workers',
-      'Legal / Contracts',
-      'Chemistry / Laboratories',
-      'Logistics / Warehouse / Supply Chain',
-      'Sales / Retail /Distripution',
-      'Accounting / Fenance',
-      'Project / Program Management',
-      'Purchasing / Procurement',
-      'Restaurant / Catering / Cuisine',
-      'Human Resources',
-      'Fashion and Beauty',
-      'Film and photography / Sound / Music ',
-      ' Engineering-Construction / Civil / Architecture',
-      'Interior Design / Decoration',
-      'Engineering-Other',
-      'Engineering-Telecom / Technology',
-      'Engineering-Mechanical / Electrical / Medical',
-      'engineering-Oil and Gas / Energy',
-      'C_Level Executive / GM / Director',
-      'Psychological support / Community services',
-      'Other'
-    ];
     List<String> city = [
       'Damascus',
       'Rif Dimashq',
@@ -191,7 +129,7 @@ class _ScientificInformationState extends State<ScientificInformation> {
                                                   data.categories[index].name,
                                                   textAlign: TextAlign.center,
                                                 ),
-                                                trailing: selectedJobTitles
+                                                trailing: selectedJobCategoey
                                                         .contains(data
                                                             .categories[index]
                                                             .name)
@@ -200,12 +138,12 @@ class _ScientificInformationState extends State<ScientificInformation> {
                                                             Icons.close),
                                                         onPressed: () {
                                                           setState(() {
-                                                            // selectedJobId.remove(
-                                                            //     data
-                                                            //         .categories[
-                                                            //             index]
-                                                            //         .id);
-                                                            selectedJobTitles
+                                                            selectedJobId
+                                                                .remove(data
+                                                                    .categories[
+                                                                        index]
+                                                                    .id);
+                                                            selectedJobCategoey
                                                                 .remove(data
                                                                     .categories[
                                                                         index]
@@ -218,21 +156,24 @@ class _ScientificInformationState extends State<ScientificInformation> {
                                                     : null,
                                                 onTap: () {
                                                   setState(() {
-                                                    if (selectedJobTitles
+                                                    if (selectedJobCategoey
                                                         .contains(data
                                                             .categories[index]
                                                             .name)) {
-                                                      // selectedJobId.remove(data
-                                                      //     .categories[index].id);
-                                                      selectedJobTitles.remove(
-                                                          data.categories[index]
+                                                      selectedJobId.remove(data
+                                                          .categories[index]
+                                                          .id);
+                                                      selectedJobCategoey
+                                                          .remove(data
+                                                              .categories[index]
                                                               .name);
                                                     } else {
-                                                      // selectedJobId.add(data
-                                                      //     .categories[index].id);
-                                                      selectedJobTitles.add(data
+                                                      selectedJobId.add(data
                                                           .categories[index]
-                                                          .name);
+                                                          .id);
+                                                      selectedJobCategoey.add(
+                                                          data.categories[index]
+                                                              .name);
                                                     }
                                                     Navigator.pop(context);
                                                   });
@@ -254,15 +195,15 @@ class _ScientificInformationState extends State<ScientificInformation> {
                           borderRadius: BorderRadius.circular(10)),
                       child: ListTile(
                         title: const Text(
-                          'Job Title',
+                          'Job Role',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        subtitle: selectedJobTitles.isNotEmpty
+                        subtitle: selectedJobCategoey.isNotEmpty
                             ? SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
                                 child: Row(
                                   children: [
-                                    for (final jobTitle in selectedJobTitles)
+                                    for (final jobTitle in selectedJobCategoey)
                                       Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: Container(
@@ -282,7 +223,7 @@ class _ScientificInformationState extends State<ScientificInformation> {
                                                 GestureDetector(
                                                   onTap: () {
                                                     setState(() {
-                                                      selectedJobTitles
+                                                      selectedJobCategoey
                                                           .remove(jobTitle);
                                                     });
                                                   },
@@ -299,7 +240,7 @@ class _ScientificInformationState extends State<ScientificInformation> {
                                   ],
                                 ),
                               )
-                            : const Text('Select job title(s)'),
+                            : const Text('Select job role(s)'),
                       )),
                 ),
                 const SizedBox(
@@ -454,8 +395,9 @@ class _ScientificInformationState extends State<ScientificInformation> {
                                     topRight: Radius.circular(50))),
                             child: Padding(
                                 padding: const EdgeInsets.all(10.0),
-                                child: FutureBuilder<List<Subcategory>>(
-                                    future: _futuresubcategory,
+                                child: FutureBuilder<List<Qualification>>(
+                                    future: GetStaticForEmmployee()
+                                        .getSubcategory(selectedJobId.join(',')),
                                     builder: (context, snapshot) {
                                       if (snapshot.hasData) {
                                         var data = snapshot.data!;
@@ -467,43 +409,47 @@ class _ScientificInformationState extends State<ScientificInformation> {
                                                   data[index].name,
                                                   textAlign: TextAlign.center,
                                                 ),
-                                                trailing: selectedJobRole
-                                                        .contains(
-                                                            data[index].name)
-                                                    ? IconButton(
-                                                        icon: const Icon(
-                                                            Icons.close),
-                                                        onPressed: () {
-                                                          setState(() {
-                                                            // selectedJobId.remove(
-                                                            //     data
-                                                            //         .categories[
-                                                            //             index]
-                                                            //         .id);
-                                                            selectedJobRole
-                                                                .remove(
-                                                                    data[index]
+                                                trailing:
+                                                    selectedJobQualification
+                                                            .contains(
+                                                                data[index]
+                                                                    .name)
+                                                        ? IconButton(
+                                                            icon: const Icon(
+                                                                Icons.close),
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                // selectedJobId.remove(
+                                                                //     data
+                                                                //         .categories[
+                                                                //             index]
+                                                                //         .id);
+                                                                selectedJobQualification
+                                                                    .remove(data[
+                                                                            index]
                                                                         .name);
-                                                            Navigator.pop(
-                                                                context);
-                                                          });
-                                                        },
-                                                      )
-                                                    : null,
+                                                                Navigator.pop(
+                                                                    context);
+                                                              });
+                                                            },
+                                                          )
+                                                        : null,
                                                 onTap: () {
                                                   setState(() {
-                                                    if (selectedJobRole
+                                                    if (selectedJobQualification
                                                         .contains(
                                                             data[index].name)) {
                                                       // selectedJobId.remove(data
                                                       //     .categories[index].id);
-                                                      selectedJobRole.remove(
-                                                          data[index].name);
+                                                      selectedJobQualification
+                                                          .remove(
+                                                              data[index].name);
                                                     } else {
                                                       // selectedJobId.add(data
                                                       //     .categories[index].id);
-                                                      selectedJobRole.add(
-                                                          data[index].name);
+                                                      selectedJobQualification
+                                                          .add(
+                                                              data[index].name);
                                                     }
                                                     Navigator.pop(context);
                                                   });
@@ -511,7 +457,10 @@ class _ScientificInformationState extends State<ScientificInformation> {
                                               );
                                             });
                                       } else {
-                                        return const CircularProgressIndicator();
+                                        return const Center(
+                                            child: SizedBox(
+                                                child:
+                                                    CircularProgressIndicator()));
                                       }
                                     })),
                           );
@@ -525,15 +474,16 @@ class _ScientificInformationState extends State<ScientificInformation> {
                           borderRadius: BorderRadius.circular(10)),
                       child: ListTile(
                         title: const Text(
-                          'Job Role',
+                          'Job Qualification',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        subtitle: selectedJobRole.isNotEmpty
+                        subtitle: selectedJobQualification.isNotEmpty
                             ? SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
                                 child: Row(
                                   children: [
-                                    for (final jobRole in selectedJobRole)
+                                    for (final jobQualification
+                                        in selectedJobQualification)
                                       Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: Container(
@@ -548,13 +498,14 @@ class _ScientificInformationState extends State<ScientificInformation> {
                                             child: Row(
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
-                                                Text(jobRole),
+                                                Text(jobQualification),
                                                 const SizedBox(width: 8),
                                                 GestureDetector(
                                                   onTap: () {
                                                     setState(() {
-                                                      selectedJobRole
-                                                          .remove(jobRole);
+                                                      selectedJobQualification
+                                                          .remove(
+                                                              jobQualification);
                                                     });
                                                   },
                                                   child: const Icon(
@@ -570,7 +521,7 @@ class _ScientificInformationState extends State<ScientificInformation> {
                                   ],
                                 ),
                               )
-                            : const Text('Select job role(s)'),
+                            : const Text('Select job qualifications(s)'),
                       )),
                 ),
                 const SizedBox(
@@ -736,6 +687,28 @@ class _ScientificInformationState extends State<ScientificInformation> {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 20,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    print(selectedJobId);
+                  },
+                  child: Container(
+                    height: 40,
+                    width: 100,
+                    decoration: BoxDecoration(
+                        color: AppColors.mainColor,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20))),
+                    child: const Center(
+                      child: Text(
+                        'Complete',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
           ),
