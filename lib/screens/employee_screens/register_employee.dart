@@ -24,7 +24,7 @@ class _RegisterEmployeeScreenState extends State<RegisterEmployeeScreen> {
 
   final city = ['Damascus', 'Hama', 'Homs', 'Aleppo', 'Daraa'];
   String selectedCity = "";
-  final gender = ['male', 'famale'];
+  final gender = ['male', 'female'];
   String selectedgender = "";
   final nationality = ['Syrian', 'Indian'];
   String selectedNationality = "";
@@ -32,6 +32,7 @@ class _RegisterEmployeeScreenState extends State<RegisterEmployeeScreen> {
   final TextEditingController _fullname = TextEditingController();
   final TextEditingController _phone = TextEditingController();
   final TextEditingController _home = TextEditingController();
+  final TextEditingController description = TextEditingController();
 
   @override
   void dispose() {
@@ -177,6 +178,17 @@ class _RegisterEmployeeScreenState extends State<RegisterEmployeeScreen> {
                 const SizedBox(
                   height: 15,
                 ),
+                CustomTextField(
+                    hint: 'description',
+                    title: 'Description',
+                    maxLines: 3,
+                    controller: description,
+                    border: 20,
+                    borderColor: AppColors.amber,
+                    validateMessage: 'Enter description about you please'),
+                const SizedBox(
+                  height: 15,
+                ),
                 GestureDetector(
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
@@ -189,7 +201,7 @@ class _RegisterEmployeeScreenState extends State<RegisterEmployeeScreen> {
                               gender: selectedgender,
                               phone: _phone.text,
                               homeAddress: homeAddress,
-                              birthDayDate: _dateController.text);
+                              birthDayDate: _dateController.text,description: description.text);
                     }
                     Navigator.push(
                         context,
