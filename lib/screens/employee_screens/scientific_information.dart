@@ -1,7 +1,7 @@
 import 'package:career_compass/models/qual.dart';
 import 'package:career_compass/models/static.dart';
 import 'package:career_compass/models/subcatygory.dart';
-import 'package:career_compass/services/employee/get_selection.dart';
+import 'package:career_compass/services/employee/useful/get_selection.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -122,64 +122,62 @@ class _ScientificInformationState extends State<ScientificInformation> {
                                       if (snapshot.hasData) {
                                         var data = snapshot.data!;
                                         return ListView.builder(
-                                            itemCount: data.categories.length,
-                                            itemBuilder: (context, index) {
-                                              return ListTile(
-                                                title: Text(
-                                                  data.categories[index].name,
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                                trailing: selectedJobCategoey
-                                                        .contains(data
-                                                            .categories[index]
-                                                            .name)
-                                                    ? IconButton(
-                                                        icon: const Icon(
-                                                            Icons.close),
-                                                        onPressed: () {
-                                                          setState(() {
-                                                            selectedJobId
-                                                                .remove(data
-                                                                    .categories[
-                                                                        index]
-                                                                    .id);
-                                                            selectedJobCategoey
-                                                                .remove(data
-                                                                    .categories[
-                                                                        index]
-                                                                    .name);
-                                                            Navigator.pop(
-                                                                context);
-                                                          });
-                                                        },
-                                                      )
-                                                    : null,
-                                                onTap: () {
-                                                  setState(() {
-                                                    if (selectedJobCategoey
-                                                        .contains(data
-                                                            .categories[index]
-                                                            .name)) {
-                                                      selectedJobId.remove(data
+                                          itemCount: data.categories.length,
+                                          itemBuilder: (context, index) {
+                                            return ListTile(
+                                              title: Text(
+                                                data.categories[index].name,
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              trailing: selectedJobCategoey
+                                                      .contains(data
                                                           .categories[index]
-                                                          .id);
-                                                      selectedJobCategoey
-                                                          .remove(data
-                                                              .categories[index]
-                                                              .name);
-                                                    } else {
-                                                      selectedJobId.add(data
+                                                          .name)
+                                                  ? IconButton(
+                                                      icon: const Icon(
+                                                          Icons.close),
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          selectedJobId.remove(
+                                                              data
+                                                                  .categories[
+                                                                      index]
+                                                                  .id);
+                                                          selectedJobCategoey
+                                                              .remove(data
+                                                                  .categories[
+                                                                      index]
+                                                                  .name);
+                                                          Navigator.pop(
+                                                              context);
+                                                        });
+                                                      },
+                                                    )
+                                                  : null,
+                                              onTap: () {
+                                                setState(() {
+                                                  if (selectedJobCategoey
+                                                      .contains(data
                                                           .categories[index]
-                                                          .id);
-                                                      selectedJobCategoey.add(
-                                                          data.categories[index]
-                                                              .name);
-                                                    }
-                                                    Navigator.pop(context);
-                                                  });
-                                                },
-                                              );
-                                            });
+                                                          .name)) {
+                                                    selectedJobId.remove(data
+                                                        .categories[index].id);
+                                                    selectedJobCategoey.remove(
+                                                        data.categories[index]
+                                                            .name);
+                                                  } else {
+                                                    selectedJobId.add(data
+                                                        .categories[index].id);
+                                                    selectedJobCategoey.add(data
+                                                        .categories[index]
+                                                        .name);
+                                                  }
+                                                  Navigator.pop(context);
+                                                });
+                                              },
+                                            );
+                                          },
+                                        );
                                       } else {
                                         return const CircularProgressIndicator();
                                       }
@@ -397,7 +395,8 @@ class _ScientificInformationState extends State<ScientificInformation> {
                                 padding: const EdgeInsets.all(10.0),
                                 child: FutureBuilder<List<Qualification>>(
                                     future: GetStaticForEmmployee()
-                                        .getSubcategory(selectedJobId.join(',')),
+                                        .getSubcategory(
+                                            selectedJobId.join(',')),
                                     builder: (context, snapshot) {
                                       if (snapshot.hasData) {
                                         var data = snapshot.data!;
