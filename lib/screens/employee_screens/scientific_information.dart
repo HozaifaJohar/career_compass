@@ -1,6 +1,5 @@
 import 'package:career_compass/models/static.dart';
 import 'package:career_compass/models/subcatygory.dart';
-import 'package:career_compass/services/company/get_static.dart';
 import 'package:career_compass/services/employee/get_selection.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:flutter/material.dart';
