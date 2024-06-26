@@ -18,10 +18,12 @@ class _ScientificInformationState extends State<ScientificInformation> {
   TextEditingController address = TextEditingController();
   List<String> selectedJobCategoey = [];
   List<String> selectedJobQualification = [];
+  List<String> selectedJobLevel = [];
+  List<String> selectedJobType = [];
+
   List<int> selectedJobId = [];
-  String jobLevelSelected = '';
-  String jobTypeSelected = '';
   String citySelected = '';
+
   String experienceSelected = '';
   String educateSelected = '';
   @override
@@ -274,38 +276,105 @@ class _ScientificInformationState extends State<ScientificInformation> {
                                                   data.levels[index].name,
                                                   textAlign: TextAlign.center,
                                                 ),
+                                                trailing: selectedJobLevel
+                                                        .contains(data
+                                                            .levels[index].name)
+                                                    ? IconButton(
+                                                        icon: const Icon(
+                                                            Icons.close),
+                                                        onPressed: () {
+                                                          setState(() {
+                                                            selectedJobLevel
+                                                                .remove(data
+                                                                    .levels[
+                                                                        index]
+                                                                    .name);
+                                                            Navigator.pop(
+                                                                context);
+                                                          });
+                                                        },
+                                                      )
+                                                    : null,
                                                 onTap: () {
                                                   setState(() {
-                                                    jobLevelSelected =
-                                                        data.levels[index].name;
+                                                    if (selectedJobLevel
+                                                        .contains(data
+                                                            .levels[index]
+                                                            .name)) {
+                                                      selectedJobLevel.remove(
+                                                          data.levels[index]
+                                                              .name);
+                                                    } else {
+                                                      selectedJobLevel.add(data
+                                                          .levels[index].name);
+                                                    }
                                                     Navigator.pop(context);
                                                   });
                                                 },
                                               );
                                             });
                                       } else {
-                                        return const Center(
-                                          child: CircularProgressIndicator(),
-                                        );
+                                        return const CircularProgressIndicator();
                                       }
                                     })),
                           );
                         });
                   },
                   child: Container(
-                    height: 80,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 238, 230, 230),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: ListTile(
-                      title: const Text(
-                        'Job Level',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text(jobLevelSelected),
-                    ),
-                  ),
+                      height: 80,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 238, 230, 230),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: ListTile(
+                        title: const Text(
+                          'Job Level',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: selectedJobLevel.isNotEmpty
+                            ? SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [
+                                    for (final jobLevel in selectedJobLevel)
+                                      Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: const Color.fromARGB(
+                                                252, 235, 232, 232),
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Text(jobLevel),
+                                                const SizedBox(width: 8),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      selectedJobLevel
+                                                          .remove(jobLevel);
+                                                    });
+                                                  },
+                                                  child: const Icon(
+                                                    Icons.close,
+                                                    size: 16,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              )
+                            : const Text('Select job level(s)'),
+                      )),
                 ),
                 const SizedBox(
                   height: 20,
@@ -340,38 +409,107 @@ class _ScientificInformationState extends State<ScientificInformation> {
                                                   data.jobTypes[index].name,
                                                   textAlign: TextAlign.center,
                                                 ),
+                                                trailing: selectedJobType
+                                                        .contains(data
+                                                            .jobTypes[index]
+                                                            .name)
+                                                    ? IconButton(
+                                                        icon: const Icon(
+                                                            Icons.close),
+                                                        onPressed: () {
+                                                          setState(() {
+                                                            selectedJobType
+                                                                .remove(data
+                                                                    .jobTypes[
+                                                                        index]
+                                                                    .name);
+                                                            Navigator.pop(
+                                                                context);
+                                                          });
+                                                        },
+                                                      )
+                                                    : null,
                                                 onTap: () {
                                                   setState(() {
-                                                    jobTypeSelected = data
-                                                        .jobTypes[index].name;
+                                                    if (selectedJobType
+                                                        .contains(data
+                                                            .jobTypes[index]
+                                                            .name)) {
+                                                      selectedJobType.remove(
+                                                          data.jobTypes[index]
+                                                              .name);
+                                                    } else {
+                                                      selectedJobType.add(data
+                                                          .jobTypes[index]
+                                                          .name);
+                                                    }
                                                     Navigator.pop(context);
                                                   });
                                                 },
                                               );
                                             });
                                       } else {
-                                        return const Center(
-                                          child: CircularProgressIndicator(),
-                                        );
+                                        return const CircularProgressIndicator();
                                       }
                                     })),
                           );
                         });
                   },
                   child: Container(
-                    height: 80,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 238, 230, 230),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: ListTile(
-                      title: const Text(
-                        'Job Type',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text(jobTypeSelected),
-                    ),
-                  ),
+                      height: 80,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 238, 230, 230),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: ListTile(
+                        title: const Text(
+                          'Job Type',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: selectedJobType.isNotEmpty
+                            ? SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [
+                                    for (final jobType in selectedJobType)
+                                      Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: const Color.fromARGB(
+                                                252, 235, 232, 232),
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Text(jobType),
+                                                const SizedBox(width: 8),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      selectedJobType
+                                                          .remove(jobType);
+                                                    });
+                                                  },
+                                                  child: const Icon(
+                                                    Icons.close,
+                                                    size: 16,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              )
+                            : const Text('Select job Type(s)'),
+                      )),
                 ),
                 const SizedBox(
                   height: 20,
@@ -711,6 +849,7 @@ class _ScientificInformationState extends State<ScientificInformation> {
               ],
             ),
           ),
-        ));
+        )
+        );
   }
 }
