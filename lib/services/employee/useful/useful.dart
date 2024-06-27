@@ -3,7 +3,7 @@ import 'package:career_compass/helper/api.dart';
 import 'package:career_compass/models/qual.dart';
 import 'package:career_compass/models/static.dart';
 
-class GetStaticForEmmployee {
+class UseFul {
   String url = AppString.baseUrl;
   Future<Static> getAllStatic() async {
     final response = await Api().get(
@@ -13,7 +13,7 @@ class GetStaticForEmmployee {
     return Static.fromJson(response);
   }
 
-  Future<List<Qualification>> getSubcategory(String categories) async {
+  Future<List<Qualification>> getThierSubCategory(String categories) async {
     String url = AppString.baseUrl;
 
     List<dynamic> jsonData = await Api().get(
