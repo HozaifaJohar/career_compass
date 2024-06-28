@@ -1,12 +1,14 @@
 import 'package:career_compass/models/static.dart';
+import 'package:career_compass/provider/filter_screen_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class ContainerAndSheetTypeOne extends StatefulWidget {
+class ContainerAndSheetCategories extends StatefulWidget {
   final String title;
   final String subtitle;
   final Future<List<Category>> staticList;
 
-  const ContainerAndSheetTypeOne({
+  const ContainerAndSheetCategories({
     required this.title,
     required this.subtitle,
     required this.staticList,
@@ -14,10 +16,11 @@ class ContainerAndSheetTypeOne extends StatefulWidget {
   });
 
   @override
-  State<ContainerAndSheetTypeOne> createState() => _ContainerAndSheetTypeOne();
+  State<ContainerAndSheetCategories> createState() =>
+      _ContainerAndSheetCategories();
 }
 
-class _ContainerAndSheetTypeOne extends State<ContainerAndSheetTypeOne> {
+class _ContainerAndSheetCategories extends State<ContainerAndSheetCategories> {
   List<String> selectedItemsList = [];
 
   @override
@@ -63,6 +66,11 @@ class _ContainerAndSheetTypeOne extends State<ContainerAndSheetTypeOne> {
                                     setState(() {
                                       selectedItemsList
                                           .remove(data[index].name);
+                                      if (widget.title == 'Job Role') {
+                                        Provider.of<FilterScreenHelper>(context,
+                                                listen: false)
+                                            .removeFromIds(data[index].id);
+                                      }
                                       Navigator.pop(context);
                                     });
                                   },
@@ -73,8 +81,18 @@ class _ContainerAndSheetTypeOne extends State<ContainerAndSheetTypeOne> {
                               if (selectedItemsList
                                   .contains(data[index].name)) {
                                 selectedItemsList.remove(data[index].name);
+                                if (widget.title == 'Job Role') {
+                                  Provider.of<FilterScreenHelper>(context,
+                                          listen: false)
+                                      .removeFromIds(data[index].id);
+                                }
                               } else {
                                 selectedItemsList.add(data[index].name);
+                                if (widget.title == 'Job Role') {
+                                  Provider.of<FilterScreenHelper>(context,
+                                          listen: false)
+                                      .setToIds(data[index].id);
+                                }
                               }
                               Navigator.of(context).pop();
                             });
@@ -108,7 +126,7 @@ class _ContainerAndSheetTypeOne extends State<ContainerAndSheetTypeOne> {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      for (final jobTitle in selectedItemsList)
+                      for (final item in selectedItemsList)
                         Padding(
                           padding: const EdgeInsets.all(4.0),
                           child: Container(
@@ -121,19 +139,8 @@ class _ContainerAndSheetTypeOne extends State<ContainerAndSheetTypeOne> {
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Text(jobTitle),
+                                  Text(item),
                                   const SizedBox(width: 8),
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        selectedItemsList.remove(jobTitle);
-                                      });
-                                    },
-                                    child: const Icon(
-                                      Icons.close,
-                                      size: 16,
-                                    ),
-                                  ),
                                 ],
                               ),
                             ),

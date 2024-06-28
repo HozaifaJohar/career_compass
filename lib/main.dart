@@ -1,4 +1,5 @@
 import 'package:career_compass/core/shared_preferences.dart';
+import 'package:career_compass/provider/filter_screen_helper.dart';
 import 'package:career_compass/provider/onTap_nav_company.dart';
 import 'package:career_compass/provider/onTap_nav_employee.dart';
 import 'package:career_compass/provider/type_provider.dart';
@@ -49,6 +50,7 @@ void main() async {
       ChangeNotifierProvider(create: (context) => OntapNavigationEmployee()),
       ChangeNotifierProvider(create: (context) => AuthCompany()),
       ChangeNotifierProvider(create: (context) => ActivicationCode()),
+      ChangeNotifierProvider(create: (context) => FilterScreenHelper()),
     ],
     child: const MyApp(),
   ));

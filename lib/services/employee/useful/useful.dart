@@ -10,7 +10,8 @@ class UseFul {
       url: '$url/statics',
     );
     print(response);
-    return Static.fromJson(response);
+    Static statics = Static.fromJson(response);
+    return statics;
   }
 
   Future<List<Qualification>> getThierSubCategory(String categories) async {
@@ -18,9 +19,13 @@ class UseFul {
 
     List<dynamic> jsonData = await Api().get(
         url: '$url/statics/get_their_subcategories?categories=$categories');
-    List<Qualification> subCategory =
-        jsonData.map((json) => Qualification.fromJson(json)).toList();
+    List<Qualification> subCategories =
+        jsonData.map((item) => Qualification.fromJson(item)).toList();
+    // this line of code takes a list of JSON objects (jsonData), converts each JSON
+    // object into a Qualification object using the Qualification.fromJson constructor, and then
+    // collects these Qualification objects into a List which is assigned to the variable
+    // subCategories.
     print(jsonData);
-    return subCategory;
+    return subCategories;
   }
 }
