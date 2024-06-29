@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
-class ContainerAndSheetStatic extends StatefulWidget {
+class ContainerAndSheetConstants extends StatefulWidget {
   final String title;
   final List<String> staticList;
-  const ContainerAndSheetStatic(
+  const ContainerAndSheetConstants(
       {required this.title, required this.staticList, super.key});
 
   @override
-  State<ContainerAndSheetStatic> createState() => _ContainerAndSheetStatic();
+  State<ContainerAndSheetConstants> createState() =>
+      _ContainerAndSheetConstants();
 }
 
-class _ContainerAndSheetStatic extends State<ContainerAndSheetStatic> {
+class _ContainerAndSheetConstants extends State<ContainerAndSheetConstants> {
   String selectedItem = '';
   @override
   Widget build(BuildContext context) {

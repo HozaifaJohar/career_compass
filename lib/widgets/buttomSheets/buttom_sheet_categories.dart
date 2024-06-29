@@ -22,7 +22,6 @@ class ContainerAndSheetCategories extends StatefulWidget {
 
 class _ContainerAndSheetCategories extends State<ContainerAndSheetCategories> {
   List<String> selectedItemsList = [];
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -66,12 +65,15 @@ class _ContainerAndSheetCategories extends State<ContainerAndSheetCategories> {
                                     setState(() {
                                       selectedItemsList
                                           .remove(data[index].name);
+                                      Provider.of<FilterScreenHelper>(context,
+                                              listen: false)
+                                          .removeFromStatic(data[index].name);
                                       if (widget.title == 'Job Role') {
                                         Provider.of<FilterScreenHelper>(context,
                                                 listen: false)
                                             .removeFromIds(data[index].id);
                                       }
-                                      Navigator.pop(context);
+                                      Navigator.of(context).pop();
                                     });
                                   },
                                 )
@@ -81,6 +83,9 @@ class _ContainerAndSheetCategories extends State<ContainerAndSheetCategories> {
                               if (selectedItemsList
                                   .contains(data[index].name)) {
                                 selectedItemsList.remove(data[index].name);
+                                Provider.of<FilterScreenHelper>(context,
+                                        listen: false)
+                                    .removeFromStatic(data[index].name);
                                 if (widget.title == 'Job Role') {
                                   Provider.of<FilterScreenHelper>(context,
                                           listen: false)
@@ -88,10 +93,13 @@ class _ContainerAndSheetCategories extends State<ContainerAndSheetCategories> {
                                 }
                               } else {
                                 selectedItemsList.add(data[index].name);
+                                Provider.of<FilterScreenHelper>(context,
+                                        listen: false)
+                                    .addToStatics(data[index].name);
                                 if (widget.title == 'Job Role') {
                                   Provider.of<FilterScreenHelper>(context,
                                           listen: false)
-                                      .setToIds(data[index].id);
+                                      .addToIds(data[index].id);
                                 }
                               }
                               Navigator.of(context).pop();
