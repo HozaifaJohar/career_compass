@@ -1,4 +1,5 @@
 import 'package:career_compass/constant/static_lists.dart';
+import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/models/qual.dart';
 import 'package:career_compass/models/static.dart';
 import 'package:career_compass/provider/filter_screen_helper.dart';
@@ -22,6 +23,7 @@ class _ScientificInformationState extends State<ScientificInformation> {
   late Future<List<Category>> staticTypes;
   late Future<List<Category>> staticLevels;
   late Future<List<Qualification>> staticQualifications;
+  String token = CashMemory().getCashData(key: 'accessToken');
 
   //late Future<Static> _futureStatic;
   //late Future<List<Subcategory>> _futureSubCategory;
@@ -275,6 +277,7 @@ class _ScientificInformationState extends State<ScientificInformation> {
                 ),
                 GestureDetector(
                   onTap: () {
+                 
                     print(
                         Provider.of<FilterScreenHelper>(context, listen: false)
                             .selectedJobId

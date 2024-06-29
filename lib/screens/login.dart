@@ -2,6 +2,7 @@ import 'package:career_compass/provider/type_provider.dart';
 import 'package:career_compass/services/employee/employee_auth/login_employee_service.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/flash_message.dart';
+import 'package:career_compass/widgets/obsecure_textfield.dart';
 import 'package:career_compass/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -44,15 +45,18 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(
                       height: 30,
                     ),
-                    CustomTextField(
-                      title: 'password',
+                   ObsecureTextField(
+                      isObsecureChar: '.',
+                       maxLines: 1,
+                        borderColor: AppColors.amber,
                       hint: 'enter your password',
+                      validateMessage: 'Please enter a password',
+                      suffixIcon: Icon(Icons.visibility),
+                      title: 'Password',
                       controller: password,
-                      maxLines: 1,
-                      borderColor: AppColors.amber,
                       border: 50,
-                      validateMessage: 'please enter valid password ',
                     ),
+
                     const SizedBox(
                       height: 20,
                     ),

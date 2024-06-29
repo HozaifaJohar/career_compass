@@ -2,6 +2,7 @@ import 'package:career_compass/provider/type_provider.dart';
 import 'package:career_compass/screens/company_screens/register_company.dart';
 import 'package:career_compass/screens/employee_screens/register_employee.dart';
 import 'package:career_compass/style/app_colors.dart';
+import 'package:career_compass/widgets/obsecure_textfield.dart';
 import 'package:career_compass/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -74,15 +75,18 @@ class RegisterScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    CustomTextField(
+                  ObsecureTextField(
+                      isObsecureChar: '.',
+                       maxLines: 1,
+                        borderColor: AppColors.amber,
+                      hint: 'enter your password',
+                      validateMessage: 'Please enter a password',
+                      suffixIcon: Icon(Icons.visibility),
                       title: 'Password',
-                      //hint: 'Enter the password',
                       controller: password,
-                      maxLines: 1,
-                      borderColor: AppColors.amber,
                       border: 50,
-                      validateMessage: "Please enter valid password",
                     ),
+
                     const SizedBox(
                       height: 20,
                     ),

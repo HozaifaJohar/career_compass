@@ -1,4 +1,5 @@
 import 'package:career_compass/core/shared_preferences.dart';
+import 'package:career_compass/provider/counter.dart';
 import 'package:career_compass/provider/filter_screen_helper.dart';
 import 'package:career_compass/provider/onTap_nav_company.dart';
 import 'package:career_compass/provider/onTap_nav_employee.dart';
@@ -51,6 +52,7 @@ void main() async {
       ChangeNotifierProvider(create: (context) => AuthCompany()),
       ChangeNotifierProvider(create: (context) => ActivicationCode()),
       ChangeNotifierProvider(create: (context) => FilterScreenHelper()),
+      ChangeNotifierProvider(create: (context) => Counter()),
     ],
     child: const MyApp(),
   ));
@@ -65,7 +67,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: ScientificInformation(),
+      home: AddJob(),
       routes: {
         '/start_screen': (context) => StartScreen(),
         'register_screen': (context) => RegisterScreen(),
