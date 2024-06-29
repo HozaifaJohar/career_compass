@@ -1,11 +1,13 @@
 import 'package:career_compass/constant/static_lists.dart';
+import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/models/qual.dart';
 import 'package:career_compass/models/static.dart';
 import 'package:career_compass/provider/filter_screen_helper.dart';
+import 'package:career_compass/services/employee/employee_requests/set_statics.dart';
 import 'package:career_compass/services/employee/useful/useful.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/buttomSheets/buttom_sheet_categories.dart';
-import 'package:career_compass/widgets/buttomSheets/buttom_sheet_staticitems.dart';
+import 'package:career_compass/widgets/buttomSheets/buttom_sheet_constitems.dart';
 import 'package:career_compass/widgets/buttomSheets/buttom_sheet_subcategories.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,29 +25,18 @@ class _ScientificInformationState extends State<ScientificInformation> {
   late Future<List<Category>> staticLevels;
   late Future<List<Qualification>> staticQualifications;
 
-  //late Future<Static> _futureStatic;
-  //late Future<List<Subcategory>> _futureSubCategory;
-  //TextEditingController address = TextEditingController();
-  // List<String> selectedJobCategoey = [];
-
-  // List<String> selectedJobQualification = [];
-  // List<int> selectedJobId = [];
-
   @override
   void initState() {
     super.initState();
-    //_futureStatic = UseFul().getAllStatic();
     staticCategories =
         UseFul().getAllStatic().then((value) => value.categories);
     staticTypes = UseFul().getAllStatic().then((value) => value.jobTypes);
     staticLevels = UseFul().getAllStatic().then((value) => value.levels);
-    // staticQualifications =
-    //     UseFul().getThierSubCategory(selectedJobId.join(','));
-    // _futuresubcategory = GetStaticForEmmployee().getSubcategory(selectedJobId);
   }
 
   @override
   Widget build(BuildContext context) {
+    List<String> name = [];
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
@@ -105,168 +96,22 @@ class _ScientificInformationState extends State<ScientificInformation> {
                           .selectedJobId
                           .join(',')),
                 ),
-                // GestureDetector(
-                //   onTap: () {
-                //     showModalBottomSheet(
-                //         shape: const BeveledRectangleBorder(
-                //             borderRadius: BorderRadius.only(
-                //                 topLeft: Radius.circular(50),
-                //                 topRight: Radius.circular(50))),
-                //         context: context,
-                //         builder: (BuildContext context) {
-                //           return Container(
-                //             decoration: const BoxDecoration(
-                //                 color: Color.fromARGB(255, 222, 219, 219),
-                //                 borderRadius: BorderRadius.only(
-                //                     topLeft: Radius.circular(50),
-                //                     topRight: Radius.circular(50))),
-                //             child: Padding(
-                //                 padding: const EdgeInsets.all(10.0),
-                //                 child: FutureBuilder<List<Qualification>>(
-                //                     future: UseFul().getThierSubCategory(
-                //                         selectedJobId.join(',')),
-                //                     builder: (context, snapshot) {
-                //                       if (snapshot.hasData) {
-                //                         var data = snapshot.data!;
-                //                         return ListView.builder(
-                //                             itemCount: data.length,
-                //                             itemBuilder: (context, index) {
-                //                               return ListTile(
-                //                                 title: Text(
-                //                                   data[index].name,
-                //                                   textAlign: TextAlign.center,
-                //                                 ),
-                //                                 trailing:
-                //                                     selectedJobQualification
-                //                                             .contains(
-                //                                                 data[index]
-                //                                                     .name)
-                //                                         ? IconButton(
-                //                                             icon: const Icon(
-                //                                                 Icons.close),
-                //                                             onPressed: () {
-                //                                               setState(() {
-                //                                                 // selectedJobId.remove(
-                //                                                 //     data
-                //                                                 //         .categories[
-                //                                                 //             index]
-                //                                                 //         .id);
-                //                                                 selectedJobQualification
-                //                                                     .remove(data[
-                //                                                             index]
-                //                                                         .name);
-                //                                                 Navigator.pop(
-                //                                                     context);
-                //                                               });
-                //                                             },
-                //                                           )
-                //                                         : null,
-                //                                 onTap: () {
-                //                                   setState(() {
-                //                                     if (selectedJobQualification
-                //                                         .contains(
-                //                                             data[index].name)) {
-                //                                       // selectedJobId.remove(data
-                //                                       //     .categories[index].id);
-                //                                       selectedJobQualification
-                //                                           .remove(
-                //                                               data[index].name);
-                //                                     } else {
-                //                                       // selectedJobId.add(data
-                //                                       //     .categories[index].id);
-                //                                       selectedJobQualification
-                //                                           .add(
-                //                                               data[index].name);
-                //                                     }
-                //                                     Navigator.pop(context);
-                //                                   });
-                //                                 },
-                //                               );
-                //                             });
-                //                       } else {
-                //                         return const Center(
-                //                             child: SizedBox(
-                //                                 child:
-                //                                     CircularProgressIndicator()));
-                //                       }
-                //                     })),
-                //           );
-                //         });
-                //   },
-                //   child: Container(
-                //       height: 80,
-                //       width: double.infinity,
-                //       decoration: BoxDecoration(
-                //           color: const Color.fromARGB(255, 238, 230, 230),
-                //           borderRadius: BorderRadius.circular(10)),
-                //       child: ListTile(
-                //         title: const Text(
-                //           'Job Qualification',
-                //           style: TextStyle(fontWeight: FontWeight.bold),
-                //         ),
-                //         subtitle: selectedJobQualification.isNotEmpty
-                //             ? SingleChildScrollView(
-                //                 scrollDirection: Axis.horizontal,
-                //                 child: Row(
-                //                   children: [
-                //                     for (final jobQualification
-                //                         in selectedJobQualification)
-                //                       Padding(
-                //                         padding: const EdgeInsets.all(4.0),
-                //                         child: Container(
-                //                           decoration: BoxDecoration(
-                //                             color: const Color.fromARGB(
-                //                                 252, 235, 232, 232),
-                //                             borderRadius:
-                //                                 BorderRadius.circular(8),
-                //                           ),
-                //                           child: Padding(
-                //                             padding: const EdgeInsets.all(8.0),
-                //                             child: Row(
-                //                               mainAxisSize: MainAxisSize.min,
-                //                               children: [
-                //                                 Text(jobQualification),
-                //                                 const SizedBox(width: 8),
-                //                                 GestureDetector(
-                //                                   onTap: () {
-                //                                     setState(() {
-                //                                       selectedJobQualification
-                //                                           .remove(
-                //                                               jobQualification);
-                //                                     });
-                //                                   },
-                //                                   child: const Icon(
-                //                                     Icons.close,
-                //                                     size: 16,
-                //                                   ),
-                //                                 ),
-                //                               ],
-                //                             ),
-                //                           ),
-                //                         ),
-                //                       ),
-                //                   ],
-                //                 ),
-                //               )
-                //             : const Text('Select job qualifications(s)'),
-                //       )),
-                // ),
                 const SizedBox(
                   height: 20,
                 ),
-                ContainerAndSheetStatic(
+                ContainerAndSheetConstants(
                     title: 'City', staticList: StaticLists.city),
                 const SizedBox(
                   height: 20,
                 ),
-                ContainerAndSheetStatic(
+                ContainerAndSheetConstants(
                   title: 'Experience',
                   staticList: StaticLists.experience,
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                ContainerAndSheetStatic(
+                ContainerAndSheetConstants(
                   title: 'Education',
                   staticList: StaticLists.education,
                 ),
@@ -275,10 +120,21 @@ class _ScientificInformationState extends State<ScientificInformation> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    print(
+                    List<Map<String, String>> allCategories = [];
+                    var length =
                         Provider.of<FilterScreenHelper>(context, listen: false)
-                            .selectedJobId
-                            .toString());
+                            .allSelectedCategories
+                            .length;
+                    for (int i = 0; i < length; i++) {
+                      String category = Provider.of<FilterScreenHelper>(context,
+                              listen: false)
+                          .allSelectedCategories[i];
+                      allCategories.add({"name": category});
+                    }
+                    String accessToken =
+                        CashMemory().getCashData(key: 'accessToken');
+                    SetStatics().postStatics(
+                        allCategories: allCategories, accessToken: accessToken);
                   },
                   child: Container(
                     height: 40,
