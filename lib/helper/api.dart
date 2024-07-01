@@ -96,7 +96,10 @@ Future<dynamic> put({
   );
 
   if (token != null) {
-    headers.addAll({'Authorization': 'Bearer$token'});
+    headers.addAll({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer$token',
+    });
   }
 
   http.Response response = await http.post(

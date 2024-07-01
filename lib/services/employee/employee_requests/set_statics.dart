@@ -12,12 +12,11 @@ class SetStatics {
     required String accessToken,
   }) async {
     var bodyJson = allCategories;
-    print('////hiii iam here////');
+    print('///$allCategories/hiii iam herea/$accessToken///');
     var response = await Api().post(
       url: '$url/employees/set_statics',
       body: json.encode(bodyJson),
       token: accessToken,
     );
-    print('////hiii iam here////');
   }
 }
