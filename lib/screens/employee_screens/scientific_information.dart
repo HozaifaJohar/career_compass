@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:career_compass/constant/static_lists.dart';
 import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/models/qual.dart';
@@ -123,8 +125,6 @@ class _ScientificInformationState extends State<ScientificInformation> {
                   onTap: () {
                     List<Map<String, String>> allCategories = [];
                     var length =
-
-
                         Provider.of<FilterScreenHelper>(context, listen: false)
                             .allSelectedCategories
                             .length;
@@ -134,10 +134,14 @@ class _ScientificInformationState extends State<ScientificInformation> {
                           .allSelectedCategories[i];
                       allCategories.add({"name": category});
                     }
+                    //final jsonBody = allCategories;
                     String accessToken =
                         CashMemory().getCashData(key: 'accessToken');
                     SetStatics().postStatics(
-                        allCategories: allCategories, accessToken: accessToken);
+                      allCategories: allCategories,
+                      accessToken: accessToken,
+                    );
+                    // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImltYWQiLCJlbWFpbCI6ImltYWRmZmZmQGdtYWlsLmNvbSIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3MTk3MDI3NDgsImV4cCI6MTcyMDMwNzU0OH0.wmCJ0Ddii1x_SgT-pzC09xO5GXR3VJ-v8HbKmhtD0Uo');
                   },
                   child: Container(
                     height: 40,
