@@ -123,8 +123,6 @@ class _ScientificInformationState extends State<ScientificInformation> {
                   onTap: () {
                     List<Map<String, String>> allCategories = [];
                     var length =
-
-
                         Provider.of<FilterScreenHelper>(context, listen: false)
                             .allSelectedCategories
                             .length;
@@ -134,8 +132,11 @@ class _ScientificInformationState extends State<ScientificInformation> {
                           .allSelectedCategories[i];
                       allCategories.add({"name": category});
                     }
+                   // CashMemory().daleteCashItem(key: 'accessToken');
                     String accessToken =
                         CashMemory().getCashData(key: 'accessToken');
+                  //  print(token);
+
                     SetStatics().postStatics(
                         allCategories: allCategories, accessToken: accessToken);
                   },
