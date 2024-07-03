@@ -1,3 +1,4 @@
+import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/provider/onTap_nav_company.dart';
 import 'package:career_compass/screens/company_screens/add_job.dart';
 import 'package:career_compass/screens/company_screens/home_company.dart';
@@ -102,7 +103,13 @@ class NavigationCompanyScreen extends StatelessWidget {
                   ListTile(
                     title: const Text('Logout'),
                     leading: const Icon(Icons.login),
-                    onTap: () {},
+                    onTap: () {
+                         CashMemory()
+                          .daleteCashItem(key: 'accessToken')
+                          .then((value) {
+                        Navigator.pushNamed(context, '/start_screen');
+                      }).catchError((error) {});
+                    },
                   ),
                   ListTile(
                     title: const Text('Change Language'),

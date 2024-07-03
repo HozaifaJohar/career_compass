@@ -1,4 +1,5 @@
 import 'package:career_compass/provider/type_provider.dart';
+import 'package:career_compass/services/company/auth_company.dart';
 import 'package:career_compass/services/employee/employee_auth/login_employee_service.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/flash_message.dart';
@@ -45,10 +46,10 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(
                       height: 30,
                     ),
-                   ObsecureTextField(
+                    ObsecureTextField(
                       isObsecureChar: '.',
-                       maxLines: 1,
-                        borderColor: AppColors.amber,
+                      maxLines: 1,
+                      borderColor: AppColors.amber,
                       hint: 'enter your password',
                       validateMessage: 'Please enter a password',
                       suffixIcon: Icon(Icons.visibility),
@@ -56,7 +57,6 @@ class LoginScreen extends StatelessWidget {
                       controller: password,
                       border: 50,
                     ),
-
                     const SizedBox(
                       height: 20,
                     ),
@@ -121,7 +121,11 @@ class LoginScreen extends StatelessWidget {
                               Navigator.pushNamed(
                                   context, '/navigation_employee');
                             }
-                          } else {
+                          } else if(!type){
+                          
+                                Provider.of<AuthCompany>(context, listen: false)
+                                    .login(email.text, password.text);
+                             Navigator.pushNamed(context, '/navigation_company');
                             // Marah do what does you should do  :-)
                           }
                         }

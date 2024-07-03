@@ -1,6 +1,7 @@
 import 'package:career_compass/provider/counter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class CustomCounterContainer extends StatelessWidget {
@@ -31,25 +32,26 @@ class CustomCounterContainer extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(title),
-            const SizedBox(
-              width: 10,
+            Text(
+              title,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
+            const SizedBox(width: 10),
+            Text('$count'),
             Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text('$count'),
-                const SizedBox(
-                  width: 150,
-                ),
                 Container(
                   width: 40,
                   height: 40,
                   decoration: const BoxDecoration(
                     color: Color.fromARGB(145, 148, 145, 145),
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20)),
+                      topLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                    ),
                   ),
                   child: Center(
                     child: IconButton(
@@ -60,17 +62,16 @@ class CustomCounterContainer extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
+                const SizedBox(width: 10),
                 Container(
                   width: 40,
                   height: 40,
                   decoration: const BoxDecoration(
                     color: Color.fromARGB(145, 148, 145, 145),
                     borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(20),
-                        bottomLeft: Radius.circular(20)),
+                      topRight: Radius.circular(20),
+                      bottomLeft: Radius.circular(20),
+                    ),
                   ),
                   child: Center(
                     child: IconButton(

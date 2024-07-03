@@ -133,6 +133,8 @@ class _ScientificInformationState extends State<ScientificInformation> {
                     }
                     String accessToken =
                         CashMemory().getCashData(key: 'accessToken');
+                  //  print(token);
+
                     SetStatics().postStatics(
                       allCategories: allCategories,
                       accessToken: accessToken,

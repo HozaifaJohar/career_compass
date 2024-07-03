@@ -1,8 +1,11 @@
+import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/models/static.dart';
 import 'package:career_compass/models/subcatygory.dart';
 import 'package:career_compass/provider/counter.dart';
+import 'package:career_compass/services/company/add_job.dart';
 import 'package:career_compass/services/company/get_static.dart';
 import 'package:career_compass/style/app_colors.dart';
+import 'package:career_compass/widgets/buttom.dart';
 import 'package:career_compass/widgets/counter.dart';
 import 'package:career_compass/widgets/textfield.dart';
 import 'package:career_compass/widgets/waves.dart';
@@ -26,7 +29,9 @@ class _AddJobState extends State<AddJob> {
   List<String> selectedJobQualification = [];
   List<int> selectedJobId = [];
   List<int> selectedQualId = [];
-
+  int LevelId = 0;
+  int typeId = 0;
+  int salary = 0;
   String jobRoleSelected = '';
   String jobLevelSelected = '';
   String jobTypeSelected = '';
@@ -74,7 +79,7 @@ class _AddJobState extends State<AddJob> {
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
                     const SizedBox(
@@ -288,6 +293,8 @@ class _AddJobState extends State<AddJob> {
                                                       setState(() {
                                                         jobLevelSelected = data
                                                             .levels[index].name;
+                                                        LevelId = data
+                                                            .levels[index].id;
                                                         Navigator.pop(context);
                                                       });
                                                     },
@@ -354,6 +361,8 @@ class _AddJobState extends State<AddJob> {
                                                         jobTypeSelected = data
                                                             .jobTypes[index]
                                                             .name;
+                                                        typeId = data
+                                                            .jobTypes[index].id;
                                                         Navigator.pop(context);
                                                       });
                                                     },
@@ -434,6 +443,9 @@ class _AddJobState extends State<AddJob> {
                                                                     selectedJobQualification
                                                                         .remove(
                                                                             data[index].name);
+                                                                    selectedQualId
+                                                                        .remove(
+                                                                            data[index].id);
                                                                     Navigator.pop(
                                                                         context);
                                                                   });
@@ -446,15 +458,15 @@ class _AddJobState extends State<AddJob> {
                                                             .contains(
                                                                 data[index]
                                                                     .name)) {
-                                                          // selectedJobId.remove(data
-                                                          //     .categories[index].id);
+                                                          selectedQualId.remove(
+                                                              data[index].id);
                                                           selectedJobQualification
                                                               .remove(
                                                                   data[index]
                                                                       .name);
                                                         } else {
-                                                          // selectedJobId.add(data
-                                                          //     .categories[index].id);
+                                                          selectedQualId.add(
+                                                              data[index].id);
                                                           selectedJobQualification
                                                               .add(data[index]
                                                                   .name);
@@ -626,6 +638,73 @@ class _AddJobState extends State<AddJob> {
                       border: 10,
                       borderColor: AppColors.amber,
                     ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Consumer<AddJobServices>(builder: (context, job, child) {
+                      return customButton(
+                          text: 'Add job',
+                          tap: () {
+                            int s = int.parse(salary.text);
+                            job.addJob(
+                                title.text,
+                                typeId,
+                                LevelId,
+                                selectedJobId,
+                                selectedQualId,
+                                desc.text,
+                                s,
+                                counter.countHour,
+                                counter.countExper,
+                                counter.countMax,
+                                genderSelected);
+                          },
+                          context: context);
+                    })
+
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     // CashMemory().daleteCashItem(key: 'accessToken');
+                    //     String t = CashMemory().getCashData(key: 'accessToken');
+                    //     print(t);
+                    //     // print(title.text);
+                    //     // print(selectedQualId);
+                    //     // print(LevelId);
+                    //     // print(typeId);
+                    //     int s = int.parse(salary.text);
+                    //     // print(s);
+
+                    //     AddJobServices().addJob(
+                    //         title.text,
+                    //         typeId,
+                    //         LevelId,
+                    //         selectedJobId,
+                    //         selectedQualId,
+                    //         desc.text,
+                    //         s,
+                    //         counter.countHour,
+                    //         counter.countExper,
+                    //         counter.countMax,
+                    //         genderSelected);
+                    //   },
+                    //   child: Container(
+                    //     height: 40,
+                    //     width: 140,
+                    //     decoration: BoxDecoration(
+                    //         gradient: LinearGradient(colors: [
+                    //           AppColors.mainColor,
+                    //           // Color(0xFF00b4db), // First color
+                    //           const Color(0xFF00b3b0),
+                    //         ]),
+                    //         borderRadius:
+                    //             const BorderRadius.all(Radius.circular(20))),
+                    //     child: const Center(
+                    //         child: Text(
+                    //       'Add Job',
+                    //       style: TextStyle(color: Colors.white),
+                    //     )),
+                    //   ),
+                    // )
                   ],
                 ),
               ),

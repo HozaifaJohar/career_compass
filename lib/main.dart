@@ -26,6 +26,7 @@ import 'package:career_compass/screens/company_screens/home_company.dart';
 import 'package:career_compass/screens/register.dart';
 import 'package:career_compass/screens/start.dart';
 import 'package:career_compass/services/company/activateotp_company.dart';
+import 'package:career_compass/services/company/add_job.dart';
 import 'package:career_compass/services/company/auth_company.dart';
 import 'package:career_compass/services/employee/employee_auth/activation_employee.dart';
 import 'package:career_compass/services/employee/employee_auth/login_employee_service.dart';
@@ -53,6 +54,7 @@ void main() async {
       ChangeNotifierProvider(create: (context) => ActivicationCode()),
       ChangeNotifierProvider(create: (context) => FilterScreenHelper()),
       ChangeNotifierProvider(create: (context) => Counter()),
+      ChangeNotifierProvider(create: (context) => AddJobServices()),
     ],
     child: const MyApp(),
   ));

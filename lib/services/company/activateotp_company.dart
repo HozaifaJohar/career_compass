@@ -1,4 +1,5 @@
 import 'package:career_compass/constant/url.dart';
+import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/helper/api.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,7 @@ class ActivicationCode extends ChangeNotifier {
         body: {"email": email, "activationCode": code});
     print(data);
     String token = data['access_token'];
+    CashMemory().insertToCash(key: 'accessToken', value: token);
     print(token);
     return data;
   }

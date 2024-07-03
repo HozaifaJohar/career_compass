@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:career_compass/constant/url.dart';
+import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/helper/api.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -24,13 +25,15 @@ class AuthCompany extends ChangeNotifier {
     return data;
   }
 
-  Future<Map<String, dynamic>> login(String email, String password) async {
+  Future <String> login(String email, String password) async {
     var data = await Api().post(
         url: '$url/companyAuth/login',
         body: {"email": email, "password": password});
     print(data);
     String accessToken = data["access_token"];
-    print(accessToken);
+     String token = data['access_token'];
+    CashMemory().insertToCash(key: 'accessToken', value: token);
+    print(token);
     return data;
   }
 }

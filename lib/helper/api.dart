@@ -45,15 +45,16 @@ class Api {
       body: body,
       headers: headers,
     );
+
     if (response.statusCode == 200 || response.statusCode == 201) {
       print(response.statusCode);
       var data = jsonDecode(response.body);
-      print('///${data}///');
+      print('///$data///');
       return data;
     } else if (response.statusCode == 403) {
       print(response.statusCode);
       var data = jsonDecode(response.body);
-      print('///${data}///');
+      print('///$data///');
       return data;
     } else {
       throw Exception(
