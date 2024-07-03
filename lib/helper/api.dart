@@ -34,7 +34,10 @@ class Api {
     Map<String, String> headers = {};
 
     if (token != null) {
-      headers.addAll({'Authorization': 'Bearer $token'});
+      headers.addAll({
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+      });
     }
 
     http.Response response = await http.post(

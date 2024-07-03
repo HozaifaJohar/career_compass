@@ -10,9 +10,8 @@ class SetStatics {
     required List<Map<String, String>> allCategories,
     required String accessToken,
   }) async {
-    var bodyJson = allCategories;
-    print('///$allCategories/hiii iam herea/$accessToken///');
-    var response = await Api().post(
+    List<Map<String, String>> bodyJson = allCategories;
+    await Api().post(
       url: '$url/employees/set_statics',
       body: json.encode(bodyJson),
       token: accessToken,
