@@ -15,7 +15,7 @@ class AddJobServices extends ChangeNotifier {
 
   String token = CashMemory().getCashData(key: 'accessToken');
 
- void addJob(
+  Future< dynamic> addJob(
       String title,
       int typeId,
       int levelId,
@@ -42,27 +42,11 @@ class AddJobServices extends ChangeNotifier {
       "number_of_employees": maxEmo,
       "wanted_gender": gender
     };
-    var data = await http.post(Uri.parse('$url/job'), body: json.encode(bodyJson),headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    },);
-    int statusCode = data.statusCode;
-    print('Status Code: $statusCode');
-    if(data.statusCode==200 || data.statusCode==201){
-    _isLoading = false;
-    _resMessage = "Job Added Successfully!";
-      notifyListeners();
-    }else {
-        final res = json.decode(data.body);
-
-        _resMessage = res['message'];
-
-        print(res);
-        _isLoading = false;
-        notifyListeners();
-      }
-    var d = jsonDecode(data.body);
-    print(d);
-    
+    var data = await Api()
+        .post(url: '$url/job', body: json.encode(bodyJson), token: token);
+   
+    //var d = jsonDecode(data.body);
+  //  print(data);
+    return data;
   }
 }

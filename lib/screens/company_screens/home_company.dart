@@ -1,5 +1,7 @@
+import 'package:career_compass/models/job.dart';
 import 'package:career_compass/provider/onTap_nav_company.dart';
 import 'package:career_compass/screens/company_screens/companyjob_details.dart';
+import 'package:career_compass/services/company/get_companyjob.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/jobcard_company.dart';
 import 'package:career_compass/widgets/waves.dart';
@@ -7,8 +9,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
-class HomePageCompany extends StatelessWidget {
+class HomePageCompany extends StatefulWidget {
   const HomePageCompany({super.key});
+
+  @override
+  State<HomePageCompany> createState() => _HomePageCompanyState();
+}
+
+class _HomePageCompanyState extends State<HomePageCompany> {
+  late Future<List<Job>> _jobs;
+  @override
+  void initState() {
+    super.initState();
+    _jobs = JobServices().getAllJob();
+  }
 
   @override
   Widget build(BuildContext context) {

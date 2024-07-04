@@ -135,13 +135,14 @@ class _ScientificInformationState extends State<ScientificInformation> {
                       allCategories.add({"name": category});
                     }
                     //final jsonBody = allCategories;
-                    String accessToken =
-                        CashMemory().getCashData(key: 'accessToken');
-                  //  print(token);
+                    // String accessToken =
+                    //     CashMemory().getCashData(key: 'accessToken');
+                    //  print(token);
 
                     SetStatics().postStatics(
                       allCategories: allCategories,
-                      accessToken: accessToken,
+                      accessToken:
+                          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwibmFtZSI6ImltYWQiLCJlbWFpbCI6Im1tbW1AZ21haWwuY29tIiwiZ2VuZGVyIjoibWFsZSIsImlhdCI6MTcxOTg1ODA4MCwiZXhwIjoxNzIwNDYyODgwfQ.BAOyGC22N_8jPtpJV6SzLWnrMlZU3q66ha2NID7cNJI',
                     );
                     // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImltYWQiLCJlbWFpbCI6ImltYWRmZmZmQGdtYWlsLmNvbSIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3MTk3MDI3NDgsImV4cCI6MTcyMDMwNzU0OH0.wmCJ0Ddii1x_SgT-pzC09xO5GXR3VJ-v8HbKmhtD0Uo');
                   },

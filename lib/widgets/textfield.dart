@@ -10,8 +10,8 @@ class CustomTextField extends StatelessWidget {
   final double? border;
   final String? Function(String?)? validator;
   final String validateMessage;
-
-  const CustomTextField({
+  
+  CustomTextField({
     this.title,
     this.hint,
     this.controller,

@@ -7,6 +7,7 @@ import 'package:career_compass/services/company/get_static.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/buttom.dart';
 import 'package:career_compass/widgets/counter.dart';
+import 'package:career_compass/widgets/flash_message.dart';
 import 'package:career_compass/widgets/textfield.dart';
 import 'package:career_compass/widgets/waves.dart';
 import 'package:flutter/cupertino.dart';
@@ -642,6 +643,7 @@ class _AddJobState extends State<AddJob> {
                       height: 20,
                     ),
                     Consumer<AddJobServices>(builder: (context, job, child) {
+                     
                       return customButton(
                           text: 'Add job',
                           tap: () {
@@ -659,7 +661,8 @@ class _AddJobState extends State<AddJob> {
                                 counter.countMax,
                                 genderSelected);
                           },
-                          context: context);
+                          context: context,
+                          );
                     })
 
                     // GestureDetector(
