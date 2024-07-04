@@ -35,8 +35,8 @@ class Api {
 
     if (token != null) {
       headers.addAll({
+        'Authorization': 'Bearer $token',
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token'
       });
     }
 

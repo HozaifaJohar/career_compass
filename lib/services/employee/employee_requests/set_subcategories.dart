@@ -2,18 +2,17 @@ import 'dart:convert';
 
 import 'package:career_compass/constant/url.dart';
 import 'package:career_compass/helper/api.dart';
-import 'package:http/http.dart' as http;
 
-class SetStatics {
+class SubCategories {
   final url = AppString.baseUrl;
 
-  Future postStatics({
-    required List<Map<String, String>> allCategories,
+  void post({
     required String accessToken,
+    required List<Map<String, String>> allSubCategories,
   }) async {
-    List<Map<String, String>> bodyJson = allCategories;
+    List<Map<String, String>> bodyJson = allSubCategories;
     await Api().post(
-      url: '$url/employees/set_statics',
+      url: '$url/employees/set_subcategories',
       body: json.encode(bodyJson),
       token: accessToken,
     );
