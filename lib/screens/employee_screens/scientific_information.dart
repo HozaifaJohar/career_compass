@@ -121,6 +121,7 @@ class _ScientificInformationState extends State<ScientificInformation> {
                 GestureDetector(
                   onTap: () {
                     List<Map<String, String>> allCategories = [];
+                    List<Map<String, String>> allSubCategories = [];
                     int length =
                         Provider.of<FilterScreenHelper>(context, listen: false)
                             .allSelectedCategories
@@ -133,11 +134,11 @@ class _ScientificInformationState extends State<ScientificInformation> {
                     }
                     String accessToken =
                         CashMemory().getCashData(key: 'accessToken');
-                  //  print(token);
-
                     SetStatics().postStatics(
                       allCategories: allCategories,
-                      accessToken: accessToken,
+                      //accessToken:accessToken
+                      accessToken:
+                          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImltYWQiLCJlbWFpbCI6ImltYWRmZmZmQGdtYWlsLmNvbSIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3MjAwMDM4NTQsImV4cCI6MTcyMDYwODY1NH0.kCD5Ae5cIxkTcj3vN0OOS8K3-WM_k7EusGpBOT5MSSQ',
                     );
                   },
                   child: Container(

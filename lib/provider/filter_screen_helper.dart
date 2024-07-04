@@ -26,4 +26,18 @@ class FilterScreenHelper with ChangeNotifier {
     _allSelectedCategories.remove(value);
     notifyListeners();
   }
+
+////////////////////////////////////////////////////////////////////////////////////
+
+  final List<String> _allSubCategories = [];
+  List<String> get allSubCategories => _allSubCategories;
+  void addToSubCategories(String value) {
+    _allSubCategories.add(value);
+    notifyListeners();
+  }
+
+  void removeFromSubCategories(String value) {
+    _allSelectedCategories.remove(value);
+    notifyListeners();
+  }
 }

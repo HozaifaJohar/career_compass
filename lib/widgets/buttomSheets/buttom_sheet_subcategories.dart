@@ -1,5 +1,7 @@
 import 'package:career_compass/models/qual.dart';
+import 'package:career_compass/provider/filter_screen_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ContainerAndSheetSubcategories extends StatefulWidget {
   final String title;
@@ -64,6 +66,10 @@ class _ContainerAndSheetSubcategories
                                     setState(() {
                                       selectedItemsList
                                           .remove(data[index].name);
+                                      Provider.of<FilterScreenHelper>(context,
+                                              listen: false)
+                                          .removeFromSubCategories(
+                                              data[index].name);
                                       Navigator.pop(context);
                                     });
                                   },
@@ -74,8 +80,14 @@ class _ContainerAndSheetSubcategories
                               if (selectedItemsList
                                   .contains(data[index].name)) {
                                 selectedItemsList.remove(data[index].name);
+                                Provider.of<FilterScreenHelper>(context,
+                                        listen: false)
+                                    .removeFromSubCategories(data[index].name);
                               } else {
                                 selectedItemsList.add(data[index].name);
+                                Provider.of<FilterScreenHelper>(context,
+                                        listen: false)
+                                    .addToSubCategories(data[index].name);
                               }
                               Navigator.of(context).pop();
                             });
