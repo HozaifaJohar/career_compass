@@ -1,6 +1,7 @@
 import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/provider/counter.dart';
 import 'package:career_compass/provider/filter_screen_helper.dart';
+import 'package:career_compass/provider/jobs_provider.dart';
 import 'package:career_compass/provider/onTap_nav_company.dart';
 import 'package:career_compass/provider/onTap_nav_employee.dart';
 import 'package:career_compass/provider/type_provider.dart';
@@ -28,6 +29,7 @@ import 'package:career_compass/screens/start.dart';
 import 'package:career_compass/services/company/activateotp_company.dart';
 import 'package:career_compass/services/company/add_job.dart';
 import 'package:career_compass/services/company/auth_company.dart';
+import 'package:career_compass/services/company/upload_logo.dart';
 import 'package:career_compass/services/employee/employee_auth/activation_employee.dart';
 import 'package:career_compass/services/employee/employee_auth/login_employee_service.dart';
 import 'package:career_compass/services/employee/employee_auth/register_employee_service.dart';
@@ -55,6 +57,10 @@ void main() async {
       ChangeNotifierProvider(create: (context) => FilterScreenHelper()),
       ChangeNotifierProvider(create: (context) => Counter()),
       ChangeNotifierProvider(create: (context) => AddJobServices()),
+      ChangeNotifierProvider(create: (context) => FileUploader(),),
+      ChangeNotifierProvider(create: (context) => JobProvider()),
+     
+   
     ],
     child: const MyApp(),
   ));
@@ -78,7 +84,7 @@ class MyApp extends StatelessWidget {
         //'/splash_screen': (context) => const SplashScreen(),
 
         //screens for company section
-        '/compay_jobdetails': (context) => const CompanyJobDetails(),
+       // '/compay_jobdetails': (context) => const CompanyJobDetails(),
         '/changePassword_company': (context) => const ChangePasswordCompany(),
         // '/register_company': (context) =>  ResisterCompanyScreen(),
         '/home_company': (context) => const HomePageCompany(),

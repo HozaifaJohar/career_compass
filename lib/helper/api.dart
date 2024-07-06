@@ -8,7 +8,7 @@ class Api {
     Map<String, String> headers = {};
 
     if (token != null) {
-      headers.addAll({'Authorization': 'Bearer$token'});
+      headers.addAll({'Authorization': 'Bearer $token'});
     }
 
     http.Response response = await http.get(Uri.parse(url), headers: headers);

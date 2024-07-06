@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class AuthCompany extends ChangeNotifier {
+  bool isLoad = false;
   String url = AppString.baseUrl;
   Future<int> register(String companyName, String email, String password,
       String phone, String address, String description) async {
@@ -25,15 +26,19 @@ class AuthCompany extends ChangeNotifier {
     return data;
   }
 
-  Future <String> login(String email, String password) async {
+  Future<String> login(
+      String email, String password, BuildContext context) async {
     var data = await Api().post(
         url: '$url/companyAuth/login',
         body: {"email": email, "password": password});
     print(data);
     String accessToken = data["access_token"];
-     String token = data['access_token'];
+    String token = data['access_token'];
     CashMemory().insertToCash(key: 'accessToken', value: token);
+
+    Navigator.pushNamed(context, '/navigation_company');
     print(token);
+
     return data;
   }
 }

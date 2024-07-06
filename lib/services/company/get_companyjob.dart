@@ -6,16 +6,17 @@ import 'package:career_compass/models/job.dart';
 
 class JobServices {
   String token = CashMemory().getCashData(key: 'accessToken');
-  
+
   Future<List<Job>> getAllJob() async {
     String url = AppString.baseUrl;
     print(token);
     List<dynamic> jsonData = await Api().get(url: '$url/company', token: token);
     print('1');
+    print(jsonData);
     List<Job> jobs = jsonData.map((json) => Job.fromJson(json)).toList();
-    print(jobs);
+    //print(jobs);
     if (!jobs.isEmpty) {
-      return jobs;
+      return jsonData.map((json) => Job.fromJson(json)).toList();
     } else
       return [];
   }
