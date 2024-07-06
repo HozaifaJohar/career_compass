@@ -2,12 +2,11 @@ import 'dart:convert';
 
 import 'package:career_compass/constant/url.dart';
 import 'package:career_compass/helper/api.dart';
-import 'package:http/http.dart' as http;
 
 class SetStatics {
   final url = AppString.baseUrl;
 
-  Future postStatics({
+  Future post({
     required List<Map<String, String>> allCategories,
     required String accessToken,
   }) async {
