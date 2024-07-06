@@ -10,7 +10,6 @@ class Api {
     if (token != null) {
       headers.addAll({'Authorization': 'Bearer $token'});
     }
-
     http.Response response = await http.get(Uri.parse(url), headers: headers);
     // print('ddddddddddd');
     print(response.statusCode);

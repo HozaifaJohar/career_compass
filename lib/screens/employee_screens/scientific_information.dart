@@ -4,6 +4,7 @@ import 'package:career_compass/models/qual.dart';
 import 'package:career_compass/models/static.dart';
 import 'package:career_compass/provider/filter_screen_helper.dart';
 import 'package:career_compass/services/employee/employee_requests/set_statics.dart';
+import 'package:career_compass/services/employee/employee_requests/set_subcategories.dart';
 import 'package:career_compass/services/employee/useful/useful.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/buttomSheets/buttom_sheet_categories.dart';
@@ -120,25 +121,21 @@ class _ScientificInformationState extends State<ScientificInformation> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    List<Map<String, String>> allCategories = [];
-                    List<Map<String, String>> allSubCategories = [];
-                    int length =
+                    List<Map<String, String>> subCategories =
                         Provider.of<FilterScreenHelper>(context, listen: false)
-                            .allSelectedCategories
-                            .length;
-                    for (int i = 0; i < length; i++) {
-                      String category = Provider.of<FilterScreenHelper>(context,
-                              listen: false)
-                          .allSelectedCategories[i];
-                      allCategories.add({"name": category});
-                    }
-                    String accessToken =
-                        CashMemory().getCashData(key: 'accessToken');
-                    SetStatics().postStatics(
-                      allCategories: allCategories,
-                      //accessToken:accessToken
+                            .getSubCategories();
+                    List<Map<String, String>> Categories =
+                        Provider.of<FilterScreenHelper>(context, listen: false)
+                            .getCategories();
+                    SetStatics().post(
+                      allCategories: Categories,
                       accessToken:
                           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImltYWQiLCJlbWFpbCI6ImltYWRmZmZmQGdtYWlsLmNvbSIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3MjAwMDM4NTQsImV4cCI6MTcyMDYwODY1NH0.kCD5Ae5cIxkTcj3vN0OOS8K3-WM_k7EusGpBOT5MSSQ',
+                    );
+                    SubCategories().post(
+                      accessToken:
+                          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImltYWQiLCJlbWFpbCI6ImltYWRmZmZmQGdtYWlsLmNvbSIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3MjAwMDM4NTQsImV4cCI6MTcyMDYwODY1NH0.kCD5Ae5cIxkTcj3vN0OOS8K3-WM_k7EusGpBOT5MSSQ',
+                      allSubCategories: subCategories,
                     );
                   },
                   child: Container(

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class FilterScreenHelper with ChangeNotifier {
@@ -15,29 +17,45 @@ class FilterScreenHelper with ChangeNotifier {
 
   //////////////////////////////////////////////////////////////////////////////////
 
-  final List<String> _allSelectedCategories = [];
-  List<String> get allSelectedCategories => _allSelectedCategories;
+  final List<String> _allCategories = [];
+
+  List<Map<String, String>> getCategories() {
+    List<Map<String, String>> allCategories = [];
+    for (int i = 0; i < _allCategories.length; i++) {
+      allCategories.add({'name': _allCategories[i]});
+    }
+    return allCategories;
+  }
+
   void addToStatics(String value) {
-    _allSelectedCategories.add(value);
+    _allCategories.add(value);
     notifyListeners();
   }
 
   void removeFromStatic(String value) {
-    _allSelectedCategories.remove(value);
+    _allCategories.remove(value);
     notifyListeners();
   }
 
 ////////////////////////////////////////////////////////////////////////////////////
 
   final List<String> _allSubCategories = [];
-  List<String> get allSubCategories => _allSubCategories;
+
+  List<Map<String, String>> getSubCategories() {
+    List<Map<String, String>> allSubCategories = [];
+    for (int i = 0; i < _allSubCategories.length; i++) {
+      allSubCategories.add({'name': _allSubCategories[i]});
+    }
+    return allSubCategories;
+  }
+
   void addToSubCategories(String value) {
     _allSubCategories.add(value);
     notifyListeners();
   }
 
   void removeFromSubCategories(String value) {
-    _allSelectedCategories.remove(value);
+    _allSubCategories.remove(value);
     notifyListeners();
   }
 }
