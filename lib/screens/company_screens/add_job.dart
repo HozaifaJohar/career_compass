@@ -24,6 +24,9 @@ class AddJob extends StatefulWidget {
 }
 
 class _AddJobState extends State<AddJob> {
+    final  TextEditingController title = TextEditingController();
+  final  TextEditingController desc = TextEditingController();
+   final TextEditingController salary = TextEditingController();
   late Future<Static> _futureStatic;
   late Future<List<Subcategory>> _subCatygory;
   List<String> selectedJobCategoey = [];
@@ -32,7 +35,7 @@ class _AddJobState extends State<AddJob> {
   List<int> selectedQualId = [];
   int LevelId = 0;
   int typeId = 0;
-  int salary = 0;
+  int _salary = 0;
   String jobRoleSelected = '';
   String jobLevelSelected = '';
   String jobTypeSelected = '';
@@ -49,9 +52,7 @@ class _AddJobState extends State<AddJob> {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController title = TextEditingController();
-    TextEditingController desc = TextEditingController();
-    TextEditingController salary = TextEditingController();
+
     final counter = Provider.of<Counter>(context);
     return Scaffold(
       body: Column(

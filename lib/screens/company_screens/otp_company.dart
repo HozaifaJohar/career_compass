@@ -72,7 +72,7 @@ class OtpCompany extends StatelessWidget {
                 onPressed: () {
                   Provider.of<ActivicationCode>(context, listen: false)
                       .resendcode(email);
-                  //  Navigator.pushNamed(context, '/home_company');
+                    Navigator.pushNamed(context, '/navigation_company');
                 },
                 child: const Text(
                   'resent code?',
@@ -86,6 +86,7 @@ class OtpCompany extends StatelessWidget {
                 onTap: () {
                   Provider.of<ActivicationCode>(context, listen: false)
                       .activicate(email, pinCode.text);
+                       Navigator.pushNamed(context, '/navigation_company');
                 },
                 child: Container(
                   height: 50,

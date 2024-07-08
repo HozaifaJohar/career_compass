@@ -123,9 +123,12 @@ class LoginScreen extends StatelessWidget {
                             }
                           } else if(!type){
                           
-                                Provider.of<AuthCompany>(context, listen: false)
-                                    .login(email.text, password.text);
-                             Navigator.pushNamed(context, '/navigation_company');
+                               var active=await Provider.of<AuthCompany>(context, listen: false)
+                                    .login(email.text, password.text,context);
+                                    if(active !=null){
+                                       Navigator.pushNamed(context, '/navigation_company');
+                                    }
+                            
                             // Marah do what does you should do  :-)
                           }
                         }

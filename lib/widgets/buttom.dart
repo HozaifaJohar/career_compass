@@ -6,12 +6,14 @@ Widget customButton({
   bool? status = false,
   String? text = 'Save',
   BuildContext? context,
+  double? width
 }) {
 
 
   return GestureDetector(
     onTap: status == true ? null : tap,
     child: Container(
+    
       height: 48,
       margin: const EdgeInsets.symmetric(vertical: 15),
       alignment: Alignment.center,
@@ -24,7 +26,7 @@ Widget customButton({
         ]),
         borderRadius: BorderRadius.circular(8),
       ),
-      width: MediaQuery.of(context!).size.width,
+      width: width,
       child: Text(
         status == false ? text! : 'Please wait...',
         style: const TextStyle(color: Colors.white, fontSize: 18),

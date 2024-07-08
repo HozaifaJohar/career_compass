@@ -1,8 +1,14 @@
 import 'dart:io';
 
+import 'package:career_compass/constant/url.dart';
+import 'package:career_compass/core/shared_preferences.dart';
+import 'package:career_compass/services/company/upload_logo.dart';
 import 'package:career_compass/style/app_colors.dart';
+import 'package:career_compass/widgets/buttom.dart';
+import 'package:career_compass/widgets/flash_message.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class UploadLogo extends StatefulWidget {
   const UploadLogo({super.key});
@@ -19,7 +25,7 @@ class _UploadPhotoEmployeeState extends State<UploadLogo> {
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (returnedImage == null) return;
     setState(() {
-      _file = File(returnedImage!.path);
+      _file = File(returnedImage.path);
     });
   }
 
@@ -28,7 +34,7 @@ class _UploadPhotoEmployeeState extends State<UploadLogo> {
         await ImagePicker().pickImage(source: ImageSource.camera);
     if (returnedImage == null) return;
     setState(() {
-      _file = File(returnedImage!.path);
+      _file = File(returnedImage.path);
     });
   }
 
@@ -40,6 +46,8 @@ class _UploadPhotoEmployeeState extends State<UploadLogo> {
 
   @override
   Widget build(BuildContext context) {
+    String url = AppString.baseUrl;
+    final upload = Provider.of<FileUploader>(context);
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -135,29 +143,74 @@ class _UploadPhotoEmployeeState extends State<UploadLogo> {
               height: 10,
             ),
             SizedBox(
-              height: screenHeight / 20,
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: Container(
-                width: 100,
-                height: 40,
-                decoration: BoxDecoration(
-                    color: AppColors.mainColor,
-                    borderRadius: BorderRadius.circular(50)),
-                child: const Center(
-                  child: Text(
-                    'Save',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
+              width: 250,
+              child: ElevatedButton.icon(
+                onPressed: pickerImageFromCamera,
+                icon: Icon(
+                  Icons.camera_alt,
+                  color: AppColors.mainColor,
+                ),
+                label: Text(
+                  'Upload From Camera',
+                  style: TextStyle(color: AppColors.mainColor),
                 ),
               ),
             ),
+            SizedBox(
+              height: screenHeight / 20,
+            ),
+            customButton(
+                tap: () {
+                  if (_file != null) {
+                    print(upload.isLoading);
+                    upload.postFiles(
+                        url: '$url/company/upload-logo',
+                        filePath: _file!.path,
+                        key: 'file',
+                        token: CashMemory().getCashData(key: 'accessToken'));
+                    print(upload.isLoading);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        elevation: 0,
+                        content: FlashMessage(
+                          errorText: "NO Image Selected Yet!",
+                        ),
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.transparent,
+                      ),
+                    );
+                  }
+                },
+                text: 'Save',
+                context: context,
+                status: upload.isLoading,
+                width: 200),
           ],
         ),
       ),
     );
   }
 }
+
+
+  // if (_file != null) {
+  //                 print(upload.isLoading);
+  //                 upload.postFiles(
+  //                     url: '$url/company/upload-logo',
+  //                     filePath: _file!.path,
+  //                     key: 'file',
+  //                     token: CashMemory().getCashData(key: 'accessToken'));
+  //                      print(upload.isLoading);
+  //               } else {
+  //                 ScaffoldMessenger.of(context).showSnackBar(
+  //                   const SnackBar(
+  //                     elevation: 0,
+  //                     content: FlashMessage(
+  //                       errorText: "NO Image Selected Yet!",
+  //                     ),
+  //                     behavior: SnackBarBehavior.floating,
+  //                     backgroundColor: Colors.transparent,
+  //                   ),
+  //                 );
+  //               }
