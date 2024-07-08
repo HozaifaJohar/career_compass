@@ -3,6 +3,7 @@ import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/models/qual.dart';
 import 'package:career_compass/models/static.dart';
 import 'package:career_compass/provider/filter_screen_helper.dart';
+import 'package:career_compass/services/employee/employee_requests/set_education&experience.dart';
 import 'package:career_compass/services/employee/employee_requests/set_statics.dart';
 import 'package:career_compass/services/employee/employee_requests/set_subcategories.dart';
 import 'package:career_compass/services/employee/useful/useful.dart';
@@ -10,6 +11,7 @@ import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/buttomSheets/buttom_sheet_categories.dart';
 import 'package:career_compass/widgets/buttomSheets/buttom_sheet_constitems.dart';
 import 'package:career_compass/widgets/buttomSheets/buttom_sheet_subcategories.dart';
+import 'package:career_compass/widgets/flash_message.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -38,6 +40,18 @@ class _ScientificInformationState extends State<ScientificInformation> {
 
   @override
   Widget build(BuildContext context) {
+    // List<Map<String, String>> categories = Provider.of<FilterScreenHelper>(
+    //   context,
+    //   listen: false,
+    // ).getCategories();
+    // List<Map<String, String>> subCategories = Provider.of<FilterScreenHelper>(
+    //   context,
+    //   listen: false,
+    // ).getSubCategories();
+    // Map<String, String> items = Provider.of<FilterScreenHelper>(
+    //   context,
+    //   listen: false,
+    // ).constItems();
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
@@ -101,11 +115,6 @@ class _ScientificInformationState extends State<ScientificInformation> {
                   height: 20,
                 ),
                 ContainerAndSheetConstants(
-                    title: 'City', staticList: StaticLists.city),
-                const SizedBox(
-                  height: 20,
-                ),
-                ContainerAndSheetConstants(
                   title: 'Experience',
                   staticList: StaticLists.experience,
                 ),
@@ -120,23 +129,43 @@ class _ScientificInformationState extends State<ScientificInformation> {
                   height: 20,
                 ),
                 GestureDetector(
-                  onTap: () {
-                    List<Map<String, String>> subCategories =
-                        Provider.of<FilterScreenHelper>(context, listen: false)
-                            .getSubCategories();
-                    List<Map<String, String>> Categories =
-                        Provider.of<FilterScreenHelper>(context, listen: false)
-                            .getCategories();
-                    SetStatics().post(
-                      allCategories: Categories,
-                      accessToken:
-                          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImltYWQiLCJlbWFpbCI6ImltYWRmZmZmQGdtYWlsLmNvbSIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3MjAwMDM4NTQsImV4cCI6MTcyMDYwODY1NH0.kCD5Ae5cIxkTcj3vN0OOS8K3-WM_k7EusGpBOT5MSSQ',
-                    );
-                    SubCategories().post(
-                      accessToken:
-                          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImltYWQiLCJlbWFpbCI6ImltYWRmZmZmQGdtYWlsLmNvbSIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3MjAwMDM4NTQsImV4cCI6MTcyMDYwODY1NH0.kCD5Ae5cIxkTcj3vN0OOS8K3-WM_k7EusGpBOT5MSSQ',
-                      allSubCategories: subCategories,
-                    );
+                  onTap: () async {
+                    if (Provider.of<FilterScreenHelper>(context, listen: false)
+                        .filterScreenValidation()) {
+                      SetStatics().post(
+                        allCategories: Provider.of<FilterScreenHelper>(
+                          context,
+                          listen: false,
+                        ).getCategories(),
+                        accessToken:
+                            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImltYWQiLCJlbWFpbCI6ImltYWRmZmZmQGdtYWlsLmNvbSIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3MjAwMDM4NTQsImV4cCI6MTcyMDYwODY1NH0.kCD5Ae5cIxkTcj3vN0OOS8K3-WM_k7EusGpBOT5MSSQ',
+                      );
+                      SubCategories().post(
+                        allSubCategories: Provider.of<FilterScreenHelper>(
+                          context,
+                          listen: false,
+                        ).getSubCategories(),
+                        accessToken:
+                            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImltYWQiLCJlbWFpbCI6ImltYWRmZmZmQGdtYWlsLmNvbSIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3MjAwMDM4NTQsImV4cCI6MTcyMDYwODY1NH0.kCD5Ae5cIxkTcj3vN0OOS8K3-WM_k7EusGpBOT5MSSQ',
+                      );
+                      SetEducationAndExeperience().post(
+                        items: Provider.of<FilterScreenHelper>(
+                          context,
+                          listen: false,
+                        ).constItems(),
+                        accessToken:
+                            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImltYWQiLCJlbWFpbCI6ImltYWRmZmZmQGdtYWlsLmNvbSIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3MjAwMDM4NTQsImV4cCI6MTcyMDYwODY1NH0.kCD5Ae5cIxkTcj3vN0OOS8K3-WM_k7EusGpBOT5MSSQ',
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        elevation: 0,
+                        content: FlashMessage(
+                          errorText: "All Fields Is required, please fill all",
+                        ),
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.transparent,
+                      ));
+                    }
                   },
                   child: Container(
                     height: 40,

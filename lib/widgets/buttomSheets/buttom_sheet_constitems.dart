@@ -1,8 +1,13 @@
+import 'dart:ui';
+
+import 'package:career_compass/provider/filter_screen_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ContainerAndSheetConstants extends StatefulWidget {
   final String title;
   final List<String> staticList;
+
   const ContainerAndSheetConstants(
       {required this.title, required this.staticList, super.key});
 
@@ -43,10 +48,27 @@ class _ContainerAndSheetConstants extends State<ContainerAndSheetConstants> {
                           textAlign: TextAlign.center,
                         ),
                         onTap: () {
-                          setState(() {
-                            selectedItem = widget.staticList[index];
-                            Navigator.pop(context);
-                          });
+                          setState(
+                            () {
+                              selectedItem = widget.staticList[index];
+                              if (widget.title == 'Experience') {
+                                Provider.of<FilterScreenHelper>(context,
+                                        listen: false)
+                                    .experience = selectedItem;
+                                Provider.of<FilterScreenHelper>(context,
+                                        listen: false)
+                                    .numItems++;
+                              } else {
+                                Provider.of<FilterScreenHelper>(context,
+                                        listen: false)
+                                    .education = selectedItem;
+                                Provider.of<FilterScreenHelper>(context,
+                                        listen: false)
+                                    .numItems++;
+                              }
+                              Navigator.pop(context);
+                            },
+                          );
                         },
                       );
                     },

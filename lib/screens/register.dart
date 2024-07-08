@@ -75,10 +75,10 @@ class RegisterScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                  ObsecureTextField(
+                    ObsecureTextField(
                       isObsecureChar: '.',
-                       maxLines: 1,
-                        borderColor: AppColors.amber,
+                      maxLines: 1,
+                      borderColor: AppColors.amber,
                       hint: 'enter your password',
                       validateMessage: 'Please enter a password',
                       suffixIcon: Icon(Icons.visibility),
@@ -86,7 +86,6 @@ class RegisterScreen extends StatelessWidget {
                       controller: password,
                       border: 50,
                     ),
-
                     const SizedBox(
                       height: 20,
                     ),
@@ -96,13 +95,17 @@ class RegisterScreen extends StatelessWidget {
                           {
                             if (formKey.currentState!.validate()) {
                               if (type) {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return RegisterEmployeeScreen(
-                                    email: email.text,
-                                    password: password.text,
-                                  );
-                                }));
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return RegisterEmployeeScreen(
+                                        email: email.text,
+                                        password: password.text,
+                                      );
+                                    },
+                                  ),
+                                );
                               } else {
                                 Navigator.push(
                                   context,
