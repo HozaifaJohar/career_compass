@@ -3,6 +3,7 @@ import 'package:career_compass/services/employee/employee_auth/register_employee
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class RegisterEmployeeScreen extends StatefulWidget {
@@ -43,7 +44,7 @@ class _RegisterEmployeeScreenState extends State<RegisterEmployeeScreen> {
     super.dispose();
   }
 
-  final _formKey = GlobalKey<FormState>();
+  final _formKey1 = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     String homeAddress = '${_home.text}/$selectedCity';
@@ -71,7 +72,7 @@ class _RegisterEmployeeScreenState extends State<RegisterEmployeeScreen> {
             child: Column(
               children: [
                 Form(
-                  key: _formKey,
+                  key: _formKey1,
                   child: Column(
                     children: [
                       const SizedBox(
@@ -131,83 +132,87 @@ class _RegisterEmployeeScreenState extends State<RegisterEmployeeScreen> {
                       const SizedBox(
                         height: 15,
                       ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        child: DropdownButton(
+                          isExpanded: true,
+                          value: selectedCity,
+                          items: city
+                              .map((e) => DropdownMenuItem(
+                                    value: e,
+                                    child: Text(e),
+                                  ))
+                              .toList(),
+                          onChanged: (val) {
+                            setState(() {
+                              selectedCity = val as String;
+                            });
+                          },
+                          icon: const Icon(Icons.arrow_drop_down_circle),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        child: DropdownButton(
+                          isExpanded: true,
+                          value: selectedgender,
+                          items: gender
+                              .map((e) => DropdownMenuItem(
+                                    value: e,
+                                    child: Text(e),
+                                  ))
+                              .toList(),
+                          onChanged: (val) {
+                            setState(() {
+                              selectedgender = val as String;
+                            });
+                          },
+                          icon: const Icon(Icons.person_rounded),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      CustomTextField(
+                          title: 'Description',
+                          maxLines: 3,
+                          controller: description,
+                          border: 20,
+                          borderColor: AppColors.amber,
+                          validateMessage:
+                              'Enter description about you please'),
                     ],
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  child: DropdownButton(
-                    isExpanded: true,
-                    value: selectedCity,
-                    items: city
-                        .map((e) => DropdownMenuItem(
-                              value: e,
-                              child: Text(e),
-                            ))
-                        .toList(),
-                    onChanged: (val) {
-                      setState(() {
-                        selectedCity = val as String;
-                      });
-                    },
-                    icon: const Icon(Icons.arrow_drop_down_circle),
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  child: DropdownButton(
-                    isExpanded: true,
-                    value: selectedgender,
-                    items: gender
-                        .map((e) => DropdownMenuItem(
-                              value: e,
-                              child: Text(e),
-                            ))
-                        .toList(),
-                    onChanged: (val) {
-                      setState(() {
-                        selectedgender = val as String;
-                      });
-                    },
-                    icon: const Icon(Icons.person_rounded),
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                CustomTextField(
-                    hint: 'description',
-                    title: 'Description',
-                    maxLines: 3,
-                    controller: description,
-                    border: 20,
-                    borderColor: AppColors.amber,
-                    validateMessage: 'Enter description about you please'),
                 const SizedBox(
                   height: 15,
                 ),
                 GestureDetector(
                   onTap: () {
-                    if (_formKey.currentState!.validate()) {
+                    if (_formKey1.currentState!.validate()) {
                       Provider.of<RegisterEmployeeSrevice>(context,
                               listen: false)
                           .register(
-                              name: _fullname.text,
-                              email: widget.email,
-                              password: widget.password,
-                              gender: selectedgender,
-                              phone: _phone.text,
-                              homeAddress: homeAddress,
-                              birthDayDate: _dateController.text,description: description.text);
-                    }
-                    Navigator.push(
+                        name: _fullname.text,
+                        email: widget.email,
+                        password: widget.password,
+                        gender: selectedgender,
+                        phone: _phone.text,
+                        homeAddress: homeAddress,
+                        birthDayDate: _dateController.text,
+                        description: description.text,
+                      );
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                OtpEmployee(email: widget.email)));
+                          builder: (context) =>
+                              OtpEmployee(email: widget.email),
+                        ),
+                      );
+                    }
                   },
                   child: Container(
                     width: 100,

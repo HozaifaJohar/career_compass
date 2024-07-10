@@ -63,15 +63,17 @@ class _ContainerAndSheetSubcategories
                                     Icons.close,
                                   ),
                                   onPressed: () {
-                                    setState(() {
-                                      selectedItemsList
-                                          .remove(data[index].name);
-                                      Provider.of<FilterScreenHelper>(context,
-                                              listen: false)
-                                          .removeFromSubCategories(
-                                              data[index].name);
-                                      Navigator.pop(context);
-                                    });
+                                    setState(
+                                      () {
+                                        selectedItemsList
+                                            .remove(data[index].name);
+                                        Provider.of<FilterScreenHelper>(context,
+                                                listen: false)
+                                            .removeFromSubCategories(
+                                                data[index].name);
+                                        Navigator.pop(context);
+                                      },
+                                    );
                                   },
                                 )
                               : null,

@@ -1,5 +1,4 @@
-import 'dart:ui';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class FilterScreenHelper with ChangeNotifier {
@@ -57,5 +56,30 @@ class FilterScreenHelper with ChangeNotifier {
   void removeFromSubCategories(String value) {
     _allSubCategories.remove(value);
     notifyListeners();
+  }
+
+//////////////////////////////////////////////////////////////////////////////////
+
+  String education = '';
+  String experience = '';
+  int numItems = 0;
+
+  Map<String, String> constItems() {
+    Map<String, String> items = {
+      "experience": experience,
+      "education": education,
+    };
+    notifyListeners();
+    return items;
+  }
+//////////////////////////////////////////////////////////////////////////////////
+
+  bool filterScreenValidation() {
+    if (getSubCategories().isEmpty ||
+        getCategories().length < 3 ||
+        numItems < 2) {
+      return false;
+    }
+    return true;
   }
 }

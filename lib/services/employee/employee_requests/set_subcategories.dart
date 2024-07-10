@@ -6,7 +6,7 @@ import 'package:career_compass/helper/api.dart';
 class SubCategories {
   final url = AppString.baseUrl;
 
-  void post({
+  Future<void> post({
     required String accessToken,
     required List<Map<String, String>> allSubCategories,
   }) async {
