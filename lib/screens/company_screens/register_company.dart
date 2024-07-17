@@ -1,6 +1,8 @@
 import 'package:career_compass/screens/company_screens/otp_company.dart';
 import 'package:career_compass/services/company/auth_company.dart';
 import 'package:career_compass/style/app_colors.dart';
+import 'package:career_compass/widgets/buttom.dart';
+import 'package:career_compass/widgets/flash_message.dart';
 
 import 'package:career_compass/widgets/textfield.dart';
 import 'package:flutter/material.dart';
@@ -20,13 +22,13 @@ class _ResisterCompanyScreenState extends State<ResisterCompanyScreen> {
   final TextEditingController _companyName = TextEditingController();
   final TextEditingController _companyPhone = TextEditingController();
   final TextEditingController _describtion = TextEditingController();
-   final TextEditingController _address = TextEditingController();
+  final TextEditingController _address = TextEditingController();
 
   String city = 'Select location';
 
   @override
   Widget build(BuildContext context) {
-    String address = '${city}/$_address ';
+    String address = '$city${_address.text}';
     return Scaffold(
       appBar: AppBar(
         elevation: 15,
@@ -227,46 +229,80 @@ class _ResisterCompanyScreenState extends State<ResisterCompanyScreen> {
               const SizedBox(
                 height: 40,
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    'home_company',
-                  );
+              Consumer<AuthCompany>(
+                builder: (context, auth, child) {
+                  return customButton(
+                      tap: () async {
+                        print('1155');
+                        bool isR = await auth.register(
+                            _companyName.text,
+                            widget.email,
+                            widget.password,
+                            _companyPhone.text,
+                            address,
+                            _describtion.text);
+                        print('11');
+
+                        if (!isR) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              elevation: 0,
+                              content: FlashMessage(
+                                errorText: auth.resMessage,
+                              ),
+                              behavior: SnackBarBehavior.floating,
+                              backgroundColor: Colors.transparent,
+                            ),
+                          );
+                        } else {
+                          print('22');
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return OtpCompany(
+                              email: widget.email,
+                            );
+                          }));
+                        }
+                      },
+                      text: 'Register',
+                      context: context,
+                      width: 100);
                 },
-                child: GestureDetector(
-                  onTap: () {
-                    Provider.of<AuthCompany>(context, listen: false).register(
-                        _companyName.text,
-                        widget.email,
-                        widget.password,
-                        _companyPhone.text,
-                        address,
-                        _describtion.text);
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return OtpCompany(
-                        email: widget.email,
-                      );
-                    }));
-                  },
-                  child: Container(
-                    width: 100,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: AppColors.mainColor,
-                        borderRadius: BorderRadius.circular(50)),
-                    child: const Center(
-                      child: Text(
-                        'Register',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              )
+              // GestureDetector(
+              //   onTap: () async{
+              //    bool r=await Provider.of<AuthCompany>(context, listen: false).register(
+              //         _companyName.text,
+              //         widget.email,
+              //         widget.password,
+              //         _companyPhone.text,
+              //         address,
+              //         _describtion.text);
+
+              //     //     Navigator.push(context,
+              //     //         MaterialPageRoute(builder: (context) {
+              //     //       return OtpCompany(
+              //     //         email: widget.email,
+              //     //       );
+              //     //     })
+              //     // );
+              //   },
+              //   child: Container(
+              //     width: 100,
+              //     height: 40,
+              //     decoration: BoxDecoration(
+              //         color: AppColors.mainColor,
+              //         borderRadius: BorderRadius.circular(50)),
+              //     child: const Center(
+              //       child: Text(
+              //         'Register',
+              //         style: TextStyle(
+              //           color: Colors.white,
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

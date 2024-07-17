@@ -1,5 +1,6 @@
 import 'package:career_compass/services/company/activateotp_company.dart';
 import 'package:career_compass/style/app_colors.dart';
+import 'package:career_compass/widgets/flash_message.dart';
 import 'package:career_compass/widgets/pin_code.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -69,10 +70,12 @@ class OtpCompany extends StatelessWidget {
                 height: 10,
               ),
               MaterialButton(
-                onPressed: () {
-                  Provider.of<ActivicationCode>(context, listen: false)
+                onPressed: () async {
+                  var isActive = await Provider.of<ActivicationCode>(context,
+                          listen: false)
                       .resendcode(email);
-                    Navigator.pushNamed(context, '/navigation_company');
+
+                  //
                 },
                 child: const Text(
                   'resent code?',
@@ -83,10 +86,27 @@ class OtpCompany extends StatelessWidget {
                 height: 10,
               ),
               GestureDetector(
-                onTap: () {
-                  Provider.of<ActivicationCode>(context, listen: false)
+                onTap: () async {
+                  var isActive = await Provider.of<ActivicationCode>(context,
+                          listen: false)
                       .activicate(email, pinCode.text);
-                       Navigator.pushNamed(context, '/navigation_company');
+                  String mass =
+                      Provider.of<ActivicationCode>(context, listen: false)
+                          .resMessage;
+                  if (isActive == false) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        elevation: 0,
+                        content: FlashMessage(
+                          errorText: mass,
+                        ),
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.transparent,
+                      ),
+                    );
+                  } else {
+                    Navigator.pushNamed(context, '/navigation_company');
+                  }
                 },
                 child: Container(
                   height: 50,

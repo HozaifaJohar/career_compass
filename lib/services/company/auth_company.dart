@@ -8,10 +8,15 @@ import 'package:http/http.dart' as http;
 
 class AuthCompany extends ChangeNotifier {
   bool isLoad = false;
+  bool get isload => isLoad;
+  String _resMessage = '';
+  String get resMessage => _resMessage;
+
   String url = AppString.baseUrl;
-  Future<int> register(String companyName, String email, String password,
+  Future<bool> register(String companyName, String email, String password,
       String phone, String address, String description) async {
-    int data = await Api().post(
+    print('tttt');
+    var data = await Api().post(
       url: '$url/companyAuth/register',
       body: {
         "company_name": companyName,
@@ -22,23 +27,44 @@ class AuthCompany extends ChangeNotifier {
         "description": description,
       },
     );
-    print(data);
-    return data;
+    if (data is int) {
+      return true;
+    } else {
+      _resMessage = data['message'].toString();
+      notifyListeners();
+      return false;
+    }
   }
 
-  Future<String> login(
+  Future<bool> login(
       String email, String password, BuildContext context) async {
+    isLoad = true;
+    notifyListeners();
     var data = await Api().post(
         url: '$url/companyAuth/login',
         body: {"email": email, "password": password});
     print(data);
-    String accessToken = data["access_token"];
-    String token = data['access_token'];
-    CashMemory().insertToCash(key: 'accessToken', value: token);
+    var token = data["access_token"];
 
-    Navigator.pushNamed(context, '/navigation_company');
-    print(token);
+    // String token = data['access_token'];
 
-    return data;
+    if (token != null) {
+      isLoad = false;
+      CashMemory().insertToCash(key: 'accessToken', value: token);
+      print(token);
+      _resMessage = 'Login successfully';
+      notifyListeners();
+      print(_resMessage);
+      return true;
+    } else {
+      _resMessage = data['message'];
+      notifyListeners();
+      return false;
+    }
+
+    // var status = Api().statusCode;
+    //print(status);
+    //Navigator.pushNamed(context, '/navigation_company');
+    // print(token);
   }
 }

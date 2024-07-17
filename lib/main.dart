@@ -1,6 +1,7 @@
 import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/provider/counter.dart';
 import 'package:career_compass/provider/filter_screen_helper.dart';
+import 'package:career_compass/provider/job_helper.dart';
 import 'package:career_compass/provider/jobs_provider.dart';
 import 'package:career_compass/provider/onTap_nav_company.dart';
 import 'package:career_compass/provider/onTap_nav_employee.dart';
@@ -29,6 +30,7 @@ import 'package:career_compass/screens/start.dart';
 import 'package:career_compass/services/company/activateotp_company.dart';
 import 'package:career_compass/services/company/add_job.dart';
 import 'package:career_compass/services/company/auth_company.dart';
+import 'package:career_compass/services/company/get_logo.dart';
 import 'package:career_compass/services/company/upload_logo.dart';
 import 'package:career_compass/services/employee/employee_auth/activation_employee.dart';
 import 'package:career_compass/services/employee/employee_auth/login_employee_service.dart';
@@ -59,6 +61,9 @@ void main() async {
       ChangeNotifierProvider(create: (context) => AddJobServices()),
       ChangeNotifierProvider(create: (context) => FileUploader(),),
       ChangeNotifierProvider(create: (context) => JobProvider()),
+      ChangeNotifierProvider(create: (context) => JobHelper()),
+       ChangeNotifierProvider(create: (context) => GetLogo()),
+      
      
    
     ],
@@ -75,7 +80,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: NavigationCompanyScreen(),
+      home: StartScreen(),
       routes: {
         '/start_screen': (context) => StartScreen(),
         'register_screen': (context) => RegisterScreen(),
@@ -89,7 +94,7 @@ class MyApp extends StatelessWidget {
         // '/register_company': (context) =>  ResisterCompanyScreen(),
         '/home_company': (context) => const HomePageCompany(),
         '/add_job': (context) => const AddJob(),
-        '/navigation_company': (context) => const NavigationCompanyScreen(),
+        '/navigation_company': (context) =>  NavigationCompanyScreen(),
         '/changeInfo_company': (context) => const ChangeInformationCompany(),
         '/upload_logo': (context) => const UploadLogo(),
 
@@ -98,7 +103,7 @@ class MyApp extends StatelessWidget {
         // '/otp_employee': (context) => const OtpEmployee(),
         '/home_employee': (context) => const HomePageEmployee(),
         '/scientific_information': (context) => const ScientificInformation(),
-        '/navigation_employee': (context) => const NavigationEmployeeScreen(),
+        '/navigation_employee': (context) =>  NavigationEmployeeScreen(),
         '/filterJobs_employee': (context) => const FilterJobsEmployee(),
         '/changeInfo_employee': (context) => const ChangeInformationEmployee(),
         '/changePassword_employee': (context) => const ChangePasswordEmployee(),
