@@ -52,7 +52,7 @@ class LoginScreen extends StatelessWidget {
                       borderColor: AppColors.amber,
                       hint: 'enter your password',
                       validateMessage: 'Please enter a password',
-                      suffixIcon: Icon(Icons.visibility),
+                      suffixIcon: const Icon(Icons.visibility),
                       title: 'Password',
                       controller: password,
                       border: 50,
@@ -121,15 +121,35 @@ class LoginScreen extends StatelessWidget {
                               Navigator.pushNamed(
                                   context, '/navigation_employee');
                             }
-                          } else if(!type){
-                          
-                               var active=await Provider.of<AuthCompany>(context, listen: false)
-                                    .login(email.text, password.text,context);
-                                    if(active !=null){
-                                       Navigator.pushNamed(context, '/navigation_company');
-                                    }
-                            
+                          } else if (!type) {
+                            var auth = await Provider.of<AuthCompany>(context,
+                                    listen: false)
+                                .login(email.text, password.text, context);
+                            var mass =
+                                Provider.of<AuthCompany>(context, listen: false)
+                                    .resMessage;
+                            if (auth == false) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  elevation: 0,
+                                  content: FlashMessage(
+                                    errorText: mass,
+                                  ),
+                                  behavior: SnackBarBehavior.floating,
+                                  backgroundColor: Colors.transparent,
+                                ),
+                              );
+                            } else {
+                              Navigator.pushNamed(context, '/navigation_company');
+                            }
+
+                            // if(active !=null){
+                            //    Navigator.pushNamed(context, '/navigation_company');
+                            // }
+
                             // Marah do what does you should do  :-)
+                          } else {
+                            print('marah');
                           }
                         }
                       },

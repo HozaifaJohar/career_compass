@@ -44,7 +44,6 @@ class Api {
       body: body,
       headers: headers,
     );
-
     if (response.statusCode == 200 || response.statusCode == 201) {
       print(response.statusCode);
       var data = jsonDecode(response.body);
@@ -55,7 +54,13 @@ class Api {
       var data = jsonDecode(response.body);
       print('///$data///');
       return data;
-    } else {
+    } else if (response.statusCode == 400 || response.statusCode ==500 || response.statusCode==401) {
+      print(response.statusCode);
+      var data = jsonDecode(response.body);
+      print('///$data///');
+      return data;
+    } 
+    else {
       throw Exception(
           'there is a problem with status code ${response.statusCode} with body ${jsonDecode(response.body)}');
       // when you throw respose.body it will show if there something required in the body of the api...

@@ -2,12 +2,17 @@ import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/models/static.dart';
 import 'package:career_compass/models/subcatygory.dart';
 import 'package:career_compass/provider/counter.dart';
+import 'package:career_compass/provider/job_helper.dart';
 import 'package:career_compass/services/company/add_job.dart';
 import 'package:career_compass/services/company/get_static.dart';
 import 'package:career_compass/style/app_colors.dart';
+import 'package:career_compass/widgets/int_fieled.dart';
+import 'package:career_compass/widgets/job/addQual.dart';
+import 'package:career_compass/widgets/job/addcategory_sheet.dart';
 import 'package:career_compass/widgets/buttom.dart';
 import 'package:career_compass/widgets/counter.dart';
 import 'package:career_compass/widgets/flash_message.dart';
+import 'package:career_compass/widgets/job/addstatic.dart';
 import 'package:career_compass/widgets/textfield.dart';
 import 'package:career_compass/widgets/waves.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,18 +29,15 @@ class AddJob extends StatefulWidget {
 }
 
 class _AddJobState extends State<AddJob> {
-    final  TextEditingController title = TextEditingController();
-  final  TextEditingController desc = TextEditingController();
-   final TextEditingController salary = TextEditingController();
+  final TextEditingController title = TextEditingController();
+  final TextEditingController desc = TextEditingController();
+  final TextEditingController salary = TextEditingController();
+  late Future<List<Category>> staticCategories;
+  late Future<List<Category>> staticLevel;
+  late Future<List<Category>> staticType;
   late Future<Static> _futureStatic;
   late Future<List<Subcategory>> _subCatygory;
-  List<String> selectedJobCategoey = [];
-  List<String> selectedJobQualification = [];
-  List<int> selectedJobId = [];
-  List<int> selectedQualId = [];
-  int LevelId = 0;
-  int typeId = 0;
-  int _salary = 0;
+
   String jobRoleSelected = '';
   String jobLevelSelected = '';
   String jobTypeSelected = '';
@@ -46,14 +48,22 @@ class _AddJobState extends State<AddJob> {
   @override
   void initState() {
     super.initState();
+    staticCategories =
+        GetStatic().getAllStatic().then((value) => value.categories);
+    staticLevel = GetStatic().getAllStatic().then((value) => value.levels);
+    staticType = GetStatic().getAllStatic().then((value) => value.jobTypes);
     _futureStatic = GetStatic().getAllStatic();
     _subCatygory = GetStatic().getSubcategory();
   }
 
   @override
   Widget build(BuildContext context) {
-
+    final helper = Provider.of<JobHelper>(context, listen: false);
     final counter = Provider.of<Counter>(context);
+    int LevelId = helper.idLevel;
+    int typeId = helper.idtype;
+    List<int> selectedJobId = helper.selectedJobRoleId;
+    List<int> selectedQualId = helper.selectedJobQualId;
     return Scaffold(
       body: Column(
         children: [
@@ -99,441 +109,25 @@ class _AddJobState extends State<AddJob> {
                     const SizedBox(
                       height: 20,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        showModalBottomSheet(
-                            shape: const BeveledRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(50),
-                                    topRight: Radius.circular(50))),
-                            context: context,
-                            builder: (BuildContext context) {
-                              return Container(
-                                decoration: const BoxDecoration(
-                                    color: Color.fromARGB(255, 222, 219, 219),
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(50),
-                                        topRight: Radius.circular(50))),
-                                child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: FutureBuilder(
-                                        future: _futureStatic,
-                                        builder: (context, snapshot) {
-                                          if (snapshot.hasData) {
-                                            var data = snapshot.data!;
-                                            return ListView.builder(
-                                                itemCount:
-                                                    data.categories.length,
-                                                itemBuilder: (context, index) {
-                                                  return ListTile(
-                                                    title: Text(
-                                                      data.categories[index]
-                                                          .name,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                    trailing:
-                                                        selectedJobCategoey
-                                                                .contains(data
-                                                                    .categories[
-                                                                        index]
-                                                                    .name)
-                                                            ? IconButton(
-                                                                icon: const Icon(
-                                                                    Icons
-                                                                        .close),
-                                                                onPressed: () {
-                                                                  setState(() {
-                                                                    selectedJobId.remove(data
-                                                                        .categories[
-                                                                            index]
-                                                                        .id);
-                                                                    selectedJobCategoey.remove(data
-                                                                        .categories[
-                                                                            index]
-                                                                        .name);
-                                                                    Navigator.pop(
-                                                                        context);
-                                                                  });
-                                                                },
-                                                              )
-                                                            : null,
-                                                    onTap: () {
-                                                      setState(() {
-                                                        if (selectedJobCategoey
-                                                            .contains(data
-                                                                .categories[
-                                                                    index]
-                                                                .name)) {
-                                                          selectedJobId.remove(
-                                                              data
-                                                                  .categories[
-                                                                      index]
-                                                                  .id);
-                                                          selectedJobCategoey
-                                                              .remove(data
-                                                                  .categories[
-                                                                      index]
-                                                                  .name);
-                                                        } else {
-                                                          selectedJobId.add(data
-                                                              .categories[index]
-                                                              .id);
-                                                          selectedJobCategoey
-                                                              .add(data
-                                                                  .categories[
-                                                                      index]
-                                                                  .name);
-                                                        }
-                                                        Navigator.pop(context);
-                                                      });
-                                                    },
-                                                  );
-                                                });
-                                          } else {
-                                            return const CircularProgressIndicator();
-                                          }
-                                        })),
-                              );
-                            });
-                      },
-                      child: Container(
-                          height: 80,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 238, 230, 230),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: ListTile(
-                            title: const Text(
-                              'Job Role',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            subtitle: selectedJobCategoey.isNotEmpty
-                                ? SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      children: [
-                                        for (final jobTitle
-                                            in selectedJobCategoey)
-                                          Padding(
-                                            padding: const EdgeInsets.all(4.0),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: const Color.fromARGB(
-                                                    252, 235, 232, 232),
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    Text(jobTitle),
-                                                    const SizedBox(width: 8),
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        setState(() {
-                                                          selectedJobCategoey
-                                                              .remove(jobTitle);
-                                                        });
-                                                      },
-                                                      child: const Icon(
-                                                        Icons.close,
-                                                        size: 16,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                      ],
-                                    ),
-                                  )
-                                : const Text('Select job role(s)'),
-                          )),
+                    ButtomSheetWithList(staticList: staticCategories),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    AddStatic(
+                      staticList: staticLevel,
+                      title: 'Level',
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    ///////////////////////////////////////////////////////////////////////
-                    GestureDetector(
-                      onTap: () {
-                        showModalBottomSheet(
-                            shape: const BeveledRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(50),
-                                    topRight: Radius.circular(50))),
-                            context: context,
-                            builder: (BuildContext context) {
-                              return Container(
-                                decoration: const BoxDecoration(
-                                    color: Color.fromARGB(255, 222, 219, 219),
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(50),
-                                        topRight: Radius.circular(50))),
-                                child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: FutureBuilder<Static>(
-                                        future: _futureStatic,
-                                        builder: (context, snapshot) {
-                                          if (snapshot.hasData) {
-                                            final data = snapshot.data!;
-                                            return ListView.builder(
-                                                itemCount: data.levels.length,
-                                                itemBuilder: (context, index) {
-                                                  return ListTile(
-                                                    title: Text(
-                                                      data.levels[index].name,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                    onTap: () {
-                                                      setState(() {
-                                                        jobLevelSelected = data
-                                                            .levels[index].name;
-                                                        LevelId = data
-                                                            .levels[index].id;
-                                                        Navigator.pop(context);
-                                                      });
-                                                    },
-                                                  );
-                                                });
-                                          } else {
-                                            return const Text('nodata');
-                                          }
-                                        })),
-                              );
-                            });
-                      },
-                      child: Container(
-                        height: 80,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 238, 230, 230),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: ListTile(
-                          title: const Text(
-                            'Job Level',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: Text(jobLevelSelected),
-                        ),
-                      ),
+                    AddStatic(
+                      staticList: staticType,
+                      title: 'Type',
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        showModalBottomSheet(
-                            shape: const BeveledRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(50),
-                                    topRight: Radius.circular(50))),
-                            context: context,
-                            builder: (BuildContext context) {
-                              return Container(
-                                decoration: const BoxDecoration(
-                                    color: Color.fromARGB(255, 222, 219, 219),
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(50),
-                                        topRight: Radius.circular(50))),
-                                child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: FutureBuilder<Static>(
-                                        future: _futureStatic,
-                                        builder: (context, snapshot) {
-                                          if (snapshot.hasData) {
-                                            final data = snapshot.data!;
-                                            return ListView.builder(
-                                                itemCount: data.jobTypes.length,
-                                                itemBuilder: (context, index) {
-                                                  return ListTile(
-                                                    title: Text(
-                                                      data.jobTypes[index].name,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                    onTap: () {
-                                                      setState(() {
-                                                        jobTypeSelected = data
-                                                            .jobTypes[index]
-                                                            .name;
-                                                        typeId = data
-                                                            .jobTypes[index].id;
-                                                        Navigator.pop(context);
-                                                      });
-                                                    },
-                                                  );
-                                                });
-                                          } else {
-                                            return const Text('no data');
-                                          }
-                                        })),
-                              );
-                            });
-                      },
-                      child: Container(
-                        height: 80,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 238, 230, 230),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: ListTile(
-                          title: const Text(
-                            'Job Type',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: Text(jobTypeSelected),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        showModalBottomSheet(
-                            shape: const BeveledRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(50),
-                                    topRight: Radius.circular(50))),
-                            context: context,
-                            builder: (BuildContext context) {
-                              return Container(
-                                decoration: const BoxDecoration(
-                                    color: Color.fromARGB(255, 222, 219, 219),
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(50),
-                                        topRight: Radius.circular(50))),
-                                child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: FutureBuilder<List<Subcategory>>(
-                                        future: _subCatygory,
-                                        builder: (context, snapshot) {
-                                          if (snapshot.hasData) {
-                                            var data = snapshot.data!;
-                                            return ListView.builder(
-                                                itemCount: data.length,
-                                                itemBuilder: (context, index) {
-                                                  return ListTile(
-                                                    title: Text(
-                                                      data[index].name,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                    trailing:
-                                                        selectedJobQualification
-                                                                .contains(
-                                                                    data[index]
-                                                                        .name)
-                                                            ? IconButton(
-                                                                icon: const Icon(
-                                                                    Icons
-                                                                        .close),
-                                                                onPressed: () {
-                                                                  setState(() {
-                                                                    // selectedJobId.remove(
-                                                                    //     data
-                                                                    //         .categories[
-                                                                    //             index]
-                                                                    //         .id);
-                                                                    selectedJobQualification
-                                                                        .remove(
-                                                                            data[index].name);
-                                                                    selectedQualId
-                                                                        .remove(
-                                                                            data[index].id);
-                                                                    Navigator.pop(
-                                                                        context);
-                                                                  });
-                                                                },
-                                                              )
-                                                            : null,
-                                                    onTap: () {
-                                                      setState(() {
-                                                        if (selectedJobQualification
-                                                            .contains(
-                                                                data[index]
-                                                                    .name)) {
-                                                          selectedQualId.remove(
-                                                              data[index].id);
-                                                          selectedJobQualification
-                                                              .remove(
-                                                                  data[index]
-                                                                      .name);
-                                                        } else {
-                                                          selectedQualId.add(
-                                                              data[index].id);
-                                                          selectedJobQualification
-                                                              .add(data[index]
-                                                                  .name);
-                                                        }
-                                                        Navigator.pop(context);
-                                                      });
-                                                    },
-                                                  );
-                                                });
-                                          } else {
-                                            return const Center(
-                                                child: SizedBox(
-                                                    child:
-                                                        CircularProgressIndicator()));
-                                          }
-                                        })),
-                              );
-                            });
-                      },
-                      child: Container(
-                          height: 80,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 238, 230, 230),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: ListTile(
-                            title: const Text(
-                              'Job Qualification',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            subtitle: selectedJobQualification.isNotEmpty
-                                ? SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      children: [
-                                        for (final jobQualification
-                                            in selectedJobQualification)
-                                          Padding(
-                                            padding: const EdgeInsets.all(4.0),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: const Color.fromARGB(
-                                                    252, 235, 232, 232),
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    Text(jobQualification),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                      ],
-                                    ),
-                                  )
-                                : const Text('Select job qualifications(s)'),
-                          )),
-                    ),
+                    AddQual(subCate: _subCatygory),
                     const SizedBox(
                       height: 20,
                     ),
@@ -588,7 +182,6 @@ class _AddJobState extends State<AddJob> {
                         ),
                       ),
                     ),
-
                     const SizedBox(
                       height: 20,
                     ),
@@ -631,24 +224,30 @@ class _AddJobState extends State<AddJob> {
                     const SizedBox(
                       height: 20,
                     ),
-                    CustomTextField(
-                      validateMessage: 'Salary is required',
-                      title: 'Salary',
-                      hint: 'salary',
-                      controller: salary,
-                      maxLines: 1,
-                      border: 10,
-                      borderColor: AppColors.amber,
-                    ),
+                    IntegerTextField(controller: salary),
                     const SizedBox(
                       height: 20,
                     ),
                     Consumer<AddJobServices>(builder: (context, job, child) {
-                     
                       return customButton(
-                          text: 'Add job',
-                          tap: () {
-                            int s = int.parse(salary.text);
+                        text: 'Add job',
+                        tap: () {
+                          if (helper.isEmpty() ||
+                              title.text.isEmpty ||
+                              desc.text.isEmpty ||
+                              genderSelected.isEmpty ||
+                              salary.text.isEmpty) {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              elevation: 0,
+                              content: FlashMessage(
+                                errorText:
+                                    "All Fields Is required, please fill all",
+                              ),
+                              behavior: SnackBarBehavior.floating,
+                              backgroundColor: Colors.transparent,
+                            ));
+                          } else {
                             job.addJob(
                                 title.text,
                                 typeId,
@@ -656,59 +255,16 @@ class _AddJobState extends State<AddJob> {
                                 selectedJobId,
                                 selectedQualId,
                                 desc.text,
-                                s,
+                                int.parse(salary.text),
                                 counter.countHour,
                                 counter.countExper,
                                 counter.countMax,
                                 genderSelected);
-                          },
-                          context: context,
-                          );
+                          }
+                        },
+                        context: context,
+                      );
                     })
-
-                    // GestureDetector(
-                    //   onTap: () {
-                    //     // CashMemory().daleteCashItem(key: 'accessToken');
-                    //     String t = CashMemory().getCashData(key: 'accessToken');
-                    //     print(t);
-                    //     // print(title.text);
-                    //     // print(selectedQualId);
-                    //     // print(LevelId);
-                    //     // print(typeId);
-                    //     int s = int.parse(salary.text);
-                    //     // print(s);
-
-                    //     AddJobServices().addJob(
-                    //         title.text,
-                    //         typeId,
-                    //         LevelId,
-                    //         selectedJobId,
-                    //         selectedQualId,
-                    //         desc.text,
-                    //         s,
-                    //         counter.countHour,
-                    //         counter.countExper,
-                    //         counter.countMax,
-                    //         genderSelected);
-                    //   },
-                    //   child: Container(
-                    //     height: 40,
-                    //     width: 140,
-                    //     decoration: BoxDecoration(
-                    //         gradient: LinearGradient(colors: [
-                    //           AppColors.mainColor,
-                    //           // Color(0xFF00b4db), // First color
-                    //           const Color(0xFF00b3b0),
-                    //         ]),
-                    //         borderRadius:
-                    //             const BorderRadius.all(Radius.circular(20))),
-                    //     child: const Center(
-                    //         child: Text(
-                    //       'Add Job',
-                    //       style: TextStyle(color: Colors.white),
-                    //     )),
-                    //   ),
-                    // )
                   ],
                 ),
               ),
@@ -719,3 +275,5 @@ class _AddJobState extends State<AddJob> {
     );
   }
 }
+
+

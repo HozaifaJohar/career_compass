@@ -2,6 +2,7 @@ import 'package:career_compass/provider/type_provider.dart';
 import 'package:career_compass/screens/company_screens/register_company.dart';
 import 'package:career_compass/screens/employee_screens/register_employee.dart';
 import 'package:career_compass/style/app_colors.dart';
+import 'package:career_compass/widgets/flash_message.dart';
 import 'package:career_compass/widgets/obsecure_textfield.dart';
 import 'package:career_compass/widgets/textfield.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,7 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     bool type = Provider.of<TypeProvider>(context).type;
     final screenHeight = MediaQuery.of(context).size.height;
+    String isEmail = '@gmail.com';
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -81,7 +83,7 @@ class RegisterScreen extends StatelessWidget {
                       borderColor: AppColors.amber,
                       hint: 'enter your password',
                       validateMessage: 'Please enter a password',
-                      suffixIcon: Icon(Icons.visibility),
+                      suffixIcon: const Icon(Icons.visibility),
                       title: 'Password',
                       controller: password,
                       border: 50,
@@ -94,7 +96,20 @@ class RegisterScreen extends StatelessWidget {
                         onTap: () {
                           {
                             if (formKey.currentState!.validate()) {
-                              if (type) {
+                                if (!email.text.contains(isEmail)) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      elevation: 0,
+                                      content: FlashMessage(
+                                        errorText:
+                                            'email should have @gmail.com',
+                                      ),
+                                      behavior: SnackBarBehavior.floating,
+                                      backgroundColor: Colors.transparent,
+                                    ),
+                                  );
+                                }
+                            else if (type) {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -107,6 +122,7 @@ class RegisterScreen extends StatelessWidget {
                                   ),
                                 );
                               } else {
+                              
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(

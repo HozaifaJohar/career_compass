@@ -9,10 +9,12 @@ import 'package:provider/provider.dart';
 
 class RegisterEmployeeSrevice extends ChangeNotifier {
   String url = AppString.baseUrl;
+   String _resMessage = '';
+  String get resMessage => _resMessage;
   // final bool _isLoggedIn = false;
   // bool get authenticated => _isLoggedIn;
 
-  Future<int> register({
+  Future<bool> register({
     required String name,
     required String email,
     required String password,
@@ -23,7 +25,7 @@ class RegisterEmployeeSrevice extends ChangeNotifier {
     required String description,
   }) async {
     //Map<String, dynamic> data = await Api().post(
-    int data = await Api().post(
+    var data = await Api().post(
       url: '$url/employeeAuth/register',
       body: {
         "name": name,
@@ -36,8 +38,13 @@ class RegisterEmployeeSrevice extends ChangeNotifier {
         "description":description
       },
     );
-    //return UserEmployee.fromJson(data);
-    return data;
+    if (data is int) {
+      return true;
+    } else {
+      _resMessage = data['message'].toString();
+      notifyListeners();
+      return false;
+    }
   }
 
 //   void register(Map userEmployee) async {

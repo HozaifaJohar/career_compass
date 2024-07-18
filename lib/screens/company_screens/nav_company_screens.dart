@@ -1,20 +1,30 @@
+import 'dart:convert';
+
+import 'package:career_compass/constant/url.dart';
 import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/provider/onTap_nav_company.dart';
 import 'package:career_compass/screens/company_screens/add_job.dart';
 import 'package:career_compass/screens/company_screens/home_company.dart';
 import 'package:career_compass/screens/company_screens/notification_company.dart';
+import 'package:career_compass/services/company/get_logo.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class NavigationCompanyScreen extends StatelessWidget {
-  const NavigationCompanyScreen({super.key});
+  NavigationCompanyScreen({super.key});
+
   final List<Widget> pagesList = const [
     HomePageCompany(),
     AddJob(),
     NotificationCompanyScreen(),
   ];
+
+  String? _imagePath;
+
+  String url = AppString.baseUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -40,18 +50,44 @@ class NavigationCompanyScreen extends StatelessWidget {
               color: AppColors.mainColor,
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30),
-                    child: Container(
-                      height: 90,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          image: AssetImage('./images/profilePhoto.jpg'),
-                        ),
-                      ),
-                    ),
-                  ),
+                  FutureBuilder<String?>(
+                      future: GetLogo().getLogo(),
+                      builder: (context, snapshot) {
+                        _imagePath = snapshot.data;
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 30),
+                          child: Container(
+                            height: 90,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                      'http://10.0.2.2:3000/$_imagePath')
+                                  //           //  AssetImage('./images/profilePhoto.jpg'),
+                                  ),
+                            ),
+                          ),
+                        );
+                      }),
+
+                  //  _imagePath != null
+                  //     ? Image.network('$url/$_imagePath!')
+                  //     : const CircularProgressIndicator(),
+
+                  // Padding(
+                  //   padding: const EdgeInsets.only(top: 30),
+                  //   child: Container(
+                  //     height: 90,
+                  //     decoration: const BoxDecoration(
+                  //       shape: BoxShape.circle,
+                  //       image: DecorationImage(
+                  //           image: NetworkImage(
+                  //               'http://10.0.2.2:3000/uploadsimages/7e518bfce27b9263bdfb54aba1398e8d.jpg')
+                  //           //           //  AssetImage('./images/profilePhoto.jpg'),
+                  //           ),
+                  //     ),
+                  //   ),
+                  // ),
                   const SizedBox(height: 10),
                   const Text(
                     'Company Name',
@@ -104,7 +140,7 @@ class NavigationCompanyScreen extends StatelessWidget {
                     title: const Text('Logout'),
                     leading: const Icon(Icons.login),
                     onTap: () {
-                         CashMemory()
+                      CashMemory()
                           .daleteCashItem(key: 'accessToken')
                           .then((value) {
                         Navigator.pushNamed(context, '/start_screen');
@@ -114,7 +150,9 @@ class NavigationCompanyScreen extends StatelessWidget {
                   ListTile(
                     title: const Text('Change Language'),
                     leading: const Icon(Icons.language),
-                    onTap: () {},
+                    onTap: () async {
+                      // GetLogo().getLogo();
+                    },
                   ),
                 ],
               ),

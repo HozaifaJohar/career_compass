@@ -4,16 +4,23 @@ import 'package:career_compass/helper/api.dart';
 import 'package:flutter/material.dart';
 
 class ActivicationCode extends ChangeNotifier {
+  String _resMessage = '';
+  String get resMessage => _resMessage;
   String url = AppString.baseUrl;
-  Future<Map<String, dynamic>> activicate(String email, String code) async {
+  Future<bool> activicate(String email, String code) async {
     var data = await Api().post(
         url: '$url/companyAuth/activate',
         body: {"email": email, "activationCode": code});
     print(data);
-    String token = data['access_token'];
-    CashMemory().insertToCash(key: 'accessToken', value: token);
-    print(token);
-    return data;
+    var token = data['access_token'];
+    if (token != null) {
+      CashMemory().insertToCash(key: 'accessToken', value: token);
+      return true;
+    } else {
+      _resMessage = data['message'];
+      notifyListeners();
+      return false;
+    }
   }
 
   Future<int> resendcode(String email) async {
