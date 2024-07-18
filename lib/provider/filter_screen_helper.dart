@@ -75,9 +75,7 @@ class FilterScreenHelper with ChangeNotifier {
 //////////////////////////////////////////////////////////////////////////////////
 
   bool filterScreenValidation() {
-    if (getSubCategories().isEmpty ||
-        getCategories().length < 3 ||
-        numItems < 2) {
+    if (getSubCategories().isEmpty || getCategories().isEmpty || numItems < 2) {
       return false;
     }
     return true;

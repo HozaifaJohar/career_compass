@@ -17,7 +17,7 @@ class ContainerAndSheetConstants extends StatefulWidget {
 }
 
 class _ContainerAndSheetConstants extends State<ContainerAndSheetConstants> {
-  String selectedItem = '';
+  String selectedItem = 'Required';
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

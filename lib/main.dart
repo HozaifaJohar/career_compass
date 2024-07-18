@@ -1,12 +1,12 @@
 import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/provider/counter.dart';
+import 'package:career_compass/provider/employee/gets_provider_employee.dart';
 import 'package:career_compass/provider/filter_screen_helper.dart';
 import 'package:career_compass/provider/jobs_provider.dart';
 import 'package:career_compass/provider/onTap_nav_company.dart';
 import 'package:career_compass/provider/onTap_nav_employee.dart';
 import 'package:career_compass/provider/type_provider.dart';
 import 'package:career_compass/screens/company_screens/add_job.dart';
-import 'package:career_compass/screens/company_screens/companyjob_details.dart';
 import 'package:career_compass/screens/company_screens/drawer_company_screens/changeInfo_company.dart';
 import 'package:career_compass/screens/company_screens/drawer_company_screens/changePassword_company.dart';
 import 'package:career_compass/screens/company_screens/drawer_company_screens/uploadLogo_company.dart';
@@ -57,10 +57,9 @@ void main() async {
       ChangeNotifierProvider(create: (context) => FilterScreenHelper()),
       ChangeNotifierProvider(create: (context) => Counter()),
       ChangeNotifierProvider(create: (context) => AddJobServices()),
-      ChangeNotifierProvider(create: (context) => FileUploader(),),
+      ChangeNotifierProvider(create: (context) => FileUploader()),
       ChangeNotifierProvider(create: (context) => JobProvider()),
-     
-   
+      ChangeNotifierProvider(create: (context) => GetProviderEmployee()),
     ],
     child: const MyApp(),
   ));
@@ -75,7 +74,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: NavigationCompanyScreen(),
+      home: NavigationEmployeeScreen(),
       routes: {
         '/start_screen': (context) => StartScreen(),
         'register_screen': (context) => RegisterScreen(),
@@ -84,7 +83,7 @@ class MyApp extends StatelessWidget {
         //'/splash_screen': (context) => const SplashScreen(),
 
         //screens for company section
-       // '/compay_jobdetails': (context) => const CompanyJobDetails(),
+        // '/compay_jobdetails': (context) => const CompanyJobDetails(),
         '/changePassword_company': (context) => const ChangePasswordCompany(),
         // '/register_company': (context) =>  ResisterCompanyScreen(),
         '/home_company': (context) => const HomePageCompany(),

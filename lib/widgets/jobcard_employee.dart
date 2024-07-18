@@ -1,4 +1,3 @@
-import 'package:career_compass/style/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class JobCardEmployee extends StatelessWidget {
@@ -20,6 +19,7 @@ class JobCardEmployee extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               companyName,

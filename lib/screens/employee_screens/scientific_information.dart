@@ -81,7 +81,7 @@ class _ScientificInformationState extends State<ScientificInformation> {
                 ),
                 ContainerAndSheetCategories(
                   title: 'Job Role',
-                  subtitle: 'Select job role(s)',
+                  subtitle: 'Required',
                   staticList: staticCategories,
                 ),
                 const SizedBox(
@@ -89,7 +89,7 @@ class _ScientificInformationState extends State<ScientificInformation> {
                 ),
                 ContainerAndSheetCategories(
                   title: 'Job Level',
-                  subtitle: 'Select job level(s)',
+                  subtitle: 'Optional',
                   staticList: staticLevels,
                 ),
                 const SizedBox(
@@ -97,7 +97,7 @@ class _ScientificInformationState extends State<ScientificInformation> {
                 ),
                 ContainerAndSheetCategories(
                   title: 'Job Type',
-                  subtitle: 'Select job Type(s)',
+                  subtitle: 'Optional',
                   staticList: staticTypes,
                 ),
                 const SizedBox(
@@ -105,7 +105,7 @@ class _ScientificInformationState extends State<ScientificInformation> {
                 ),
                 ContainerAndSheetSubcategories(
                   title: 'Job Qualification',
-                  subtitle: 'Select job qualifications(s)',
+                  subtitle: 'Required',
                   qualificationList: UseFul().getThierSubCategory(
                       Provider.of<FilterScreenHelper>(context)
                           .selectedJobId
@@ -156,6 +156,7 @@ class _ScientificInformationState extends State<ScientificInformation> {
                         accessToken:
                             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImltYWQiLCJlbWFpbCI6ImltYWRmZmZmQGdtYWlsLmNvbSIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3MjAwMDM4NTQsImV4cCI6MTcyMDYwODY1NH0.kCD5Ae5cIxkTcj3vN0OOS8K3-WM_k7EusGpBOT5MSSQ',
                       );
+                      Navigator.pushNamed(context, '/navigation_employee');
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         elevation: 0,
