@@ -1,26 +1,52 @@
+import 'package:career_compass/models/employee/job_employee.dart';
+import 'package:career_compass/screens/employee_screens/jobemplyee_details.dart';
+import 'package:career_compass/style/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class JobCardEmployee extends StatelessWidget {
-  final String jobLevel;
-  final String jobRole;
-  final String jobType;
-  final String companyName;
+  final List<Static> statics;
+  final List<SubCategory> subCategories;
+  final Company company;
+  final String description;
+  final String title;
+  final int salary;
+  final String gender;
 
-  const JobCardEmployee(
-      {super.key,
-      required this.jobLevel,
-      required this.jobRole,
-      required this.jobType,
-      required this.companyName});
+  const JobCardEmployee({
+    super.key,
+    required this.statics,
+    required this.company,
+    required this.subCategories,
+    required this.description,
+    required this.title,
+    required this.salary,
+    required this.gender,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(15.0),
+    final companyName = company.companyName;
+    final jobLevel =
+        statics.firstWhere((element) => element.type == 'level').name;
+    final jobType =
+        statics.firstWhere((element) => element.type == 'job type').name;
+    List<String> categories = [];
+    for (var map in statics) {
+      if (map.type == 'category') {
+        categories.add(map.name);
+      }
+    }
+
+    return InkWell(
+      splashColor: AppColors.mainColor.withAlpha(50),
+      highlightColor: AppColors.mainColor.withAlpha(30),
+      borderRadius: BorderRadius.circular(15),
+      child: Card(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
           children: [
+            const SizedBox(
+              height: 5,
+            ),
             Text(
               companyName,
               style: const TextStyle(
@@ -33,17 +59,20 @@ class JobCardEmployee extends StatelessWidget {
             ),
             Row(
               children: [
-                const Icon(Icons.work,
-                    color: Color.fromARGB(107, 94, 114, 226)),
+                const Icon(
+                  Icons.work,
+                  color: Color.fromARGB(107, 94, 114, 226),
+                ),
                 const SizedBox(width: 20),
                 const Text('JobRole:'),
                 const SizedBox(width: 20),
-                Text(jobRole),
-                // const SizedBox(width: 140),
-                // const Icon(
-                //   Icons.arrow_circle_right,
-                //   color: Color(0xffF68623),
-                // )
+                Expanded(
+                  child: Text(
+                    categories.join(', '),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
               ],
             ),
             const SizedBox(
@@ -51,8 +80,10 @@ class JobCardEmployee extends StatelessWidget {
             ),
             Row(
               children: [
-                const Icon(Icons.bar_chart,
-                    color: Color.fromARGB(107, 94, 114, 226)),
+                const Icon(
+                  Icons.bar_chart,
+                  color: Color.fromARGB(107, 94, 114, 226),
+                ),
                 const SizedBox(width: 20),
                 const Text('Job Level:'),
                 const SizedBox(width: 20),
@@ -71,16 +102,36 @@ class JobCardEmployee extends StatelessWidget {
                 const SizedBox(width: 20),
                 Text(jobType),
                 const Spacer(),
-                //  const SizedBox(width: 80),
                 const Icon(
                   Icons.arrow_circle_right,
                   color: Color.fromARGB(154, 246, 133, 35),
-                )
+                ),
               ],
             ),
+            const SizedBox(
+              height: 10,
+            )
           ],
         ),
       ),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => EmployeJobDetails(
+              categories: categories,
+              jobLevel: jobLevel,
+              jobType: jobType,
+              description: description,
+              salary: salary,
+              subCategories: subCategories,
+              title: title,
+              gender: gender,
+              company: company,
+            ),
+          ),
+        );
+      },
     );
   }
 }

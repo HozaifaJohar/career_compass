@@ -8,6 +8,7 @@ class GetProviderEmployee extends ChangeNotifier {
   List<JobEmployee> _jobs = [];
   List<JobEmployee> get jobs => _jobs;
   bool isLoading = false;
+
   Future<void> getAllJobs() async {
     isLoading = true;
     notifyListeners();

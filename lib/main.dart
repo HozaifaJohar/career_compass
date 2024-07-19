@@ -109,7 +109,7 @@ class MyApp extends StatelessWidget {
         '/uploadPhoto_employee': (context) => const UploadPhotoEmployee(),
         '/upload_cv': (context) => const UploadCv(),
 
-        '/employee_jobdetails': (context) => const EmployeJobDetails(),
+        //'/employee_jobdetails': (context) =>  EmployeJobDetails(),
       },
     );
   }

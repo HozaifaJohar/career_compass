@@ -6,25 +6,7 @@ class JobsService {
   final url = AppString.baseUrl;
   Future<List<JobEmployee>> getJobs() async {
     final response = await Api().get(url: '$url/employees/jobs') as List;
-    final jobs = response.map(
-      (e) {
-        print('getjobis founded');
-        return JobEmployee(
-          id: e["id"],
-          title: e["title"],
-          description: e["description"],
-          salary: e["salary"],
-          workHours: e["workHours"],
-          numberOfEmployees: e["numberOfEmployees"],
-          experienceYears: e["experienceYears"],
-          wantedGender: e["wantedGender"],
-          active: e["active"],
-          company: e["company"],
-          statics: e["static"],
-          subCategories: e["subCategories"],
-        );
-      },
-    ).toList();
+    final jobs = response.map((e) => JobEmployee.fromJson(e)).toList();
     return jobs;
   }
 }

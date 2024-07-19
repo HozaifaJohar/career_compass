@@ -55,6 +55,11 @@ class _HomePageEmployeeState extends State<HomePageEmployee> {
               return const Center(child: CircularProgressIndicator());
             }
             final jobs = value.jobs;
+            if (jobs.isEmpty) {
+              return const Center(
+                child: Text('oop there is no jobs to display'),
+              );
+            }
             return Expanded(
               child: CustomScrollView(
                 slivers: [
@@ -64,12 +69,16 @@ class _HomePageEmployeeState extends State<HomePageEmployee> {
                       (context, index) {
                         final job = jobs[index];
                         return Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: JobCardEmployee(
-                              jobRole: 'it',
-                              jobType: 'Full time',
-                              jobLevel: 'Junior Profissional',
-                              companyName: 'Google Company'),
+                            statics: job.statics,
+                            company: job.company,
+                            subCategories: job.subCategories,
+                            description: job.description,
+                            title: job.title,
+                            salary: job.salary,
+                            gender: job.wantedGender,
+                          ),
                         );
                       },
                     ),
@@ -79,36 +88,6 @@ class _HomePageEmployeeState extends State<HomePageEmployee> {
             );
           },
         ),
-
-        // Consumer<GetProviderEmployee>(
-        //   builder: (context, value, child) {
-        //     final jobs = value.jobs;
-        //     return GestureDetector(
-        //       onTap: () {
-        //         Navigator.push(
-        //           context,
-        //           MaterialPageRoute(
-        //             builder: (context) => const EmployeJobDetails(),
-        //           ),
-        //         );
-        //       },
-        //       child: ListView.builder(
-        //         itemCount: jobs.length,
-        //         itemBuilder: (context, index) {
-        //           final job = jobs[index];
-        //           return Padding(
-        //             padding: EdgeInsets.all(8.0),
-        //             child: JobCardEmployee(
-        //                 jobRole: 'IT SPECIAL',
-        //                 jobType: 'Full time',
-        //                 jobLevel: 'Junior Profissional',
-        //                 companyName: 'Google Company'),
-        //           );
-        //         },
-        //       ),
-        //     );
-        //   },
-        // ),
       ],
     );
   }

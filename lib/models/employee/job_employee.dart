@@ -136,7 +136,7 @@ class Company {
 class Static {
   int id;
   String name;
-  Type type;
+  String type;
 
   Static({
     required this.id,
@@ -147,23 +147,15 @@ class Static {
   factory Static.fromJson(Map<String, dynamic> json) => Static(
         id: json["id"],
         name: json["name"],
-        type: typeValues.map[json["type"]]!,
+        type: json["type"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
-        "type": typeValues.reverse[type],
+        "type": type,
       };
 }
-
-enum Type { CATEGORY, JOB_TYPE, LEVEL }
-
-final typeValues = EnumValues({
-  "category": Type.CATEGORY,
-  "job type": Type.JOB_TYPE,
-  "level": Type.LEVEL
-});
 
 class SubCategory {
   int id;
@@ -183,16 +175,4 @@ class SubCategory {
         "id": id,
         "name": name,
       };
-}
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }
