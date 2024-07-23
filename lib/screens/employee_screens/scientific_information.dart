@@ -84,24 +84,15 @@ class _ScientificInformationState extends State<ScientificInformation> {
                   subtitle: 'Required',
                   staticList: staticCategories,
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
                 ContainerAndSheetCategories(
                   title: 'Job Level',
                   subtitle: 'Optional',
                   staticList: staticLevels,
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
                 ContainerAndSheetCategories(
                   title: 'Job Type',
                   subtitle: 'Optional',
                   staticList: staticTypes,
-                ),
-                const SizedBox(
-                  height: 20,
                 ),
                 ContainerAndSheetSubcategories(
                   title: 'Job Qualification',
@@ -111,22 +102,13 @@ class _ScientificInformationState extends State<ScientificInformation> {
                           .selectedJobId
                           .join(',')),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
                 ContainerAndSheetConstants(
                   title: 'Experience',
                   staticList: StaticLists.experience,
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
                 ContainerAndSheetConstants(
                   title: 'Education',
                   staticList: StaticLists.education,
-                ),
-                const SizedBox(
-                  height: 20,
                 ),
                 GestureDetector(
                   onTap: () async {

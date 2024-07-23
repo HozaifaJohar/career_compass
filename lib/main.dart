@@ -1,6 +1,6 @@
 import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/provider/counter.dart';
-import 'package:career_compass/provider/employee/gets_provider_employee.dart';
+import 'package:career_compass/provider/employee/get_job_employee.dart';
 import 'package:career_compass/provider/filter_screen_helper.dart';
 import 'package:career_compass/provider/job_helper.dart';
 import 'package:career_compass/provider/jobs_provider.dart';
@@ -20,7 +20,6 @@ import 'package:career_compass/screens/employee_screens/drawer_employee_screens/
 import 'package:career_compass/screens/employee_screens/drawer_employee_screens/uploadPhoto_employee.dart';
 import 'package:career_compass/screens/employee_screens/scientific_information.dart';
 import 'package:career_compass/screens/employee_screens/home_employee.dart';
-import 'package:career_compass/screens/employee_screens/jobemplyee_details.dart';
 import 'package:career_compass/screens/employee_screens/nav_employee_screen.dart';
 import 'package:career_compass/screens/login.dart';
 import 'package:career_compass/screens/company_screens/home_company.dart';
@@ -61,7 +60,7 @@ void main() async {
       ChangeNotifierProvider(create: (context) => AddJobServices()),
       ChangeNotifierProvider(create: (context) => FileUploader()),
       ChangeNotifierProvider(create: (context) => JobProvider()),
-      ChangeNotifierProvider(create: (context) => GetProviderEmployee()),
+      ChangeNotifierProvider(create: (context) => GetAllJobs()),
       ChangeNotifierProvider(create: (context) => JobHelper()),
       ChangeNotifierProvider(create: (context) => GetLogo()),
     ],

@@ -9,7 +9,7 @@ class UseFul {
     final response = await Api().get(
       url: '$url/statics',
     );
-    print(response);
+    //print(response);
     Static statics = Static.fromJson(response);
     return statics;
   }

@@ -1,9 +1,8 @@
-import 'package:career_compass/provider/employee/gets_provider_employee.dart';
+import 'package:career_compass/provider/employee/get_job_employee.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/jobcard_employee.dart';
 import 'package:career_compass/widgets/waves.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class HomePageEmployee extends StatefulWidget {
@@ -19,7 +18,7 @@ class _HomePageEmployeeState extends State<HomePageEmployee> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<GetProviderEmployee>(context, listen: false).getAllJobs();
+      Provider.of<GetAllJobs>(context, listen: false).getAllJobs();
     });
     super.initState();
   }
@@ -49,7 +48,7 @@ class _HomePageEmployeeState extends State<HomePageEmployee> {
             ),
           ],
         ),
-        Consumer<GetProviderEmployee>(
+        Consumer<GetAllJobs>(
           builder: (contxt, value, child) {
             if (value.isLoading) {
               return const Center(child: CircularProgressIndicator());
