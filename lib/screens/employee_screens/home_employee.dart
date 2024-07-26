@@ -1,4 +1,5 @@
-import 'package:career_compass/provider/employee/get_job_employee.dart';
+import 'package:career_compass/provider/employee/get_alljobs.dart';
+import 'package:career_compass/provider/employee/get_filteredjob_employee.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/jobcard_employee.dart';
 import 'package:career_compass/widgets/waves.dart';
@@ -18,7 +19,7 @@ class _HomePageEmployeeState extends State<HomePageEmployee> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<GetAllJobs>(context, listen: false).getAllJobs();
+      Provider.of<Alljobs>(context, listen: false).getJobs();
     });
     super.initState();
   }
@@ -27,28 +28,7 @@ class _HomePageEmployeeState extends State<HomePageEmployee> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Stack(
-          children: [
-            Opacity(
-              opacity: 0.5,
-              child: ClipPath(
-                clipper: WaveClipper(),
-                child: Container(
-                  height: 140,
-                  color: AppColors.mainColor,
-                ),
-              ),
-            ),
-            ClipPath(
-              clipper: WaveClipper(),
-              child: Container(
-                height: 120,
-                color: AppColors.mainColor,
-              ),
-            ),
-          ],
-        ),
-        Consumer<GetAllJobs>(
+        Consumer<Alljobs>(
           builder: (contxt, value, child) {
             if (value.isLoading) {
               return const Center(child: CircularProgressIndicator());

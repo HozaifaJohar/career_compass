@@ -16,7 +16,6 @@ class UseFul {
 
   Future<List<Qualification>> getThierSubCategory(String categories) async {
     String url = AppString.baseUrl;
-
     List<dynamic> jsonData = await Api().get(
         url: '$url/statics/get_their_subcategories?categories=$categories');
     List<Qualification> subCategories =

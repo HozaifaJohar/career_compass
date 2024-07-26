@@ -1,11 +1,13 @@
 import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/provider/counter.dart';
-import 'package:career_compass/provider/employee/get_job_employee.dart';
-import 'package:career_compass/provider/filter_screen_helper.dart';
+import 'package:career_compass/provider/employee/filter_screen_helper.dart';
+import 'package:career_compass/provider/employee/get_alljobs.dart';
+import 'package:career_compass/provider/employee/get_filteredjob_employee.dart';
+import 'package:career_compass/provider/employee/register_screen_helper.dart';
 import 'package:career_compass/provider/job_helper.dart';
 import 'package:career_compass/provider/jobs_provider.dart';
 import 'package:career_compass/provider/onTap_nav_company.dart';
-import 'package:career_compass/provider/onTap_nav_employee.dart';
+import 'package:career_compass/provider/employee/onTap_nav_employee.dart';
 import 'package:career_compass/provider/type_provider.dart';
 import 'package:career_compass/screens/company_screens/add_job.dart';
 import 'package:career_compass/screens/company_screens/drawer_company_screens/changeInfo_company.dart';
@@ -55,14 +57,16 @@ void main() async {
       ChangeNotifierProvider(create: (context) => OntapNavigationEmployee()),
       ChangeNotifierProvider(create: (context) => AuthCompany()),
       ChangeNotifierProvider(create: (context) => ActivicationCode()),
-      ChangeNotifierProvider(create: (context) => FilterScreenHelper()),
+      ChangeNotifierProvider(create: (context) => RegisterHelper()),
       ChangeNotifierProvider(create: (context) => Counter()),
       ChangeNotifierProvider(create: (context) => AddJobServices()),
       ChangeNotifierProvider(create: (context) => FileUploader()),
       ChangeNotifierProvider(create: (context) => JobProvider()),
-      ChangeNotifierProvider(create: (context) => GetAllJobs()),
+      ChangeNotifierProvider(create: (context) => FilteredJobs()),
       ChangeNotifierProvider(create: (context) => JobHelper()),
       ChangeNotifierProvider(create: (context) => GetLogo()),
+      ChangeNotifierProvider(create: (context) => FilterHelper()),
+      ChangeNotifierProvider(create: (context) => Alljobs()),
     ],
     child: const MyApp(),
   ));
@@ -77,7 +81,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: NavigationEmployeeScreen(),
+      home: StartScreen(),
       routes: {
         '/start_screen': (context) => StartScreen(),
         'register_screen': (context) => RegisterScreen(),

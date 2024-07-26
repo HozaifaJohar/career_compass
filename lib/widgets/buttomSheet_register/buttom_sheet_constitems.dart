@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:career_compass/provider/filter_screen_helper.dart';
+import 'package:career_compass/provider/employee/register_screen_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +20,7 @@ class _ContainerAndSheetConstants extends State<ContainerAndSheetConstants> {
   String selectedItem = 'Required';
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<RegisterHelper>(context, listen: false);
     return Column(
       children: [
         GestureDetector(
@@ -55,21 +56,11 @@ class _ContainerAndSheetConstants extends State<ContainerAndSheetConstants> {
                                 () {
                                   selectedItem = widget.staticList[index];
                                   if (widget.title == 'Experience') {
-                                    Provider.of<FilterScreenHelper>(context,
-                                            listen: false)
-                                        .experience = selectedItem;
-                                    //this line for validation in ScientificInformation screen
-                                    Provider.of<FilterScreenHelper>(context,
-                                            listen: false)
-                                        .numItems++;
+                                    provider.experience = selectedItem;
+                                    provider.numItems++;
                                   } else {
-                                    Provider.of<FilterScreenHelper>(context,
-                                            listen: false)
-                                        .education = selectedItem;
-                                    //this line for validation in ScientificInformation screen
-                                    Provider.of<FilterScreenHelper>(context,
-                                            listen: false)
-                                        .numItems++;
+                                    provider.education = selectedItem;
+                                    provider.numItems++;
                                   }
                                   Navigator.pop(context);
                                 },

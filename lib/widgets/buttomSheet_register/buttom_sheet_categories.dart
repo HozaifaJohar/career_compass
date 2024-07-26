@@ -1,30 +1,30 @@
-import 'package:career_compass/models/qual.dart';
-import 'package:career_compass/provider/filter_screen_helper.dart';
+import 'package:career_compass/models/static.dart';
+import 'package:career_compass/provider/employee/register_screen_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ContainerAndSheetSubcategories extends StatefulWidget {
+class ContainerAndSheetCategories extends StatefulWidget {
   final String title;
   final String subtitle;
-  final Future<List<Qualification>> qualificationList;
-  const ContainerAndSheetSubcategories({
+  final Future<List<Category>> staticList;
+
+  const ContainerAndSheetCategories({
     required this.title,
     required this.subtitle,
-    required this.qualificationList,
+    required this.staticList,
     super.key,
   });
 
   @override
-  State<ContainerAndSheetSubcategories> createState() =>
-      _ContainerAndSheetSubcategories();
+  State<ContainerAndSheetCategories> createState() =>
+      _ContainerAndSheetCategories();
 }
 
-class _ContainerAndSheetSubcategories
-    extends State<ContainerAndSheetSubcategories> {
+class _ContainerAndSheetCategories extends State<ContainerAndSheetCategories> {
   List<String> selectedItemsList = [];
-
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<RegisterHelper>(context, listen: false);
     return Column(
       children: [
         GestureDetector(
@@ -47,7 +47,7 @@ class _ContainerAndSheetSubcategories
                     ),
                   ),
                   child: FutureBuilder(
-                    future: widget.qualificationList,
+                    future: widget.staticList,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         var data = snapshot.data!;
@@ -59,42 +59,42 @@ class _ContainerAndSheetSubcategories
                                 data[index].name,
                                 textAlign: TextAlign.center,
                               ),
-                              trailing:
-                                  selectedItemsList.contains(data[index].name)
-                                      ? IconButton(
-                                          icon: const Icon(
-                                            Icons.close,
-                                          ),
-                                          onPressed: () {
-                                            setState(
-                                              () {
-                                                selectedItemsList
-                                                    .remove(data[index].name);
-                                                Provider.of<FilterScreenHelper>(
-                                                        context,
-                                                        listen: false)
-                                                    .removeFromSubCategories(
-                                                        data[index].name);
-                                                Navigator.pop(context);
-                                              },
-                                            );
-                                          },
-                                        )
-                                      : null,
+                              trailing: selectedItemsList
+                                      .contains(data[index].name)
+                                  ? IconButton(
+                                      icon: const Icon(
+                                        Icons.close,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          selectedItemsList
+                                              .remove(data[index].name);
+                                          provider.removeFromStatic(
+                                              data[index].name);
+                                          if (widget.title == 'Job Role') {
+                                            provider
+                                                .removeFromIds(data[index].id);
+                                          }
+                                          Navigator.of(context).pop();
+                                        });
+                                      },
+                                    )
+                                  : null,
                               onTap: () {
                                 setState(() {
                                   if (selectedItemsList
                                       .contains(data[index].name)) {
                                     selectedItemsList.remove(data[index].name);
-                                    Provider.of<FilterScreenHelper>(context,
-                                            listen: false)
-                                        .removeFromSubCategories(
-                                            data[index].name);
+                                    provider.removeFromStatic(data[index].name);
+                                    if (widget.title == 'Job Role') {
+                                      provider.removeFromIds(data[index].id);
+                                    }
                                   } else {
                                     selectedItemsList.add(data[index].name);
-                                    Provider.of<FilterScreenHelper>(context,
-                                            listen: false)
-                                        .addToSubCategories(data[index].name);
+                                    provider.addToStatics(data[index].name);
+                                    if (widget.title == 'Job Role') {
+                                      provider.addToIds(data[index].id);
+                                    }
                                   }
                                   Navigator.of(context).pop();
                                 });
@@ -158,7 +158,7 @@ class _ContainerAndSheetSubcategories
         ),
         const SizedBox(
           height: 20,
-        )
+        ),
       ],
     );
   }

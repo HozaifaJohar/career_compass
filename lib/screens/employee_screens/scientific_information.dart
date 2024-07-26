@@ -2,15 +2,15 @@ import 'package:career_compass/constant/static_lists.dart';
 import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/models/qual.dart';
 import 'package:career_compass/models/static.dart';
-import 'package:career_compass/provider/filter_screen_helper.dart';
+import 'package:career_compass/provider/employee/register_screen_helper.dart';
 import 'package:career_compass/services/employee/employee_requests/set_education&experience.dart';
 import 'package:career_compass/services/employee/employee_requests/set_statics.dart';
 import 'package:career_compass/services/employee/employee_requests/set_subcategories.dart';
 import 'package:career_compass/services/employee/useful/useful.dart';
 import 'package:career_compass/style/app_colors.dart';
-import 'package:career_compass/widgets/buttomSheets/buttom_sheet_categories.dart';
-import 'package:career_compass/widgets/buttomSheets/buttom_sheet_constitems.dart';
-import 'package:career_compass/widgets/buttomSheets/buttom_sheet_subcategories.dart';
+import 'package:career_compass/widgets/buttomSheet_register/buttom_sheet_categories.dart';
+import 'package:career_compass/widgets/buttomSheet_register/buttom_sheet_constitems.dart';
+import 'package:career_compass/widgets/buttomSheet_register/buttom_sheet_subcategories.dart';
 import 'package:career_compass/widgets/flash_message.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -98,7 +98,7 @@ class _ScientificInformationState extends State<ScientificInformation> {
                   title: 'Job Qualification',
                   subtitle: 'Required',
                   qualificationList: UseFul().getThierSubCategory(
-                      Provider.of<FilterScreenHelper>(context)
+                      Provider.of<RegisterHelper>(context)
                           .selectedJobId
                           .join(',')),
                 ),
@@ -110,12 +110,15 @@ class _ScientificInformationState extends State<ScientificInformation> {
                   title: 'Education',
                   staticList: StaticLists.education,
                 ),
+                const SizedBox(
+                  height: 20,
+                ),
                 GestureDetector(
                   onTap: () async {
-                    if (Provider.of<FilterScreenHelper>(context, listen: false)
+                    if (Provider.of<RegisterHelper>(context, listen: false)
                         .filterScreenValidation()) {
                       SetStatics().post(
-                        allCategories: Provider.of<FilterScreenHelper>(
+                        allCategories: Provider.of<RegisterHelper>(
                           context,
                           listen: false,
                         ).getCategories(),
@@ -123,7 +126,7 @@ class _ScientificInformationState extends State<ScientificInformation> {
                             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImltYWQiLCJlbWFpbCI6ImltYWRmZmZmQGdtYWlsLmNvbSIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3MjAwMDM4NTQsImV4cCI6MTcyMDYwODY1NH0.kCD5Ae5cIxkTcj3vN0OOS8K3-WM_k7EusGpBOT5MSSQ',
                       );
                       SubCategories().post(
-                        allSubCategories: Provider.of<FilterScreenHelper>(
+                        allSubCategories: Provider.of<RegisterHelper>(
                           context,
                           listen: false,
                         ).getSubCategories(),
@@ -131,7 +134,7 @@ class _ScientificInformationState extends State<ScientificInformation> {
                             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImltYWQiLCJlbWFpbCI6ImltYWRmZmZmQGdtYWlsLmNvbSIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3MjAwMDM4NTQsImV4cCI6MTcyMDYwODY1NH0.kCD5Ae5cIxkTcj3vN0OOS8K3-WM_k7EusGpBOT5MSSQ',
                       );
                       SetEducationAndExeperience().post(
-                        items: Provider.of<FilterScreenHelper>(
+                        items: Provider.of<RegisterHelper>(
                           context,
                           listen: false,
                         ).constItems(),

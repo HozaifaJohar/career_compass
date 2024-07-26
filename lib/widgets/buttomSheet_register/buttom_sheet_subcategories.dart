@@ -1,29 +1,31 @@
-import 'package:career_compass/models/static.dart';
-import 'package:career_compass/provider/filter_screen_helper.dart';
+import 'package:career_compass/models/qual.dart';
+import 'package:career_compass/provider/employee/register_screen_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ContainerAndSheetCategories extends StatefulWidget {
+class ContainerAndSheetSubcategories extends StatefulWidget {
   final String title;
   final String subtitle;
-  final Future<List<Category>> staticList;
-
-  const ContainerAndSheetCategories({
+  final Future<List<Qualification>> qualificationList;
+  const ContainerAndSheetSubcategories({
     required this.title,
     required this.subtitle,
-    required this.staticList,
+    required this.qualificationList,
     super.key,
   });
 
   @override
-  State<ContainerAndSheetCategories> createState() =>
-      _ContainerAndSheetCategories();
+  State<ContainerAndSheetSubcategories> createState() =>
+      _ContainerAndSheetSubcategories();
 }
 
-class _ContainerAndSheetCategories extends State<ContainerAndSheetCategories> {
+class _ContainerAndSheetSubcategories
+    extends State<ContainerAndSheetSubcategories> {
   List<String> selectedItemsList = [];
+
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<RegisterHelper>(context, listen: false);
     return Column(
       children: [
         GestureDetector(
@@ -46,7 +48,7 @@ class _ContainerAndSheetCategories extends State<ContainerAndSheetCategories> {
                     ),
                   ),
                   child: FutureBuilder(
-                    future: widget.staticList,
+                    future: widget.qualificationList,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         var data = snapshot.data!;
@@ -65,22 +67,15 @@ class _ContainerAndSheetCategories extends State<ContainerAndSheetCategories> {
                                         Icons.close,
                                       ),
                                       onPressed: () {
-                                        setState(() {
-                                          selectedItemsList
-                                              .remove(data[index].name);
-                                          Provider.of<FilterScreenHelper>(
-                                                  context,
-                                                  listen: false)
-                                              .removeFromStatic(
-                                                  data[index].name);
-                                          if (widget.title == 'Job Role') {
-                                            Provider.of<FilterScreenHelper>(
-                                                    context,
-                                                    listen: false)
-                                                .removeFromIds(data[index].id);
-                                          }
-                                          Navigator.of(context).pop();
-                                        });
+                                        setState(
+                                          () {
+                                            selectedItemsList
+                                                .remove(data[index].name);
+                                            provider.removeFromSubCategories(
+                                                data[index].name);
+                                            Navigator.pop(context);
+                                          },
+                                        );
                                       },
                                     )
                                   : null,
@@ -89,24 +84,12 @@ class _ContainerAndSheetCategories extends State<ContainerAndSheetCategories> {
                                   if (selectedItemsList
                                       .contains(data[index].name)) {
                                     selectedItemsList.remove(data[index].name);
-                                    Provider.of<FilterScreenHelper>(context,
-                                            listen: false)
-                                        .removeFromStatic(data[index].name);
-                                    if (widget.title == 'Job Role') {
-                                      Provider.of<FilterScreenHelper>(context,
-                                              listen: false)
-                                          .removeFromIds(data[index].id);
-                                    }
+                                    provider.removeFromSubCategories(
+                                        data[index].name);
                                   } else {
                                     selectedItemsList.add(data[index].name);
-                                    Provider.of<FilterScreenHelper>(context,
-                                            listen: false)
-                                        .addToStatics(data[index].name);
-                                    if (widget.title == 'Job Role') {
-                                      Provider.of<FilterScreenHelper>(context,
-                                              listen: false)
-                                          .addToIds(data[index].id);
-                                    }
+                                    provider
+                                        .addToSubCategories(data[index].name);
                                   }
                                   Navigator.of(context).pop();
                                 });

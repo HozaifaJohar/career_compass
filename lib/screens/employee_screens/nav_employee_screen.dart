@@ -1,4 +1,4 @@
-import 'package:career_compass/provider/onTap_nav_employee.dart';
+import 'package:career_compass/provider/employee/onTap_nav_employee.dart';
 import 'package:career_compass/screens/employee_screens/drawer_main_screen.dart';
 
 import 'package:career_compass/screens/employee_screens/filter_employee_screen.dart';
@@ -9,17 +9,20 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../widgets/waves.dart';
+
 class NavigationEmployeeScreen extends StatelessWidget {
-  const NavigationEmployeeScreen({super.key});
+  NavigationEmployeeScreen({super.key});
 
-  final List<Widget> _pagesList = const [
-    HomePageEmployee(),
+  final List<Widget> _pagesList = [
     FilterEployeeScreen(),
-    NotificationEmployeeScreen(),
+    const HomePageEmployee(),
+    const NotificationEmployeeScreen(),
   ];
-
   @override
   Widget build(BuildContext context) {
+    final provider =
+        Provider.of<OntapNavigationEmployee>(context, listen: false);
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -27,10 +30,38 @@ class NavigationEmployeeScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: Consumer<OntapNavigationEmployee>(
-        builder: (context, value, child) {
-          return _pagesList[value.index];
-        },
+      body: Column(
+        children: [
+          Stack(
+            children: [
+              Opacity(
+                opacity: 0.5,
+                child: ClipPath(
+                  clipper: WaveClipper(),
+                  child: Container(
+                    height: 140,
+                    color: AppColors.mainColor,
+                  ),
+                ),
+              ),
+              ClipPath(
+                clipper: WaveClipper(),
+                child: Container(
+                  height: 120,
+                  color: AppColors.mainColor,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height / 1.31,
+            child: PageView(
+                physics: const NeverScrollableScrollPhysics(),
+                controller: provider.pageController,
+                children: List.generate(
+                    _pagesList.length, (index) => _pagesList[index])),
+          ),
+        ],
       ),
       drawer: const Drawer(
         child: DrawerScreen(),
@@ -45,8 +76,8 @@ class NavigationEmployeeScreen extends StatelessWidget {
             color: AppColors.mainColor,
             animationDuration: const Duration(milliseconds: 300),
             items: const <Widget>[
-              Icon(Icons.home, size: 26, color: Colors.white),
               Icon(Icons.filter_alt_sharp, size: 26, color: Colors.white),
+              Icon(Icons.home, size: 26, color: Colors.white),
               Icon(Icons.notifications, size: 26, color: Colors.white),
             ],
             onTap: (n) {

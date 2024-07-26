@@ -65,7 +65,8 @@ class DrawerScreen extends StatelessWidget {
                 title: const Text('Filter Jobs'),
                 leading: const Icon(Icons.filter_alt_sharp),
                 onTap: () {
-                  Navigator.pushNamed(context, '/filterJobs_employee');
+                  Navigator.pop(context);
+                  Navigator.popAndPushNamed(context, '/filterJobs_employee');
                 },
               ),
               ListTile(

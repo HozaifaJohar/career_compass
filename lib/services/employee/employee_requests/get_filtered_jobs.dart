@@ -15,13 +15,18 @@ class JobsService {
   }) async {
     final List<String> params = [];
     if (salary != null) params.add('salary=$salary');
-    if (gender != null) params.add('wanted_gender=$gender');
+    if (gender != null && gender.isNotEmpty) {
+      params.add('wanted_gender=$gender');
+    }
     if (experience != null) params.add('experience_years=$experience');
-    if (companyName != null) params.add('company[company_name]=$companyName');
-    if (statics != null) params.add('statics=${statics.join(',')}');
-    if (subCategories != null) {
+    if (companyName != null && companyName.isNotEmpty)
+      params.add('company[company_name]=$companyName');
+    if (statics != null && statics.isNotEmpty)
+      params.add('statics=${statics.join(',')}');
+    if (subCategories != null && subCategories.isNotEmpty) {
       params.add('subcategories=${subCategories.join(',')}');
     }
+    print('The params is => $params');
     String url = '$baseUrl/employees/jobs';
     if (params.isNotEmpty) {
       url = '$url?${params.join('&')}';

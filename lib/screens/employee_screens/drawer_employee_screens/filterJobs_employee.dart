@@ -1,13 +1,19 @@
 import 'package:career_compass/models/static.dart';
-import 'package:career_compass/provider/filter_screen_helper.dart';
+import 'package:career_compass/provider/employee/filter_screen_helper.dart';
+import 'package:career_compass/provider/employee/get_filteredjob_employee.dart';
+import 'package:career_compass/provider/employee/register_screen_helper.dart';
+import 'package:career_compass/provider/employee/onTap_nav_employee.dart';
+import 'package:career_compass/screens/company_screens/nav_company_screens.dart';
+import 'package:career_compass/screens/employee_screens/filter_employee_screen.dart';
+import 'package:career_compass/screens/employee_screens/nav_employee_screen.dart';
 import 'package:career_compass/services/employee/useful/useful.dart';
 import 'package:career_compass/style/app_colors.dart';
-import 'package:career_compass/widgets/buttomSheets/buttom_sheet_categories.dart';
-import 'package:career_compass/widgets/buttomSheets/buttom_sheet_subcategories.dart';
+import 'package:career_compass/widgets/buttomSheet_filter/buttom_sheet_categories.dart';
 import 'package:career_compass/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import '../../../widgets/buttomSheet_filter/buttom_sheet_subcategories.dart';
 
 class FilterJobsEmployee extends StatefulWidget {
   const FilterJobsEmployee({super.key});
@@ -17,12 +23,8 @@ class FilterJobsEmployee extends StatefulWidget {
 }
 
 class _FilterJobsEmployeeState extends State<FilterJobsEmployee> {
-  _FilterJobsEmployeeState() {
-    selectedgender = gender[0];
-  }
-
   final gender = ['male', 'female'];
-  String selectedgender = "";
+  String? _selectedgender;
   final TextEditingController _salary = TextEditingController();
   final TextEditingController _experience = TextEditingController();
   final TextEditingController _companyName = TextEditingController();
@@ -49,7 +51,7 @@ class _FilterJobsEmployeeState extends State<FilterJobsEmployee> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-
+    final provider = Provider.of<FilterHelper>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         elevation: 15,
@@ -96,9 +98,7 @@ class _FilterJobsEmployeeState extends State<FilterJobsEmployee> {
                 title: 'Job Qualification',
                 subtitle: 'enter Role(s) before entering Qualification',
                 qualificationList: UseFul().getThierSubCategory(
-                    Provider.of<FilterScreenHelper>(context)
-                        .selectedJobId
-                        .join(',')),
+                    Provider.of<FilterHelper>(context).rolesId.join(',')),
               ),
               CustomTextField(
                 title: 'enter number of experience year(s)',
@@ -132,8 +132,9 @@ class _FilterJobsEmployeeState extends State<FilterJobsEmployee> {
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 10),
                 child: DropdownButton(
+                  hint: const Text('Select Gender'),
                   isExpanded: true,
-                  value: selectedgender,
+                  value: _selectedgender,
                   items: gender
                       .map((e) => DropdownMenuItem(
                             value: e,
@@ -142,7 +143,7 @@ class _FilterJobsEmployeeState extends State<FilterJobsEmployee> {
                       .toList(),
                   onChanged: (val) {
                     setState(() {
-                      selectedgender = val as String;
+                      _selectedgender = val as String;
                     });
                   },
                   icon: const Icon(Icons.person_rounded),
@@ -152,7 +153,24 @@ class _FilterJobsEmployeeState extends State<FilterJobsEmployee> {
                 height: 30,
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () async {
+                  Provider.of<FilteredJobs>(context, listen: false).setFilters(
+                    salary: int.tryParse(_salary.text),
+                    gender: _selectedgender,
+                    companyName: _companyName.text,
+                    experience: int.tryParse(_experience.text),
+                    statics: provider.ides,
+                    subCategories: provider.subIdes,
+                  );
+                  Provider.of<OntapNavigationEmployee>(context, listen: false)
+                      .newIndex(0);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NavigationEmployeeScreen(),
+                    ),
+                  );
+                },
                 child: Container(
                   width: 100,
                   height: 40,

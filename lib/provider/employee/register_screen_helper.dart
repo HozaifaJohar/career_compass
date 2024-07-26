@@ -1,7 +1,8 @@
+import 'package:career_compass/models/static.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class FilterScreenHelper with ChangeNotifier {
+class RegisterHelper with ChangeNotifier {
   final List<int> _selectedJobId = [];
   List<int> get selectedJobId => _selectedJobId;
   void addToIds(int value) {
@@ -24,6 +25,10 @@ class FilterScreenHelper with ChangeNotifier {
       allCategories.add({'name': _allCategories[i]});
     }
     return allCategories;
+  }
+
+  void addstotic(Static static) {
+    List<Static> stotic = [];
   }
 
   void addToStatics(String value) {
@@ -81,3 +86,4 @@ class FilterScreenHelper with ChangeNotifier {
     return true;
   }
 }
+//////////////////////////////////////////////////////////////////////////////////

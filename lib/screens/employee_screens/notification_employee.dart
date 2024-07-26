@@ -10,28 +10,8 @@ class NotificationEmployeeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Stack(
-          children: [
-            Opacity(
-              opacity: 0.5,
-              child: ClipPath(
-                clipper: WaveClipper(),
-                child: Container(
-                  height: 140,
-                  color: AppColors.mainColor,
-                ),
-              ),
-            ),
-            ClipPath(
-              clipper: WaveClipper(),
-              child: Container(
-                height: 120,
-                color: AppColors.mainColor,
-              ),
-            ),
-          ],
-        ),
-        NotificationCardEmployee(tiltle: 'Google Company',subTitle: 'UX/UI Designe'),
+        NotificationCardEmployee(
+            tiltle: 'Google Company', subTitle: 'UX/UI Designe'),
       ],
     );
   }
