@@ -1,5 +1,5 @@
 import 'package:career_compass/provider/employee/onTap_nav_employee.dart';
-import 'package:career_compass/screens/employee_screens/drawer_main_screen.dart';
+import 'package:career_compass/screens/employee_screens/drawer_main_employee.dart';
 
 import 'package:career_compass/screens/employee_screens/filter_employee_screen.dart';
 import 'package:career_compass/screens/employee_screens/home_employee.dart';
@@ -56,15 +56,18 @@ class NavigationEmployeeScreen extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height / 1.31,
             child: PageView(
-                physics: const NeverScrollableScrollPhysics(),
-                controller: provider.pageController,
-                children: List.generate(
-                    _pagesList.length, (index) => _pagesList[index])),
+              physics: const NeverScrollableScrollPhysics(),
+              controller: provider.pageController,
+              children: List.generate(
+                _pagesList.length,
+                (index) => _pagesList[index],
+              ),
+            ),
           ),
         ],
       ),
       drawer: const Drawer(
-        child: DrawerScreen(),
+        child: DrawerEmployee(),
       ),
       bottomNavigationBar: Consumer<OntapNavigationEmployee>(
         builder: (context, value, child) {

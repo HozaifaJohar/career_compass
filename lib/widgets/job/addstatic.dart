@@ -1,5 +1,5 @@
 import 'package:career_compass/models/static.dart';
-import 'package:career_compass/provider/job_helper.dart';
+import 'package:career_compass/provider/company/job_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

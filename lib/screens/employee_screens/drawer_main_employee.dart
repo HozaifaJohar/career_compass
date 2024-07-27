@@ -2,8 +2,8 @@ import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class DrawerScreen extends StatelessWidget {
-  const DrawerScreen({super.key});
+class DrawerEmployee extends StatelessWidget {
+  const DrawerEmployee({super.key});
 
   @override
   Widget build(BuildContext context) {

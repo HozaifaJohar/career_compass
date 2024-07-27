@@ -2,13 +2,16 @@ import 'dart:convert';
 
 import 'package:career_compass/constant/url.dart';
 import 'package:career_compass/core/shared_preferences.dart';
-import 'package:career_compass/provider/onTap_nav_company.dart';
+import 'package:career_compass/provider/company/onTap_nav_company.dart';
 import 'package:career_compass/screens/company_screens/add_job.dart';
+import 'package:career_compass/screens/company_screens/drawer_main_company.dart';
 import 'package:career_compass/screens/company_screens/home_company.dart';
 import 'package:career_compass/screens/company_screens/notification_company.dart';
 import 'package:career_compass/services/company/get_logo.dart';
 import 'package:career_compass/style/app_colors.dart';
+import 'package:career_compass/widgets/waves.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -22,12 +25,13 @@ class NavigationCompanyScreen extends StatelessWidget {
     NotificationCompanyScreen(),
   ];
 
-  String? _imagePath;
-
   String url = AppString.baseUrl;
 
   @override
   Widget build(BuildContext context) {
+    final provider =
+        Provider.of<OntapNavigationCompany>(context, listen: false);
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -35,130 +39,42 @@ class NavigationCompanyScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: Consumer<OntapNavigationCompany>(
-        builder: (BuildContext context, OntapNavigationCompany value,
-            Widget? child) {
-          return pagesList[value.index];
-        },
+      body: Column(
+        children: [
+          Stack(
+            children: [
+              Opacity(
+                opacity: 0.5,
+                child: ClipPath(
+                  clipper: WaveClipper(),
+                  child: Container(
+                    height: 140,
+                    color: AppColors.mainColor,
+                  ),
+                ),
+              ),
+              ClipPath(
+                clipper: WaveClipper(),
+                child: Container(
+                  height: 120,
+                  color: AppColors.mainColor,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: screenHeight / 1.31,
+            child: PageView(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: provider.pageController,
+              children:
+                  List.generate(pagesList.length, (index) => pagesList[index]),
+            ),
+          )
+        ],
       ),
       drawer: Drawer(
-        child: Column(
-          children: [
-            Container(
-              height: 200,
-              width: double.infinity,
-              color: AppColors.mainColor,
-              child: Column(
-                children: [
-                  FutureBuilder<String?>(
-                      future: GetLogo().getLogo(),
-                      builder: (context, snapshot) {
-                        _imagePath = snapshot.data;
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 30),
-                          child: Container(
-                            height: 90,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                  image: NetworkImage(
-                                      'http://10.0.2.2:3000/$_imagePath')
-                                  //           //  AssetImage('./images/profilePhoto.jpg'),
-                                  ),
-                            ),
-                          ),
-                        );
-                      }),
-
-                  //  _imagePath != null
-                  //     ? Image.network('$url/$_imagePath!')
-                  //     : const CircularProgressIndicator(),
-
-                  // Padding(
-                  //   padding: const EdgeInsets.only(top: 30),
-                  //   child: Container(
-                  //     height: 90,
-                  //     decoration: const BoxDecoration(
-                  //       shape: BoxShape.circle,
-                  //       image: DecorationImage(
-                  //           image: NetworkImage(
-                  //               'http://10.0.2.2:3000/uploadsimages/7e518bfce27b9263bdfb54aba1398e8d.jpg')
-                  //           //           //  AssetImage('./images/profilePhoto.jpg'),
-                  //           ),
-                  //     ),
-                  //   ),
-                  // ),
-                  const SizedBox(height: 10),
-                  const Text(
-                    'Company Name',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: Colors.white),
-                  ),
-                  Text(
-                    'companyEmail@gmail.com',
-                    style: TextStyle(fontSize: 16, color: Colors.grey[100]),
-                  ),
-                ],
-              ),
-            ),
-            Flexible(
-              child: ListView(
-                children: [
-                  ListTile(
-                    title: const Text('Change Password'),
-                    leading: const Icon(Icons.lock),
-                    onTap: () {
-                      Navigator.pushNamed(context, '/changePassword_company');
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Company Information'),
-                    leading: const Icon(
-                      Icons.info,
-                    ),
-                    onTap: () {
-                      Navigator.pushNamed(context, '/changeInfo_company');
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Upload Company Logo'),
-                    leading: const Icon(Icons.image),
-                    onTap: () {
-                      Navigator.pushNamed(context, '/upload_logo');
-                    },
-                  ),
-                  const Divider(
-                    color: Colors.black,
-                    thickness: 1,
-                    height: 40,
-                    indent: 25,
-                    endIndent: 25,
-                  ),
-                  ListTile(
-                    title: const Text('Logout'),
-                    leading: const Icon(Icons.login),
-                    onTap: () {
-                      CashMemory()
-                          .daleteCashItem(key: 'accessToken')
-                          .then((value) {
-                        Navigator.pushNamed(context, '/start_screen');
-                      }).catchError((error) {});
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Change Language'),
-                    leading: const Icon(Icons.language),
-                    onTap: () async {
-                      // GetLogo().getLogo();
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+        child: DrawerCompany(),
       ),
       bottomNavigationBar: Consumer<OntapNavigationCompany>(
         builder: (context, value, child) {

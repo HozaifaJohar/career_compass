@@ -3,7 +3,6 @@ import 'package:career_compass/services/company/get_companyjob.dart';
 import 'package:flutter/foundation.dart';
 
 class JobProvider extends ChangeNotifier {
-  
   final jobServices = JobServices();
   bool isLoading = false;
   bool get load => isLoading;
@@ -16,6 +15,5 @@ class JobProvider extends ChangeNotifier {
     _jobs = response;
     isLoading = false;
     notifyListeners();
-    
   }
 }

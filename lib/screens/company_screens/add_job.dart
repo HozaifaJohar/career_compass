@@ -1,8 +1,8 @@
 import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/models/static.dart';
 import 'package:career_compass/models/subcatygory.dart';
-import 'package:career_compass/provider/counter.dart';
-import 'package:career_compass/provider/job_helper.dart';
+import 'package:career_compass/provider/company/counter.dart';
+import 'package:career_compass/provider/company/job_helper.dart';
 import 'package:career_compass/services/company/add_job.dart';
 import 'package:career_compass/services/company/get_static.dart';
 import 'package:career_compass/style/app_colors.dart';
@@ -67,27 +67,6 @@ class _AddJobState extends State<AddJob> {
     return Scaffold(
       body: Column(
         children: [
-          Stack(
-            children: [
-              Opacity(
-                opacity: 0.5,
-                child: ClipPath(
-                  clipper: WaveClipper(),
-                  child: Container(
-                    height: 140,
-                    color: AppColors.mainColor,
-                  ),
-                ),
-              ),
-              ClipPath(
-                clipper: WaveClipper(),
-                child: Container(
-                  height: 120,
-                  color: AppColors.mainColor,
-                ),
-              ),
-            ],
-          ),
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
@@ -275,5 +254,3 @@ class _AddJobState extends State<AddJob> {
     );
   }
 }
-
-

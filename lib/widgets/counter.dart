@@ -1,4 +1,4 @@
-import 'package:career_compass/provider/counter.dart';
+import 'package:career_compass/provider/company/counter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

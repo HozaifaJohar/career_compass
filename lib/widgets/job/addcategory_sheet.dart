@@ -1,15 +1,15 @@
 import 'package:career_compass/models/static.dart';
-import 'package:career_compass/provider/job_helper.dart';
+import 'package:career_compass/provider/company/job_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ButtomSheetWithList extends StatefulWidget {
   final Future<List<Category>> staticList;
-  
-  ButtomSheetWithList(
-      {super.key,
-      required this.staticList,
-      });
+
+  ButtomSheetWithList({
+    super.key,
+    required this.staticList,
+  });
 
   @override
   State<ButtomSheetWithList> createState() => _ButtomSheetWithListState();

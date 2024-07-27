@@ -1,12 +1,12 @@
 import 'package:career_compass/core/shared_preferences.dart';
-import 'package:career_compass/provider/counter.dart';
+import 'package:career_compass/provider/company/counter.dart';
 import 'package:career_compass/provider/employee/filter_screen_helper.dart';
 import 'package:career_compass/provider/employee/get_alljobs.dart';
 import 'package:career_compass/provider/employee/get_filteredjob_employee.dart';
 import 'package:career_compass/provider/employee/register_screen_helper.dart';
-import 'package:career_compass/provider/job_helper.dart';
-import 'package:career_compass/provider/jobs_provider.dart';
-import 'package:career_compass/provider/onTap_nav_company.dart';
+import 'package:career_compass/provider/company/job_helper.dart';
+import 'package:career_compass/provider/company/jobs_provider.dart';
+import 'package:career_compass/provider/company/onTap_nav_company.dart';
 import 'package:career_compass/provider/employee/onTap_nav_employee.dart';
 import 'package:career_compass/provider/type_provider.dart';
 import 'package:career_compass/screens/company_screens/add_job.dart';
@@ -81,7 +81,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: StartScreen(),
+      home: NavigationCompanyScreen(),
       routes: {
         '/start_screen': (context) => StartScreen(),
         'register_screen': (context) => RegisterScreen(),

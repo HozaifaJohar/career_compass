@@ -1,6 +1,6 @@
 import 'package:career_compass/models/job.dart';
-import 'package:career_compass/provider/jobs_provider.dart';
-import 'package:career_compass/provider/onTap_nav_company.dart';
+import 'package:career_compass/provider/company/jobs_provider.dart';
+import 'package:career_compass/provider/company/onTap_nav_company.dart';
 import 'package:career_compass/screens/company_screens/companyjob_details.dart';
 import 'package:career_compass/services/company/get_companyjob.dart';
 import 'package:career_compass/style/app_colors.dart';
@@ -34,27 +34,6 @@ class _HomePageCompanyState extends State<HomePageCompany> {
       extendBodyBehindAppBar: true,
       body: Column(
         children: [
-          Stack(
-            children: [
-              Opacity(
-                opacity: 0.5,
-                child: ClipPath(
-                  clipper: WaveClipper(),
-                  child: Container(
-                    height: 140,
-                    color: AppColors.mainColor,
-                  ),
-                ),
-              ),
-              ClipPath(
-                clipper: WaveClipper(),
-                child: Container(
-                  height: 120,
-                  color: AppColors.mainColor,
-                ),
-              ),
-            ],
-          ),
           Consumer<JobProvider>(
             builder: (context, job, child) {
               if (job.jobs.isEmpty) {
