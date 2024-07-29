@@ -19,21 +19,31 @@ class DrawerCompany extends StatelessWidget {
               FutureBuilder<String?>(
                   future: GetLogo().getLogo(),
                   builder: (context, snapshot) {
-                    _imagePath = snapshot.data;
-                    return Padding(
-                      padding: const EdgeInsets.only(top: 30),
-                      child: Container(
-                        height: 90,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                              image: NetworkImage(
-                                  'http://10.0.2.2:3000/$_imagePath')
-                              //           //  AssetImage('./images/profilePhoto.jpg'),
-                              ),
+                    if (snapshot.hasData) {
+                      _imagePath = snapshot.data;
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 30),
+                        child: Container(
+                          height: 90,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    'http://10.0.2.2:3000/$_imagePath')
+                                //           //  AssetImage('./images/profilePhoto.jpg'),
+                                ),
+                          ),
                         ),
-                      ),
-                    );
+                      );
+                    } else {
+                      return const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: CircleAvatar(
+                          radius: 40,
+                          child: Center(child: Icon(Icons.person)),
+                        ),
+                      );
+                    }
                   }),
 
               //  _imagePath != null

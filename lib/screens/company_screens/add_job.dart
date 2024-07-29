@@ -65,191 +65,184 @@ class _AddJobState extends State<AddJob> {
     List<int> selectedJobId = helper.selectedJobRoleId;
     List<int> selectedQualId = helper.selectedJobQualId;
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 20,
+      resizeToAvoidBottomInset: true,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              CustomTextField(
+                validateMessage: 'title is required',
+                title: 'Job Title',
+                hint: 'Job hint',
+                controller: title,
+                maxLines: 1,
+                border: 10,
+                borderColor: AppColors.amber,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              ButtomSheetWithList(staticList: staticCategories),
+              const SizedBox(
+                height: 20,
+              ),
+              AddStatic(
+                staticList: staticLevel,
+                title: 'Level',
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              AddStatic(
+                staticList: staticType,
+                title: 'Type',
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              AddQual(subCate: _subCatygory),
+              const SizedBox(
+                height: 20,
+              ),
+              GestureDetector(
+                onTap: () {
+                  showModalBottomSheet(
+                      shape: const BeveledRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(50),
+                              topRight: Radius.circular(50))),
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Container(
+                          decoration: const BoxDecoration(
+                              color: Color.fromARGB(255, 222, 219, 219),
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(50),
+                                  topRight: Radius.circular(50))),
+                          child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: ListView.builder(
+                                  itemCount: gender.length,
+                                  itemBuilder: (context, index) {
+                                    return ListTile(
+                                      title: Text(
+                                        gender[index],
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      onTap: () {
+                                        setState(() {
+                                          genderSelected = gender[index];
+                                          Navigator.pop(context);
+                                        });
+                                      },
+                                    );
+                                  })),
+                        );
+                      });
+                },
+                child: Container(
+                  height: 80,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 238, 230, 230),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: ListTile(
+                    title: const Text(
+                      'Gender',
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    CustomTextField(
-                      validateMessage: 'title is required',
-                      title: 'Job Title',
-                      hint: 'Job hint',
-                      controller: title,
-                      maxLines: 1,
-                      border: 10,
-                      borderColor: AppColors.amber,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    ButtomSheetWithList(staticList: staticCategories),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    AddStatic(
-                      staticList: staticLevel,
-                      title: 'Level',
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    AddStatic(
-                      staticList: staticType,
-                      title: 'Type',
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    AddQual(subCate: _subCatygory),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        showModalBottomSheet(
-                            shape: const BeveledRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(50),
-                                    topRight: Radius.circular(50))),
-                            context: context,
-                            builder: (BuildContext context) {
-                              return Container(
-                                decoration: const BoxDecoration(
-                                    color: Color.fromARGB(255, 222, 219, 219),
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(50),
-                                        topRight: Radius.circular(50))),
-                                child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: ListView.builder(
-                                        itemCount: gender.length,
-                                        itemBuilder: (context, index) {
-                                          return ListTile(
-                                            title: Text(
-                                              gender[index],
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            onTap: () {
-                                              setState(() {
-                                                genderSelected = gender[index];
-                                                Navigator.pop(context);
-                                              });
-                                            },
-                                          );
-                                        })),
-                              );
-                            });
-                      },
-                      child: Container(
-                        height: 80,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 238, 230, 230),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: ListTile(
-                          title: const Text(
-                            'Gender',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: Text(genderSelected),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CustomCounterContainer(
-                        title: 'Work Hour',
-                        count: counter.countHour,
-                        counter: counter,
-                        add: counter.addHour,
-                        sub: counter.subHour),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CustomCounterContainer(
-                        title: 'Experience year',
-                        count: counter.countExper,
-                        counter: counter,
-                        add: counter.addExpr,
-                        sub: counter.subExpr),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CustomCounterContainer(
-                        title: 'Max Employees',
-                        count: counter.countMax,
-                        counter: counter,
-                        add: counter.addMax,
-                        sub: counter.subMax),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CustomTextField(
-                      validateMessage: 'description is required',
-                      title: 'Description',
-                      hint: 'desription',
-                      controller: desc,
-                      maxLines: 3,
-                      border: 10,
-                      borderColor: AppColors.amber,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    IntegerTextField(controller: salary),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Consumer<AddJobServices>(builder: (context, job, child) {
-                      return customButton(
-                        text: 'Add job',
-                        tap: () {
-                          if (helper.isEmpty() ||
-                              title.text.isEmpty ||
-                              desc.text.isEmpty ||
-                              genderSelected.isEmpty ||
-                              salary.text.isEmpty) {
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              elevation: 0,
-                              content: FlashMessage(
-                                errorText:
-                                    "All Fields Is required, please fill all",
-                              ),
-                              behavior: SnackBarBehavior.floating,
-                              backgroundColor: Colors.transparent,
-                            ));
-                          } else {
-                            job.addJob(
-                                title.text,
-                                typeId,
-                                LevelId,
-                                selectedJobId,
-                                selectedQualId,
-                                desc.text,
-                                int.parse(salary.text),
-                                counter.countHour,
-                                counter.countExper,
-                                counter.countMax,
-                                genderSelected);
-                          }
-                        },
-                        context: context,
-                      );
-                    })
-                  ],
+                    subtitle: Text(genderSelected),
+                  ),
                 ),
               ),
-            ),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomCounterContainer(
+                  title: 'Work Hour',
+                  count: counter.countHour,
+                  counter: counter,
+                  add: counter.addHour,
+                  sub: counter.subHour),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomCounterContainer(
+                  title: 'Experience year',
+                  count: counter.countExper,
+                  counter: counter,
+                  add: counter.addExpr,
+                  sub: counter.subExpr),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomCounterContainer(
+                  title: 'Max Employees',
+                  count: counter.countMax,
+                  counter: counter,
+                  add: counter.addMax,
+                  sub: counter.subMax),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomTextField(
+                validateMessage: 'description is required',
+                title: 'Description',
+                hint: 'desription',
+                controller: desc,
+                maxLines: 3,
+                border: 10,
+                borderColor: AppColors.amber,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              IntegerTextField(controller: salary),
+              const SizedBox(
+                height: 20,
+              ),
+              Consumer<AddJobServices>(builder: (context, job, child) {
+                return customButton(
+                  text: 'Add job',
+                  tap: () {
+                    if (helper.isEmpty() ||
+                        title.text.isEmpty ||
+                        desc.text.isEmpty ||
+                        genderSelected.isEmpty ||
+                        salary.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        elevation: 0,
+                        content: FlashMessage(
+                          errorText: "All Fields Is required, please fill all",
+                        ),
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.transparent,
+                      ));
+                    } else {
+                      job.addJob(
+                          title.text,
+                          typeId,
+                          LevelId,
+                          selectedJobId,
+                          selectedQualId,
+                          desc.text,
+                          int.parse(salary.text),
+                          counter.countHour,
+                          counter.countExper,
+                          counter.countMax,
+                          genderSelected);
+                    }
+                  },
+                  context: context,
+                );
+              })
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

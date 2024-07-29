@@ -73,27 +73,32 @@ class _HomePageCompanyState extends State<HomePageCompany> {
                 );
               }
               final jobs = job.jobs;
-              return ListView.builder(
-                itemCount: jobs.length,
-                itemBuilder: (context, index) {
-                  final job = jobs[index];
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  CompanyJobDetails(job: job)));
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: JobCardCompany(
-                        jobTitle: job.title,
-                        jobStatic: job.jobStatic,
-                      ),
-                    ),
-                  );
-                },
+              return Expanded(
+                child: CustomScrollView(
+                  slivers: [
+                    SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                            childCount: jobs.length, (context, index) {
+                      final job = jobs[index];
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      CompanyJobDetails(job: job)));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: JobCardCompany(
+                            jobTitle: job.title,
+                            jobStatic: job.jobStatic,
+                          ),
+                        ),
+                      );
+                    }))
+                  ],
+                ),
               );
             },
           ),
