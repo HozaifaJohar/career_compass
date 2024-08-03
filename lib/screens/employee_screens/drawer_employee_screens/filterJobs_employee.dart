@@ -1,10 +1,7 @@
 import 'package:career_compass/models/static.dart';
 import 'package:career_compass/provider/employee/filter_screen_helper.dart';
 import 'package:career_compass/provider/employee/get_filteredjob_employee.dart';
-import 'package:career_compass/provider/employee/register_screen_helper.dart';
 import 'package:career_compass/provider/employee/onTap_nav_employee.dart';
-import 'package:career_compass/screens/company_screens/nav_company_screens.dart';
-import 'package:career_compass/screens/employee_screens/filter_employee_screen.dart';
 import 'package:career_compass/screens/employee_screens/nav_employee_screen.dart';
 import 'package:career_compass/services/employee/useful/useful.dart';
 import 'package:career_compass/style/app_colors.dart';
@@ -33,11 +30,18 @@ class _FilterJobsEmployeeState extends State<FilterJobsEmployee> {
   late Future<List<Category>> staticLevels;
   @override
   void initState() {
+    final pr1 = Provider.of<FilterHelper>(context, listen: false);
+    final pr2 = Provider.of<FilteredJobs>(context, listen: false);
     staticCategories =
         UseFul().getAllStatic().then((value) => value.categories);
     super.initState();
     staticTypes = UseFul().getAllStatic().then((value) => value.jobTypes);
     staticLevels = UseFul().getAllStatic().then((value) => value.levels);
+    //this line for clear the lists that have old values from the last filter....
+    pr2.params.clear();
+    pr1.ides.clear();
+    pr1.rolesId.clear();
+    pr1.subIdes.clear();
   }
 
   @override
@@ -51,7 +55,8 @@ class _FilterJobsEmployeeState extends State<FilterJobsEmployee> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    final provider = Provider.of<FilterHelper>(context, listen: true);
+    final pr1 = Provider.of<FilterHelper>(context, listen: true);
+    final pr2 = Provider.of<FilteredJobs>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         elevation: 15,
@@ -154,13 +159,13 @@ class _FilterJobsEmployeeState extends State<FilterJobsEmployee> {
               ),
               GestureDetector(
                 onTap: () async {
-                  Provider.of<FilteredJobs>(context, listen: false).setFilters(
+                  pr2.setFilters(
                     salary: int.tryParse(_salary.text),
                     gender: _selectedgender,
                     companyName: _companyName.text,
                     experience: int.tryParse(_experience.text),
-                    statics: provider.ides,
-                    subCategories: provider.subIdes,
+                    statics: pr1.ides,
+                    subCategories: pr1.subIdes,
                   );
                   Provider.of<OntapNavigationEmployee>(context, listen: false)
                       .newIndex(0);

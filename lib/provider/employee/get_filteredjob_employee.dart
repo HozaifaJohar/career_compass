@@ -20,6 +20,7 @@ class FilteredJobs extends ChangeNotifier {
         companyName: companyName,
         statics: statics,
         subCategories: subCategories,
+        params: params,
       );
       _jobs = response;
     } catch (error) {
@@ -64,4 +65,8 @@ class FilteredJobs extends ChangeNotifier {
     subCategories = null;
     notifyListeners();
   }
+
+  ///////////////////////////
+  final List<String> _params = [];
+  List<String> get params => _params;
 }
