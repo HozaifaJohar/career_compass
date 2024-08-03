@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:career_compass/constant/url.dart';
 import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/provider/company/onTap_nav_company.dart';
@@ -11,9 +9,7 @@ import 'package:career_compass/services/company/get_logo.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/waves.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class NavigationCompanyScreen extends StatelessWidget {
@@ -25,7 +21,7 @@ class NavigationCompanyScreen extends StatelessWidget {
     NotificationCompanyScreen(),
   ];
 
-  String url = AppString.baseUrl;
+  final String url = AppString.baseUrl;
 
   @override
   Widget build(BuildContext context) {
