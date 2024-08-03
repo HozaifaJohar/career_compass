@@ -1,27 +1,11 @@
-import 'package:career_compass/provider/employee/filter_screen_helper.dart';
 import 'package:career_compass/provider/employee/get_filteredjob_employee.dart';
-import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/jobcard_employee.dart';
-import 'package:career_compass/widgets/waves.dart';
 import 'package:flutter/material.dart';
-import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 
 class FilterEployeeScreen extends StatefulWidget {
-  // String? gender;
-  // String? companyName;
-  // int? experience;
-  // int? salary;
-  // List<int>? statics;
-  // List<int>? subCategories;
   FilterEployeeScreen({
     super.key,
-    // this.gender,
-    // this.companyName,
-    // this.experience,
-    // this.salary,
-    // this.statics,
-    // this.subCategories,
   });
 
   @override
@@ -43,9 +27,9 @@ class _FilterEployeeScreenState extends State<FilterEployeeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final provider1 = Provider.of<FilterHelper>(context, listen: false);
     final provider2 = Provider.of<FilteredJobs>(context, listen: false);
     final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: Column(
         children: [
@@ -55,17 +39,8 @@ class _FilterEployeeScreenState extends State<FilterEployeeScreen> {
                 return const Center(child: CircularProgressIndicator());
               }
               final jobs = value.jobs;
-              // jobs.isEmpty &&
-              //     provider1.subIdes.isEmpty &&
-              //     provider1.ides.isEmpty &&
-              //     provider2.companyName == null &&
-              //     provider2.experience == null &&
-              //     provider2.gender == null
-              if (provider1.subIdes.isEmpty &&
-                  provider1.ides.isEmpty &&
-                  provider2.companyName == null &&
-                  provider2.experience == null &&
-                  provider2.gender == null) {
+
+              if (provider2.params.isEmpty) {
                 return SizedBox(
                   height: screenHeight / 1.5,
                   child: const Column(

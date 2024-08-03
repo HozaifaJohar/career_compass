@@ -25,7 +25,7 @@ class _ChangeInformationEmployeeState extends State<ChangeInformationEmployee> {
   String selectedNationality = "";
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _firstname = TextEditingController();
-  final TextEditingController _lastname = TextEditingController();
+  //final TextEditingController _lastname = TextEditingController();
   final TextEditingController _phone = TextEditingController();
   final TextEditingController _home = TextEditingController();
 
