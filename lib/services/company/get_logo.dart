@@ -18,15 +18,14 @@ class GetLogo extends ChangeNotifier {
         .get(Uri.parse(urlReq), headers: {'Authorization': 'Bearer $token'});
     if (response.statusCode == 200) {
       if (response.body == 'uploadsimages/null') {
-         print('1111');
+        print('1111');
         return null;
-      }else{
-     path = response.body;
-      notifyListeners();
-      return path;
-
+      } else {
+        path = response.body;
+        notifyListeners();
+        return path;
       }
-     } else {
+    } else {
       final jsonResponse = jsonDecode(response.body);
       print('111');
       print(jsonResponse);

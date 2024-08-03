@@ -85,7 +85,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       home: NavigationEmployeeScreen(),
       routes: {
-        '/start_screen': (context) => StartScreen(),
+        '/start_screen': (context) => const StartScreen(),
         'register_screen': (context) => RegisterScreen(),
         '/login_screen': (context) => LoginScreen(),
         // 'otp_company': (context) =>  OtpCompany(),

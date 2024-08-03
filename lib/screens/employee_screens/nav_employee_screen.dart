@@ -66,7 +66,7 @@ class NavigationEmployeeScreen extends StatelessWidget {
           ),
         ],
       ),
-      drawer: const Drawer(
+      drawer:  Drawer(
         child: DrawerEmployee(),
       ),
       bottomNavigationBar: Consumer<OntapNavigationEmployee>(
@@ -92,3 +92,4 @@ class NavigationEmployeeScreen extends StatelessWidget {
     );
   }
 }
+//fffffffff

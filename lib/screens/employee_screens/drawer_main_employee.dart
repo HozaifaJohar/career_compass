@@ -1,10 +1,11 @@
 import 'package:career_compass/core/shared_preferences.dart';
+import 'package:career_compass/services/employee/employee_requests/get_image.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class DrawerEmployee extends StatelessWidget {
-  const DrawerEmployee({super.key});
-
+  DrawerEmployee({super.key});
+  String? _imagePath;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -15,18 +16,36 @@ class DrawerEmployee extends StatelessWidget {
           color: AppColors.mainColor,
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 30),
-                child: Container(
-                  height: 90,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: AssetImage('./images/profilePhoto.jpg'),
-                    ),
-                  ),
-                ),
-              ),
+              FutureBuilder(
+                  future: GetImage().getImage(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      _imagePath = snapshot.data;
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 30),
+                        child: Container(
+                          height: 90,
+                          width: 90,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: NetworkImage(
+                                  'http://10.0.2.2:3000/$_imagePath'),
+                            ),
+                          ),
+                        ),
+                      );
+                    } else {
+                      return const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: CircleAvatar(
+                          radius: 40,
+                          child: Center(child: Icon(Icons.person)),
+                        ),
+                      );
+                    }
+                  }),
               const SizedBox(height: 10),
               const Text(
                 'Name',
