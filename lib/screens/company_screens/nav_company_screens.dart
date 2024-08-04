@@ -1,3 +1,4 @@
+import 'package:career_compass/constant/url.dart';
 import 'package:career_compass/provider/company/onTap_nav_company.dart';
 import 'package:career_compass/screens/company_screens/add_job.dart';
 import 'package:career_compass/screens/company_screens/drawer_main_company.dart';
@@ -17,6 +18,9 @@ class NavigationCompanyScreen extends StatelessWidget {
     const AddJob(),
     const NotificationCompanyScreen(),
   ];
+
+  final String url = AppString.baseUrl;
+
   @override
   Widget build(BuildContext context) {
     final provider =
