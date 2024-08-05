@@ -101,7 +101,7 @@ class OtpEmployee extends StatelessWidget {
                           .returnAccessToken(email: email, code: pinCode.text);
                       if (isActive == 'error') {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
+                          SnackBar(
                             elevation: 0,
                             content: FlashMessage(
                               errorText:

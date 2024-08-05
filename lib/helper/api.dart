@@ -54,13 +54,14 @@ class Api {
       var data = jsonDecode(response.body);
       print('///$data///');
       return data;
-    } else if (response.statusCode == 400 || response.statusCode ==500 || response.statusCode==401) {
+    } else if (response.statusCode == 400 ||
+        response.statusCode == 500 ||
+        response.statusCode == 401) {
       print(response.statusCode);
       var data = jsonDecode(response.body);
       print('///$data///');
       return data;
-    } 
-    else {
+    } else {
       throw Exception(
           'there is a problem with status code ${response.statusCode} with body ${jsonDecode(response.body)}');
       // when you throw respose.body it will show if there something required in the body of the api...
@@ -87,36 +88,34 @@ class Api {
           'there is a problem with status code ${response.statusCode} with body ${jsonDecode(jsonResponse.body)}');
     }
   }
-}
 
-Future<dynamic> put({
-  required String url,
-  @required dynamic body,
-  @required String? token,
-}) async {
-  Map<String, String> headers = {};
-  headers.addAll(
-    {'Content-Type': 'application/x-www-form-urlencoded'},
-  );
-
-  if (token != null) {
+  Future<dynamic> put({
+    required String url,
+    @required dynamic body,
+    @required String? token,
+  }) async {
+    Map<String, String> headers = {};
     headers.addAll({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer$token',
     });
-  }
+    if (token != null) {
+      headers.addAll({
+        'Authorization': 'Bearer $token',
+      });
+    }
 
-  http.Response response = await http.post(
-    Uri.parse(url),
-    body: body,
-    headers: headers,
-  );
-  if (response.statusCode == 200 || response.statusCode == 201) {
-    Map<String, dynamic> data = jsonDecode(response.body);
-    return data;
-  } else {
-    throw Exception(
-        'there is a problem with status code ${response.statusCode} with body ${jsonDecode(response.body)}');
-    // when you throw respose.body it will show if there something required in the body of the api...
+    http.Response response = await http.put(
+      Uri.parse(url),
+      body: body,
+      headers: headers,
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      Map<String, dynamic> data = jsonDecode(response.body);
+      return data;
+    } else {
+      throw Exception(
+          'there is a problem with status code ${response.statusCode} with body ${jsonDecode(response.body)}');
+      // when you throw respose.body it will show if there something required in the body of the api...
+    }
   }
 }

@@ -2,7 +2,6 @@ import 'package:career_compass/models/static.dart';
 import 'package:career_compass/provider/employee/filter_screen_helper.dart';
 import 'package:career_compass/provider/employee/get_filteredjob_employee.dart';
 import 'package:career_compass/provider/employee/onTap_nav_employee.dart';
-import 'package:career_compass/screens/employee_screens/nav_employee_screen.dart';
 import 'package:career_compass/services/employee/useful/useful.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/buttomSheet_filter/buttom_sheet_categories.dart';
@@ -14,7 +13,6 @@ import '../../../widgets/buttomSheet_filter/buttom_sheet_subcategories.dart';
 
 class FilterJobsEmployee extends StatefulWidget {
   const FilterJobsEmployee({super.key});
-
   @override
   State<FilterJobsEmployee> createState() => _FilterJobsEmployeeState();
 }
@@ -75,6 +73,11 @@ class _FilterJobsEmployeeState extends State<FilterJobsEmployee> {
         bottom: const PreferredSize(
             preferredSize: Size.fromHeight(40), child: SizedBox()),
         iconTheme: const IconThemeData(color: Colors.white),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/navigation_employee');
+            },
+            icon: const Icon(Icons.arrow_back)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -169,12 +172,7 @@ class _FilterJobsEmployeeState extends State<FilterJobsEmployee> {
                   );
                   Provider.of<OntapNavigationEmployee>(context, listen: false)
                       .newIndex(0);
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NavigationEmployeeScreen(),
-                    ),
-                  );
+                  Navigator.pushNamed(context, '/navigation_employee');
                 },
                 child: Container(
                   width: 100,

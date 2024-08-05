@@ -4,6 +4,7 @@ import 'package:career_compass/provider/employee/filter_screen_helper.dart';
 import 'package:career_compass/provider/employee/get_alljobs.dart';
 import 'package:career_compass/provider/employee/get_filteredjob_employee.dart';
 import 'package:career_compass/provider/employee/get_primal.dart';
+import 'package:career_compass/provider/employee/info_helper.dart';
 import 'package:career_compass/provider/employee/register_screen_helper.dart';
 import 'package:career_compass/provider/company/job_helper.dart';
 import 'package:career_compass/provider/company/jobs_provider.dart';
@@ -69,6 +70,7 @@ void main() async {
       ChangeNotifierProvider(create: (context) => FilterHelper()),
       ChangeNotifierProvider(create: (context) => Alljobs()),
       ChangeNotifierProvider(create: (context) => Primal()),
+      ChangeNotifierProvider(create: (context) => InfoHelper())
     ],
     child: const MyApp(),
   ));
@@ -83,7 +85,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: StartScreen(),
+      home: NavigationEmployeeScreen(),
       routes: {
         '/start_screen': (context) => StartScreen(),
         'register_screen': (context) => RegisterScreen(),

@@ -4,7 +4,13 @@ import 'package:flutter_svg/svg.dart';
 
 class FlashMessage extends StatelessWidget {
   final String errorText;
-  const FlashMessage({required this.errorText, super.key});
+  final Color flashColor;
+  final String title;
+  const FlashMessage(
+      {required this.errorText,
+      this.flashColor = AppColors.amber,
+      super.key,
+      this.title = 'Oh Snap!'});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +21,7 @@ class FlashMessage extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           height: 90,
           decoration: BoxDecoration(
-            color: AppColors.amber,
+            color: flashColor,
             borderRadius: const BorderRadius.all(Radius.circular(20)),
           ),
           child: Row(
@@ -27,9 +33,10 @@ class FlashMessage extends StatelessWidget {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'oh snap!',
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      Text(
+                        title,
+                        style:
+                            const TextStyle(fontSize: 18, color: Colors.white),
                       ),
                       const Spacer(),
                       Text(

@@ -96,20 +96,18 @@ class RegisterScreen extends StatelessWidget {
                         onTap: () {
                           {
                             if (formKey.currentState!.validate()) {
-                                if (!email.text.contains(isEmail)) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      elevation: 0,
-                                      content: FlashMessage(
-                                        errorText:
-                                            'email should have @gmail.com',
-                                      ),
-                                      behavior: SnackBarBehavior.floating,
-                                      backgroundColor: Colors.transparent,
+                              if (!email.text.contains(isEmail)) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    elevation: 0,
+                                    content: FlashMessage(
+                                      errorText: 'email should have @gmail.com',
                                     ),
-                                  );
-                                }
-                            else if (type) {
+                                    behavior: SnackBarBehavior.floating,
+                                    backgroundColor: Colors.transparent,
+                                  ),
+                                );
+                              } else if (type) {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -122,7 +120,6 @@ class RegisterScreen extends StatelessWidget {
                                   ),
                                 );
                               } else {
-                              
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(

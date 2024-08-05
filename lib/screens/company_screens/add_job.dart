@@ -214,7 +214,7 @@ class _AddJobState extends State<AddJob> {
                         desc.text.isEmpty ||
                         genderSelected.isEmpty ||
                         salary.text.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         elevation: 0,
                         content: FlashMessage(
                           errorText: "All Fields Is required, please fill all",

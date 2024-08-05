@@ -13,6 +13,7 @@ class CustomTextField extends StatelessWidget {
   final String? validateMessage;
   final TextInputType? keyboadType;
   final List<TextInputFormatter>? inputFormate;
+  final void Function(String)? onchange;
 
   const CustomTextField({
     this.title,
@@ -26,9 +27,9 @@ class CustomTextField extends StatelessWidget {
     this.keyboadType,
     this.inputFormate,
     this.validateMessage,
+    this.onchange,
     super.key,
   });
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -55,6 +56,7 @@ class CustomTextField extends StatelessWidget {
             }
             return null;
           },
+          onChanged: onchange,
         ),
         const SizedBox(
           height: 20,

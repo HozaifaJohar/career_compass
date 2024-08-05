@@ -39,7 +39,7 @@ class _UploadCvState extends State<UploadCv> {
       print('/////${path}/////');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           elevation: 0,
           content: FlashMessage(
             errorText: 'No Pdf Selected!',
@@ -177,7 +177,7 @@ class _UploadCvState extends State<UploadCv> {
                     );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
+                      SnackBar(
                         elevation: 0,
                         content: FlashMessage(
                           errorText: "NO File Selected Yet!",

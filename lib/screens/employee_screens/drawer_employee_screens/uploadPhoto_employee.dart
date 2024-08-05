@@ -167,7 +167,7 @@ class _UploadPhotoEmployeeState extends State<UploadPhotoEmployee> {
                   );
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
+                    SnackBar(
                       elevation: 0,
                       content: FlashMessage(
                         errorText: "NO Image Selected Yet!",

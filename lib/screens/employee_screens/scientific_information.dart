@@ -143,7 +143,7 @@ class _ScientificInformationState extends State<ScientificInformation> {
                       );
                       Navigator.pushNamed(context, '/navigation_employee');
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         elevation: 0,
                         content: FlashMessage(
                           errorText: "All Fields Is required, please fill all",

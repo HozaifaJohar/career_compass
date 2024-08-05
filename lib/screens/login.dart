@@ -140,7 +140,8 @@ class LoginScreen extends StatelessWidget {
                                 ),
                               );
                             } else {
-                              Navigator.pushNamed(context, '/navigation_company');
+                              Navigator.pushNamed(
+                                  context, '/navigation_company');
                             }
 
                             // if(active !=null){
