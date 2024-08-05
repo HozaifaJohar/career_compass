@@ -6,6 +6,7 @@ import 'package:career_compass/provider/employee/get_filteredjob_employee.dart';
 import 'package:career_compass/screens/employee_screens/all_job_category.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:career_compass/widgets/jobcard_employee.dart';
+import 'package:career_compass/widgets/scroll_primal.dart';
 import 'package:career_compass/widgets/waves.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -91,62 +92,10 @@ class _HomePageEmployeeState extends State<HomePageEmployee> {
             );
           },
         ),
-        Expanded(
+        const Expanded(
           child: SizedBox(
             width: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Primal Jobs'),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Builder(builder: (context) {
-                    return Consumer<Primal>(builder: (context, primal, child) {
-                      if (primal.isLoading) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                      final primalJobs = primal.jobs;
-                      if (primalJobs.isEmpty) {
-                        return const Center(
-                          child: Text('oop there is no jobs to display'),
-                        );
-                      }
-                      return Expanded(
-                        child: CustomScrollView(
-                          slivers: [
-                            SliverList(
-                              delegate: SliverChildBuilderDelegate(
-                                childCount: primalJobs.length,
-                                (context, index) {
-                                  final job = primalJobs[index];
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: JobCardEmployee(
-                                      statics: job.statics,
-                                      company: job.company,
-                                      subCategories: job.subCategories,
-                                      description: job.description,
-                                      title: job.title,
-                                      salary: job.salary,
-                                      gender: job.wantedGender,
-                                    ),
-                                  );
-                                },
-                              ),
-                            )
-                          ],
-                        ),
-                      );
-                    });
-                  })
-                ],
-              ),
-            ),
+            child: PrimalScroll(),
           ),
         )
       ],

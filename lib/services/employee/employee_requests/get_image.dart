@@ -1,17 +1,18 @@
 import 'dart:convert';
+
 import 'package:career_compass/constant/url.dart';
 import 'package:career_compass/core/shared_preferences.dart';
-import 'package:flutter/material.dart';
+import 'package:career_compass/helper/api.dart';
 import 'package:http/http.dart' as http;
 
-class GetLogo {
-  String path = '';
+class GetImage {
+    String path = '';
   String get pathImage => path;
 
   String url = AppString.baseUrl;
-  final urlReq = 'http://10.0.2.2:3000/company/get_logo';
+  final urlReq = 'http://10.0.2.2:3000/employees/get_image';
   String token = CashMemory().getCashData(key: 'accessToken');
-  Future<String?> getLogo() async {
+  Future<String?> getImage() async {
     var response = await http
         .get(Uri.parse(urlReq), headers: {'Authorization': 'Bearer $token'});
     if (response.statusCode == 200) {
@@ -28,6 +29,9 @@ class GetLogo {
     }
   }
 }
+
+
+
  // var response = await http
     //     .get(Uri.parse(urlReq), headers: {'Authorization': 'Bearer $token'});
     // if (response.statusCode == 200) {

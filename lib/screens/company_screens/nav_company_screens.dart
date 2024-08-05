@@ -13,10 +13,10 @@ import 'package:provider/provider.dart';
 class NavigationCompanyScreen extends StatelessWidget {
   NavigationCompanyScreen({super.key});
 
-  final List<Widget> pagesList = const [
-    HomePageCompany(),
-    AddJob(),
-    NotificationCompanyScreen(),
+  final List<Widget> pagesList = [
+    const HomePageCompany(),
+    const AddJob(),
+    const NotificationCompanyScreen(),
   ];
 
   final String url = AppString.baseUrl;
@@ -94,3 +94,4 @@ class NavigationCompanyScreen extends StatelessWidget {
     );
   }
 }
+///kkkk

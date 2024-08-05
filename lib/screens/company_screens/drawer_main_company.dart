@@ -25,9 +25,11 @@ class DrawerCompany extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 30),
                         child: Container(
                           height: 90,
+                          width: 90,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
+                                fit: BoxFit.fill,
                                 image: NetworkImage(
                                     'http://10.0.2.2:3000/$_imagePath')
                                 //           //  AssetImage('./images/profilePhoto.jpg'),

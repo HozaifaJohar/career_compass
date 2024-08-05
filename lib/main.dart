@@ -66,7 +66,6 @@ void main() async {
       ChangeNotifierProvider(create: (context) => JobProvider()),
       ChangeNotifierProvider(create: (context) => FilteredJobs()),
       ChangeNotifierProvider(create: (context) => JobHelper()),
-      ChangeNotifierProvider(create: (context) => GetLogo()),
       ChangeNotifierProvider(create: (context) => FilterHelper()),
       ChangeNotifierProvider(create: (context) => Alljobs()),
       ChangeNotifierProvider(create: (context) => Primal()),
@@ -87,7 +86,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       home: NavigationEmployeeScreen(),
       routes: {
-        '/start_screen': (context) => StartScreen(),
+        '/start_screen': (context) => const StartScreen(),
         'register_screen': (context) => RegisterScreen(),
         '/login_screen': (context) => LoginScreen(),
         // 'otp_company': (context) =>  OtpCompany(),
@@ -95,7 +94,7 @@ class MyApp extends StatelessWidget {
 
         //screens for company section
         // '/compay_jobdetails': (context) => const CompanyJobDetails(),
-        '/changePassword_company': (context) => const ChangePasswordCompany(),
+        //'/changePassword_company': (context) => const ChangePasswordCompany(),
         // '/register_company': (context) =>  ResisterCompanyScreen(),
         '/home_company': (context) => const HomePageCompany(),
         '/add_job': (context) => const AddJob(),
