@@ -2,6 +2,7 @@ import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/services/employee/employee_requests/get_image.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class DrawerEmployee extends StatelessWidget {
   DrawerEmployee({super.key});
@@ -37,11 +38,15 @@ class DrawerEmployee extends StatelessWidget {
                         ),
                       );
                     } else {
-                      return const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: CircleAvatar(
-                          radius: 40,
-                          child: Center(child: Icon(Icons.person)),
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color.fromARGB(255, 203, 202, 202)),
+                          width: 90,
+                          height: 90,
+                          child: const Center(child: Icon(Icons.person)),
                         ),
                       );
                     }
@@ -121,7 +126,7 @@ class DrawerEmployee extends StatelessWidget {
                 leading: const Icon(Icons.login),
                 onTap: () {
                   CashMemory().daleteCashItem(key: 'accessToken').then((value) {
-                    Navigator.pushNamed(context, '/login_screen');
+                    Navigator.pushNamed(context, '/start_screen');
                   }).catchError((error) {});
                   // LogEmployeeService().logOut(
                   //     accessToken:
