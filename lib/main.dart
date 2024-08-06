@@ -13,7 +13,6 @@ import 'package:career_compass/provider/employee/onTap_nav_employee.dart';
 import 'package:career_compass/provider/type_provider.dart';
 import 'package:career_compass/screens/company_screens/add_job.dart';
 import 'package:career_compass/screens/company_screens/drawer_company_screens/changeInfo_company.dart';
-import 'package:career_compass/screens/company_screens/drawer_company_screens/changePassword_company.dart';
 import 'package:career_compass/screens/company_screens/drawer_company_screens/uploadLogo_company.dart';
 import 'package:career_compass/screens/company_screens/nav_company_screens.dart';
 import 'package:career_compass/screens/employee_screens/drawer_employee_screens/appliedJobs_employee.dart';
@@ -33,7 +32,6 @@ import 'package:career_compass/screens/start.dart';
 import 'package:career_compass/services/company/activateotp_company.dart';
 import 'package:career_compass/services/company/add_job.dart';
 import 'package:career_compass/services/company/auth_company.dart';
-import 'package:career_compass/services/company/get_logo.dart';
 import 'package:career_compass/services/company/upload_logo.dart';
 import 'package:career_compass/services/employee/employee_auth/activation_employee.dart';
 import 'package:career_compass/services/employee/employee_auth/login_employee_service.dart';
@@ -84,7 +82,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: NavigationEmployeeScreen(),
+      home: StartScreen(),
       routes: {
         '/start_screen': (context) => const StartScreen(),
         'register_screen': (context) => RegisterScreen(),

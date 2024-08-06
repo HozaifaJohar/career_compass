@@ -1,4 +1,6 @@
 import 'package:career_compass/provider/type_provider.dart';
+import 'package:career_compass/screens/company_screens/nav_company_screens.dart';
+import 'package:career_compass/screens/employee_screens/nav_employee_screen.dart';
 import 'package:career_compass/services/company/auth_company.dart';
 import 'package:career_compass/services/employee/employee_auth/login_employee_service.dart';
 import 'package:career_compass/style/app_colors.dart';
@@ -118,8 +120,13 @@ class LoginScreen extends StatelessWidget {
                                 ),
                               );
                             } else {
-                              Navigator.pushNamed(
-                                  context, '/navigation_employee');
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      NavigationEmployeeScreen(),
+                                ),
+                              );
                             }
                           } else if (!type) {
                             var auth = await Provider.of<AuthCompany>(context,
@@ -140,8 +147,13 @@ class LoginScreen extends StatelessWidget {
                                 ),
                               );
                             } else {
-                              Navigator.pushNamed(
-                                  context, '/navigation_company');
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      NavigationCompanyScreen(),
+                                ),
+                              );
                             }
 
                             // if(active !=null){

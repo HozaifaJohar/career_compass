@@ -1,16 +1,8 @@
 import 'package:career_compass/provider/employee/get_primal.dart';
+import 'package:career_compass/screens/employee_screens/scroll_primal.dart';
 import 'package:career_compass/widgets/cat_ui.dart';
-import 'package:career_compass/models/employee/job_employee.dart';
 import 'package:career_compass/provider/employee/get_alljobs.dart';
-import 'package:career_compass/provider/employee/get_filteredjob_employee.dart';
-import 'package:career_compass/screens/employee_screens/all_job_category.dart';
-import 'package:career_compass/style/app_colors.dart';
-import 'package:career_compass/widgets/jobcard_employee.dart';
-import 'package:career_compass/widgets/scroll_primal.dart';
-import 'package:career_compass/widgets/waves.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class HomePageEmployee extends StatefulWidget {

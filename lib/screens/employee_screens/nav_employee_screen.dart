@@ -66,7 +66,7 @@ class NavigationEmployeeScreen extends StatelessWidget {
           ),
         ],
       ),
-      drawer:  Drawer(
+      drawer: Drawer(
         child: DrawerEmployee(),
       ),
       bottomNavigationBar: Consumer<OntapNavigationEmployee>(

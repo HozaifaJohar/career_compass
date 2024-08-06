@@ -1,4 +1,5 @@
 import 'package:career_compass/core/shared_preferences.dart';
+import 'package:career_compass/screens/start.dart';
 import 'package:career_compass/services/employee/employee_requests/get_image.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -126,7 +127,12 @@ class DrawerEmployee extends StatelessWidget {
                 leading: const Icon(Icons.login),
                 onTap: () {
                   CashMemory().daleteCashItem(key: 'accessToken').then((value) {
-                    Navigator.pushNamed(context, '/start_screen');
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => StartScreen(),
+                      ),
+                    );
                   }).catchError((error) {});
                   // LogEmployeeService().logOut(
                   //     accessToken:
