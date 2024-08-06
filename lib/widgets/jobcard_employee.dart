@@ -11,17 +11,18 @@ class JobCardEmployee extends StatelessWidget {
   final String title;
   final int salary;
   final String gender;
+  final int id;
 
-  const JobCardEmployee({
-    super.key,
-    required this.statics,
-    required this.company,
-    required this.subCategories,
-    required this.description,
-    required this.title,
-    required this.salary,
-    required this.gender,
-  });
+  const JobCardEmployee(
+      {super.key,
+      required this.statics,
+      required this.company,
+      required this.subCategories,
+      required this.description,
+      required this.title,
+      required this.salary,
+      required this.gender,
+      required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -128,6 +129,7 @@ class JobCardEmployee extends StatelessWidget {
               title: title,
               gender: gender,
               company: company,
+              id: id,
             ),
           ),
         );

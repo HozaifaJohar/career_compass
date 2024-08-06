@@ -52,6 +52,7 @@ class CategoriesJob extends StatelessWidget {
                       title: job.title,
                       salary: job.salary,
                       gender: job.wantedGender,
+                      id: job.id,
                     ),
                   );
                 },

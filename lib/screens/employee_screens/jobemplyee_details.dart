@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/models/employee/job_employee.dart';
+import 'package:career_compass/services/employee/jobs/apply_job.dart';
 import 'package:career_compass/widgets/line_in_detail_emp.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +16,7 @@ class EmployeJobDetails extends StatelessWidget {
   final String title;
   final String gender;
   final Company company;
+  final int id;
 
   const EmployeJobDetails({
     super.key,
@@ -26,10 +29,11 @@ class EmployeJobDetails extends StatelessWidget {
     required this.title,
     required this.gender,
     required this.company,
+    required this.id,
   });
-
   @override
   Widget build(BuildContext context) {
+    String token = CashMemory().getCashData(key: 'accessToken');
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     final listSubCategories = subCategories.map((e) => e.name).toList();
@@ -141,7 +145,12 @@ class EmployeJobDetails extends StatelessWidget {
                           height: 50,
                           width: 200,
                           child: MaterialButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Apply().post(
+                                token: token,
+                                id: id,
+                              );
+                            },
                             color: const Color.fromARGB(107, 94, 114, 226),
                             child: const Center(
                               child: Text(

@@ -61,6 +61,7 @@ class _PrimalScrollState extends State<PrimalScroll> {
                               title: job.title,
                               salary: job.salary,
                               gender: job.wantedGender,
+                              id: job.id,
                             ),
                           );
                         },

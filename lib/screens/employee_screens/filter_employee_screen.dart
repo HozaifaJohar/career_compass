@@ -72,6 +72,7 @@ class _FilterEployeeScreenState extends State<FilterEployeeScreen> {
                               title: job.title,
                               salary: job.salary,
                               gender: job.wantedGender,
+                              id: job.id,
                             ),
                           );
                         },
