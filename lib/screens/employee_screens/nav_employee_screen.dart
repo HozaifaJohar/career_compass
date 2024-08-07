@@ -11,14 +11,26 @@ import 'package:provider/provider.dart';
 
 import '../../widgets/waves.dart';
 
-class NavigationEmployeeScreen extends StatelessWidget {
-  NavigationEmployeeScreen({super.key});
+class NavigationEmployeeScreen extends StatefulWidget {
+  const NavigationEmployeeScreen({super.key});
 
+  @override
+  State<NavigationEmployeeScreen> createState() =>
+      _NavigationEmployeeScreenState();
+}
+
+class _NavigationEmployeeScreenState extends State<NavigationEmployeeScreen> {
   final List<Widget> _pagesList = [
     FilterEployeeScreen(),
     const HomePageEmployee(),
     const NotificationEmployeeScreen(),
   ];
+  @override
+  void initState() {
+    Provider.of<OntapNavigationEmployee>(context, listen: false).newIndex(1);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider =

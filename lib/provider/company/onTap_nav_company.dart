@@ -17,9 +17,9 @@ class OntapNavigationCompany with ChangeNotifier {
     notifyListeners();
   }
 
-  // void newIndex(int newIndex){
-  //   _index= newIndex;
-  //   pageController=PageController(initialPage: newIndex);
-  //   notifyListeners();
-  // }
+  void newIndex(int newIndex) {
+    _index = newIndex;
+    pageController = PageController(initialPage: newIndex);
+    notifyListeners();
+  }
 }

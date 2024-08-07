@@ -1,9 +1,12 @@
 import 'package:career_compass/core/shared_preferences.dart';
+import 'package:career_compass/provider/employee/onTap_nav_employee.dart';
 import 'package:career_compass/screens/start.dart';
 import 'package:career_compass/services/employee/employee_requests/get_image.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:provider/provider.dart';
 
 class DrawerEmployee extends StatelessWidget {
   DrawerEmployee({super.key});
@@ -126,17 +129,8 @@ class DrawerEmployee extends StatelessWidget {
                 title: const Text('Logout'),
                 leading: const Icon(Icons.login),
                 onTap: () {
-                  CashMemory().daleteCashItem(key: 'accessToken').then((value) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => StartScreen(),
-                      ),
-                    );
-                  }).catchError((error) {});
-                  // LogEmployeeService().logOut(
-                  //     accessToken:
-                  //         CashMemory().getCashData(key: 'accessToken'));
+                  CashMemory().daleteCashItem(key: 'accessToken');
+                  Phoenix.rebirth(context);
                 },
               ),
               ListTile(

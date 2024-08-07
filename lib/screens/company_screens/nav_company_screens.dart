@@ -10,17 +10,27 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class NavigationCompanyScreen extends StatelessWidget {
-  NavigationCompanyScreen({super.key});
+class NavigationCompanyScreen extends StatefulWidget {
+  const NavigationCompanyScreen({super.key});
 
+  @override
+  State<NavigationCompanyScreen> createState() =>
+      _NavigationCompanyScreenState();
+}
+
+class _NavigationCompanyScreenState extends State<NavigationCompanyScreen> {
   final List<Widget> pagesList = [
     const HomePageCompany(),
     const AddJob(),
     const NotificationCompanyScreen(),
   ];
+  @override
+  void initState() {
+    Provider.of<OntapNavigationCompany>(context, listen: false).newIndex(0);
+    super.initState();
+  }
 
   final String url = AppString.baseUrl;
-
   @override
   Widget build(BuildContext context) {
     final provider =

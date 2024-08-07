@@ -38,6 +38,7 @@ import 'package:career_compass/services/employee/employee_auth/login_employee_se
 import 'package:career_compass/services/employee/employee_auth/register_employee_service.dart';
 import 'package:career_compass/services/employee/employee_auth/resendCode_employee.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -69,7 +70,7 @@ void main() async {
       ChangeNotifierProvider(create: (context) => Primal()),
       ChangeNotifierProvider(create: (context) => InfoHelper())
     ],
-    child: const MyApp(),
+    child: Phoenix(child: const MyApp()),
   ));
 }
 
@@ -82,7 +83,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: NavigationEmployeeScreen(),
+      home: StartScreen(),
+      //initialRoute: ,
       routes: {
         '/start_screen': (context) => const StartScreen(),
         'register_screen': (context) => RegisterScreen(),

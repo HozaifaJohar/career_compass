@@ -170,9 +170,10 @@ class _FilterJobsEmployeeState extends State<FilterJobsEmployee> {
                     statics: pr1.ides,
                     subCategories: pr1.subIdes,
                   );
-                  Provider.of<OntapNavigationEmployee>(context, listen: false)
-                      .newIndex(0);
-                  Navigator.pushNamed(context, '/navigation_employee');
+                  // Provider.of<OntapNavigationEmployee>(context, listen: false)
+                  //     .newIndex(0);
+                  Navigator.pushReplacementNamed(
+                      context, '/navigation_employee');
                 },
                 child: Container(
                   width: 100,

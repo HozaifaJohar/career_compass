@@ -120,13 +120,8 @@ class LoginScreen extends StatelessWidget {
                                 ),
                               );
                             } else {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      NavigationEmployeeScreen(),
-                                ),
-                              );
+                              Navigator.pushReplacementNamed(
+                                  context, '/navigation_employee');
                             }
                           } else if (!type) {
                             var auth = await Provider.of<AuthCompany>(context,
@@ -147,22 +142,13 @@ class LoginScreen extends StatelessWidget {
                                 ),
                               );
                             } else {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      NavigationCompanyScreen(),
-                                ),
-                              );
+                              Navigator.pushReplacementNamed(
+                                  context, '/navigation_company');
                             }
 
                             // if(active !=null){
                             //    Navigator.pushNamed(context, '/navigation_company');
                             // }
-
-                            // Marah do what does you should do  :-)
-                          } else {
-                            print('marah');
                           }
                         }
                       },

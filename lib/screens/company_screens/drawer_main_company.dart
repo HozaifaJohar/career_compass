@@ -3,6 +3,7 @@ import 'package:career_compass/screens/start.dart';
 import 'package:career_compass/services/company/get_logo.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 class DrawerCompany extends StatelessWidget {
   DrawerCompany({super.key});
@@ -120,10 +121,7 @@ class DrawerCompany extends StatelessWidget {
                 leading: const Icon(Icons.login),
                 onTap: () {
                   CashMemory().daleteCashItem(key: 'accessToken').then((value) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => StartScreen()),
-                    );
+                    Phoenix.rebirth(context);
                   }).catchError((error) {});
                 },
               ),
