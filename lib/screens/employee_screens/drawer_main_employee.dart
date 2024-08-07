@@ -129,8 +129,9 @@ class DrawerEmployee extends StatelessWidget {
                 title: const Text('Logout'),
                 leading: const Icon(Icons.login),
                 onTap: () {
-                  CashMemory().daleteCashItem(key: 'accessToken');
-                  Phoenix.rebirth(context);
+                  CashMemory()
+                      .daleteCashItem(key: 'accessToken')
+                      .then((value) => Phoenix.rebirth(context));
                 },
               ),
               ListTile(
