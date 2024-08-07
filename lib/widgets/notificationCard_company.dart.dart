@@ -8,6 +8,7 @@ Widget NotificationCardCompany({String? tiltle, String? subTitle}) {
       height: 80,
       width: double.infinity,
       child: Card(
+        color: const Color.fromARGB(138, 128, 145, 238),
         child: ListTile(
           leading: const CircleAvatar(
             child: Icon(Icons.person),
@@ -16,9 +17,8 @@ Widget NotificationCardCompany({String? tiltle, String? subTitle}) {
           subtitle: Text(subTitle!),
           trailing: const Icon(
             Icons.arrow_circle_right,
-            color: const Color(0xffF68623),
+            color: Color(0xffF68623),
           ),
-          onTap: () {},
         ),
       ),
     ),

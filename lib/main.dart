@@ -68,7 +68,8 @@ void main() async {
       ChangeNotifierProvider(create: (context) => FilterHelper()),
       ChangeNotifierProvider(create: (context) => Alljobs()),
       ChangeNotifierProvider(create: (context) => Primal()),
-      ChangeNotifierProvider(create: (context) => InfoHelper())
+      ChangeNotifierProvider(create: (context) => InfoHelper()),
+
     ],
     child: Phoenix(child: const MyApp()),
   ));
@@ -83,7 +84,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: StartScreen(),
+      home: const NavigationCompanyScreen(),
       //initialRoute: ,
       routes: {
         '/start_screen': (context) => const StartScreen(),
@@ -98,7 +99,7 @@ class MyApp extends StatelessWidget {
         // '/register_company': (context) =>  ResisterCompanyScreen(),
         '/home_company': (context) => const HomePageCompany(),
         '/add_job': (context) => const AddJob(),
-        '/navigation_company': (context) => NavigationCompanyScreen(),
+        '/navigation_company': (context) => const NavigationCompanyScreen(),
         '/changeInfo_company': (context) => const ChangeInformationCompany(),
         '/upload_logo': (context) => const UploadLogo(),
 
@@ -107,7 +108,7 @@ class MyApp extends StatelessWidget {
         // '/otp_employee': (context) => const OtpEmployee(),
         '/home_employee': (context) => const HomePageEmployee(),
         '/scientific_information': (context) => const ScientificInformation(),
-        '/navigation_employee': (context) => NavigationEmployeeScreen(),
+        '/navigation_employee': (context) => const NavigationEmployeeScreen(),
         '/filterJobs_employee': (context) => const FilterJobsEmployee(),
         '/changeInfo_employee': (context) => const ChangeInformationEmployee(),
         '/changePassword_employee': (context) => const ChangePasswordEmployee(),

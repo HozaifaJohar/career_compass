@@ -1,4 +1,6 @@
 import 'package:career_compass/models/job.dart';
+import 'package:career_compass/screens/company_screens/accepted.dart';
+import 'package:career_compass/screens/company_screens/applied_employees.dart';
 import 'package:career_compass/widgets/buttom.dart';
 import 'package:career_compass/widgets/details_container.dart';
 import 'package:career_compass/widgets/row.dart';
@@ -10,6 +12,7 @@ class CompanyJobDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final jobRole =
         job.jobStatic.where((item) => item.type == 'category').toList();
     final jobType =
@@ -132,19 +135,35 @@ class CompanyJobDetails extends StatelessWidget {
                     const SizedBox(
                       height: 40,
                     ),
-                    const Row(
+                    Row(
                       children: [
-                        Icon(
-                          Icons.delete,
-                          color: Colors.grey,
+                        IconButton(
+                          onPressed: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return AppliedEmployeesSecreen(id: job.id,);
+                            }));
+                          },
+                          icon: const Icon(
+                            Icons.people,
+                            color: Colors.grey,
+                          ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 20,
                         ),
-                        Icon(
-                          Icons.edit,
-                          color: Colors.grey,
-                        )
+                        IconButton(
+                            onPressed: () {
+                              Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return AcceptedEmpSec(id: job.id,);
+                            }));
+                              
+                            },
+                            icon: const Icon(
+                              Icons.person_add_outlined,
+                              color: Colors.grey,
+                            ))
                       ],
                     ),
                     const SizedBox(

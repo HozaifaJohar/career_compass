@@ -19,9 +19,12 @@ class Api {
       // print(jsonDecode(response.body));
       // print('ddddddddddd');
       return jsonDecode(response.body);
-    } else {
+    }else if(response.statusCode == 404 || response.statusCode ==400 || response.statusCode ==500 || response.statusCode==401 || response.statusCode == 403){
+      return jsonDecode(response.body);
+    }
+     else {
       throw Exception(
-          'there is a problem with status code ${response.statusCode}');
+          'there is a problem with status code ${response.body}');
     }
   }
 
