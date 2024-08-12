@@ -163,7 +163,7 @@ class CompanyJobDetails extends StatelessWidget {
                               }));
                             },
                             icon: const Icon(
-                              Icons.person_add_outlined,
+                              Icons.check_circle,
                               color: Colors.grey,
                             ))
                       ],

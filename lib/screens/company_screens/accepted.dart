@@ -67,9 +67,9 @@ class AcceptedEmpSec extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 200,
-                      width: 200,
-                      child: Image(image: AssetImage('images/empty.png')),
+                      height: 400,
+                      width: 400,
+                      child: Image(image: AssetImage('images/emp.png')),
                     ),
                     SizedBox(
                       height: 10,

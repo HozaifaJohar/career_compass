@@ -83,7 +83,7 @@ class _AppliedEmployeesSecreenState extends State<AppliedEmployeesSecreen> {
                       SizedBox(
                         height: 200,
                         width: 200,
-                        child: Image(image: AssetImage('images/empty.png')),
+                        child: Image(image: AssetImage('images/emp.png')),
                       ),
                       SizedBox(
                         height: 10,

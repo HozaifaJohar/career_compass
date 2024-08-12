@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class FilterEployeeScreen extends StatefulWidget {
-  FilterEployeeScreen({
+  const FilterEployeeScreen({
     super.key,
   });
 
@@ -43,14 +43,24 @@ class _FilterEployeeScreenState extends State<FilterEployeeScreen> {
               if (provider2.params.isEmpty) {
                 return SizedBox(
                   height: screenHeight / 1.5,
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: Text(
-                            'oop there is no filtered jobs to display please enter filter'),
-                      ),
-                    ],
+                  child: const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 200,
+                          width: 200,
+                          child: Image(image: AssetImage('images/emp.png')),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'oops..there are not jobs',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
                   ),
                 );
               }
