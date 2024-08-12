@@ -173,7 +173,7 @@ class LoginScreen extends StatelessWidget {
             right: 140,
             child: CircleAvatar(
               radius: 40,
-              backgroundColor: Colors.grey[350],
+              backgroundColor: Colors.grey[300],
               child: const Icon(Icons.person_2_sharp),
             ),
           )

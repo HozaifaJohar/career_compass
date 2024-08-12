@@ -10,7 +10,7 @@ class NotificationCompanyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        NotificationCardCompany(tiltle: 'Marah', subTitle: 'UX/UI DESIGNE'),
+        NotificationCardCompany(tiltle: 'Marah', ),
       ],
     );
   }

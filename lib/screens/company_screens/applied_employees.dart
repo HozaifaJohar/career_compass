@@ -6,6 +6,8 @@ import 'package:career_compass/screens/start.dart';
 import 'package:career_compass/services/company/get_applied.dart';
 import 'package:career_compass/widgets/notificationCard_company.dart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class AppliedEmployeesSecreen extends StatefulWidget {
@@ -66,22 +68,38 @@ class _AppliedEmployeesSecreenState extends State<AppliedEmployeesSecreen> {
                           }));
                         },
                         child: NotificationCardCompany(
-                            tiltle: emp[index].employee.name,
-                            subTitle: 'Engineer'),
+                          tiltle: emp[index].employee.name,
+                          // url: emp[index].employee.image
+                        ),
                       );
                     },
                   ),
                 );
               } else if (snapshot.data == 'no data') {
                 return const Center(
-                  child: Text('No Employee Apply'),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 200,
+                        width: 200,
+                        child: Image(image: AssetImage('images/empty.png')),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'No employees applying for this job',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
                 );
               } else {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
-            })
-            );
+            }));
   }
 }

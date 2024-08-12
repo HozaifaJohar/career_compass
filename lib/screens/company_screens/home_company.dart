@@ -34,6 +34,11 @@ class _HomePageCompanyState extends State<HomePageCompany> {
         children: [
           Consumer<JobProvider>(
             builder: (context, job, child) {
+              if (job.isLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
               if (job.jobs.isEmpty) {
                 return Center(
                   child: Column(
@@ -64,10 +69,6 @@ class _HomePageCompanyState extends State<HomePageCompany> {
                       ),
                     ],
                   ),
-                );
-              } else if (job.isLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
                 );
               }
               final jobs = job.jobs;

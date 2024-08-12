@@ -227,7 +227,7 @@ class _ResisterCompanyScreenState extends State<ResisterCompanyScreen> {
                     'please describe your company at least in one line ',
               ),
               const SizedBox(
-                height: 40,
+                height: 10,
               ),
               Consumer<AuthCompany>(
                 builder: (context, auth, child) {
@@ -266,7 +266,7 @@ class _ResisterCompanyScreenState extends State<ResisterCompanyScreen> {
                       },
                       text: 'Register',
                       context: context,
-                      width: 100);
+                      width: double.infinity);
                 },
               )
               // GestureDetector(

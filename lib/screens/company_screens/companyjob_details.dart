@@ -12,7 +12,6 @@ class CompanyJobDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final jobRole =
         job.jobStatic.where((item) => item.type == 'category').toList();
     final jobType =
@@ -133,7 +132,7 @@ class CompanyJobDetails extends StatelessWidget {
                         lastText: job.description,
                         iconData: Icons.description),
                     const SizedBox(
-                      height: 40,
+                      height: 20,
                     ),
                     Row(
                       children: [
@@ -141,7 +140,9 @@ class CompanyJobDetails extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return AppliedEmployeesSecreen(id: job.id,);
+                              return AppliedEmployeesSecreen(
+                                id: job.id,
+                              );
                             }));
                           },
                           icon: const Icon(
@@ -155,10 +156,11 @@ class CompanyJobDetails extends StatelessWidget {
                         IconButton(
                             onPressed: () {
                               Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return AcceptedEmpSec(id: job.id,);
-                            }));
-                              
+                                  MaterialPageRoute(builder: (context) {
+                                return AcceptedEmpSec(
+                                  id: job.id,
+                                );
+                              }));
                             },
                             icon: const Icon(
                               Icons.person_add_outlined,
@@ -167,7 +169,7 @@ class CompanyJobDetails extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(
-                      height: 40,
+                      height: 20,
                     ),
                     customButton(
                         tap: () {

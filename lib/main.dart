@@ -32,11 +32,14 @@ import 'package:career_compass/screens/start.dart';
 import 'package:career_compass/services/company/activateotp_company.dart';
 import 'package:career_compass/services/company/add_job.dart';
 import 'package:career_compass/services/company/auth_company.dart';
+import 'package:career_compass/services/company/patch_emp.dart';
 import 'package:career_compass/services/company/upload_logo.dart';
 import 'package:career_compass/services/employee/employee_auth/activation_employee.dart';
 import 'package:career_compass/services/employee/employee_auth/login_employee_service.dart';
 import 'package:career_compass/services/employee/employee_auth/register_employee_service.dart';
 import 'package:career_compass/services/employee/employee_auth/resendCode_employee.dart';
+import 'package:career_compass/test.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:provider/provider.dart';
@@ -69,7 +72,7 @@ void main() async {
       ChangeNotifierProvider(create: (context) => Alljobs()),
       ChangeNotifierProvider(create: (context) => Primal()),
       ChangeNotifierProvider(create: (context) => InfoHelper()),
-
+            ChangeNotifierProvider(create: (context) => PatchEmp()),
     ],
     child: Phoenix(child: const MyApp()),
   ));
@@ -84,7 +87,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: const NavigationCompanyScreen(),
+      home: StartScreen(),
       //initialRoute: ,
       routes: {
         '/start_screen': (context) => const StartScreen(),

@@ -36,10 +36,10 @@ class _UploadCvState extends State<UploadCv> {
       });
       String pdfName = _pickedPdf!.path.split('/').last;
       String path = _pickedPdf!.path;
-      print('/////${path}/////');
+      print('/////$path/////');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           elevation: 0,
           content: FlashMessage(
             errorText: 'No Pdf Selected!',
@@ -152,11 +152,11 @@ class _UploadCvState extends State<UploadCv> {
               width: 150,
               child: ElevatedButton.icon(
                 onPressed: _pickFile,
-                icon: Icon(
+                icon: const Icon(
                   Icons.upload_file,
                   color: AppColors.mainColor,
                 ),
-                label: Text(
+                label: const Text(
                   'Pick Pdf',
                   style: TextStyle(color: AppColors.mainColor),
                 ),
@@ -170,14 +170,14 @@ class _UploadCvState extends State<UploadCv> {
                 onPressed: () {
                   if (_pickedPdf != null) {
                     Api().postFiles(
-                      url: '$url/employees/upload-image',
+                      url: '$url/employees/upload-file',
                       filePath: _pickedPdf!.path,
                       key: 'file',
                       token: CashMemory().getCashData(key: 'accessToken'),
                     );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
+                      const SnackBar(
                         elevation: 0,
                         content: FlashMessage(
                           errorText: "NO File Selected Yet!",
@@ -188,11 +188,11 @@ class _UploadCvState extends State<UploadCv> {
                     );
                   }
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.cloud_upload,
                   color: AppColors.mainColor,
                 ),
-                label: Text(
+                label: const Text(
                   'Upload PDF',
                   style: TextStyle(color: AppColors.mainColor),
                 ),
