@@ -1,5 +1,6 @@
 import 'package:career_compass/provider/type_provider.dart';
 import 'package:career_compass/screens/company_screens/nav_company_screens.dart';
+import 'package:career_compass/screens/company_screens/reset_password.dart';
 import 'package:career_compass/screens/employee_screens/nav_employee_screen.dart';
 import 'package:career_compass/services/company/auth_company.dart';
 import 'package:career_compass/services/employee/employee_auth/login_employee_service.dart';
@@ -24,7 +25,7 @@ class LoginScreen extends StatelessWidget {
       body: Center(
         child: Stack(clipBehavior: Clip.none, children: [
           Container(
-            height: 405,
+            height: 410,
             width: 350,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
@@ -153,7 +154,7 @@ class LoginScreen extends StatelessWidget {
                         }
                       },
                       child: Container(
-                        height: 50,
+                        height: 40,
                         width: 150,
                         decoration: BoxDecoration(
                             color: AppColors.mainColor,
@@ -163,6 +164,23 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                     ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        if (!type) {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return const ResndCode();
+                          }));
+                        }
+                      },
+                      child: const Text(
+                        'Reset Password',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    )
                   ],
                 ),
               ),

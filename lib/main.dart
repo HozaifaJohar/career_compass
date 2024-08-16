@@ -86,7 +86,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: const StartScreen(),
+      home: const NavigationCompanyScreen(),
       //initialRoute: ,
       routes: {
         '/start_screen': (context) => const StartScreen(),
