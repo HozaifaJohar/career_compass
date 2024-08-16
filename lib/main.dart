@@ -1,4 +1,5 @@
 import 'package:career_compass/core/shared_preferences.dart';
+import 'package:career_compass/notifications/notifications.dart';
 import 'package:career_compass/nexttest.dart';
 import 'package:career_compass/provider/company/counter.dart';
 import 'package:career_compass/provider/employee/filter_screen_helper.dart';
@@ -22,6 +23,7 @@ import 'package:career_compass/screens/employee_screens/drawer_employee_screens/
 import 'package:career_compass/screens/employee_screens/drawer_employee_screens/filterJobs_employee.dart';
 import 'package:career_compass/screens/employee_screens/drawer_employee_screens/uploadCv.dart';
 import 'package:career_compass/screens/employee_screens/drawer_employee_screens/uploadPhoto_employee.dart';
+import 'package:career_compass/screens/employee_screens/notification_employee.dart';
 import 'package:career_compass/screens/employee_screens/scientific_information.dart';
 import 'package:career_compass/screens/employee_screens/home_employee.dart';
 import 'package:career_compass/screens/employee_screens/nav_employee_screen.dart';
@@ -38,15 +40,27 @@ import 'package:career_compass/services/employee/employee_auth/activation_employ
 import 'package:career_compass/services/employee/employee_auth/login_employee_service.dart';
 import 'package:career_compass/services/employee/employee_auth/register_employee_service.dart';
 import 'package:career_compass/services/employee/employee_auth/resendCode_employee.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 import 'package:career_compass/test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:provider/provider.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   //this two lines to call init() function before run the app...
   WidgetsFlutterBinding.ensureInitialized();
   await CashMemory.init();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: 'AIzaSyDb-2W0hvOoPPwYXoiJc7GCGsl2bMFtW0g',
+      appId: '1:838693518963:android:970be7b7c91ecdac3eb406 ',
+      messagingSenderId: '182925565401',
+      projectId: 'pushnotifications-f1d90',
+    ),
+  );
+  await FirebaseApi().initNotification();
 
   runApp(MultiProvider(
     providers: [
@@ -86,7 +100,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: const NavigationCompanyScreen(),
+      home: StartScreen(),
+      navigatorKey: navigatorKey,
       //initialRoute: ,
       routes: {
         '/start_screen': (context) => const StartScreen(),
@@ -116,6 +131,8 @@ class MyApp extends StatelessWidget {
         '/changePassword_employee': (context) => const ChangePasswordEmployee(),
         '/appliedJobs_employee': (context) => const AppliedJobsEmployee(),
         '/uploadPhoto_employee': (context) => const UploadPhotoEmployee(),
+        '/notification_employee': (context) =>
+            const NotificationEmployeeScreen(),
         '/upload_cv': (context) => const UploadCv(),
 
         //'/employee_jobdetails': (context) =>  EmployeJobDetails(),

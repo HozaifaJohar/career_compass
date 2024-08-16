@@ -1,3 +1,4 @@
+import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/models/user_employee.dart';
 import 'package:career_compass/services/employee/employee_requests/get_info.dart';
 import 'package:career_compass/services/employee/employee_requests/update_info.dart';
@@ -34,11 +35,11 @@ class _ChangeInformationEmployeeState extends State<ChangeInformationEmployee> {
   //final TextEditingController _lastname = TextEditingController();
   final TextEditingController _phone = TextEditingController();
   final TextEditingController _address = TextEditingController();
+  String token = CashMemory().getCashData(key: 'accessToken');
   @override
   void initState() {
     futureUser = Info().get(
-      token:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImltYWQiLCJlbWFpbCI6ImltYWRmZmZmQGdtYWlsLmNvbSIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3MjI3NTg3NDAsImV4cCI6MTcyMzM2MzU0MH0.NXQXnJO3clVzL8qswvoAhLcmAgAN5yV23g_HL6LV0ZU',
+      token: token,
     );
     futureUser.then((userData) {
       setState(() {
@@ -213,8 +214,7 @@ class _ChangeInformationEmployeeState extends State<ChangeInformationEmployee> {
                           phone: _phone.text,
                           birthday: _birthday.text,
                           gender: selectedgender!,
-                          token:
-                              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImltYWQiLCJlbWFpbCI6ImltYWRmZmZmQGdtYWlsLmNvbSIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3MjI4NjE4MDIsImV4cCI6MTcyMzQ2NjYwMn0.IbC06TWIUZgaV5iYZY3ZK1aqpVHNNzqY3ki-GiH9j-4',
+                          token: token,
                         );
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(

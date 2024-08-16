@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "182925565401",
+    "project_id": "pushnotifications-f1d90",
+    "storage_bucket": "pushnotifications-f1d90.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:182925565401:android:38caddd610095bfc5a8dc8",
+        "android_client_info": {
+          "package_name": "com.example.career_compass"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDb-2W0hvOoPPwYXoiJc7GCGsl2bMFtW0g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
