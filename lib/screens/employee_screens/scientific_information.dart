@@ -115,35 +115,42 @@ class _ScientificInformationState extends State<ScientificInformation> {
                 ),
                 GestureDetector(
                   onTap: () async {
+                    // List<int> intid =
+                    //     Provider.of<RegisterHelper>(context, listen: false)
+                    //         .subCategoriesId;
+                    // print(intid);
                     if (Provider.of<RegisterHelper>(context, listen: false)
                         .filterScreenValidation()) {
                       SetStatics().post(
-                        allCategories: Provider.of<RegisterHelper>(
-                          context,
-                          listen: false,
-                        ).getCategories(),
-                        accessToken:
-                            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImltYWQiLCJlbWFpbCI6ImltYWRmZmZmQGdtYWlsLmNvbSIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3MjAwMDM4NTQsImV4cCI6MTcyMDYwODY1NH0.kCD5Ae5cIxkTcj3vN0OOS8K3-WM_k7EusGpBOT5MSSQ',
-                      );
+                          allCategories: Provider.of<RegisterHelper>(
+                            context,
+                            listen: false,
+                          ).getCategories(),
+                          accessToken:
+                              CashMemory().getCashData(key: 'accessToken')
+                          // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImltYWQiLCJlbWFpbCI6ImltYWRmZmZmQGdtYWlsLmNvbSIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3MjAwMDM4NTQsImV4cCI6MTcyMDYwODY1NH0.kCD5Ae5cIxkTcj3vN0OOS8K3-WM_k7EusGpBOT5MSSQ',
+                          );
                       SubCategories().post(
-                        allSubCategories: Provider.of<RegisterHelper>(
-                          context,
-                          listen: false,
-                        ).getSubCategories(),
-                        accessToken:
-                            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImltYWQiLCJlbWFpbCI6ImltYWRmZmZmQGdtYWlsLmNvbSIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3MjAwMDM4NTQsImV4cCI6MTcyMDYwODY1NH0.kCD5Ae5cIxkTcj3vN0OOS8K3-WM_k7EusGpBOT5MSSQ',
-                      );
+                          allSubCategories: Provider.of<RegisterHelper>(
+                            context,
+                            listen: false,
+                          ).getSubCategories(),
+                          accessToken:
+                              CashMemory().getCashData(key: 'accessToken')
+                          //  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImltYWQiLCJlbWFpbCI6ImltYWRmZmZmQGdtYWlsLmNvbSIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3MjAwMDM4NTQsImV4cCI6MTcyMDYwODY1NH0.kCD5Ae5cIxkTcj3vN0OOS8K3-WM_k7EusGpBOT5MSSQ',
+                          );
                       SetEducationAndExeperience().post(
-                        items: Provider.of<RegisterHelper>(
-                          context,
-                          listen: false,
-                        ).constItems(),
-                        accessToken:
-                            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImltYWQiLCJlbWFpbCI6ImltYWRmZmZmQGdtYWlsLmNvbSIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3MjAwMDM4NTQsImV4cCI6MTcyMDYwODY1NH0.kCD5Ae5cIxkTcj3vN0OOS8K3-WM_k7EusGpBOT5MSSQ',
-                      );
+                          items: Provider.of<RegisterHelper>(
+                            context,
+                            listen: false,
+                          ).constItems(),
+                          accessToken:
+                              CashMemory().getCashData(key: 'accessToken')
+                          //  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImltYWQiLCJlbWFpbCI6ImltYWRmZmZmQGdtYWlsLmNvbSIsImdlbmRlciI6Im1hbGUiLCJpYXQiOjE3MjAwMDM4NTQsImV4cCI6MTcyMDYwODY1NH0.kCD5Ae5cIxkTcj3vN0OOS8K3-WM_k7EusGpBOT5MSSQ',
+                          );
                       Navigator.pushNamed(context, '/navigation_employee');
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         elevation: 0,
                         content: FlashMessage(
                           errorText: "All Fields Is required, please fill all",
@@ -156,10 +163,9 @@ class _ScientificInformationState extends State<ScientificInformation> {
                   child: Container(
                     height: 40,
                     width: 100,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: AppColors.mainColor,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(20))),
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
                     child: const Center(
                       child: Text(
                         'Complete',

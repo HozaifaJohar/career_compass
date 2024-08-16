@@ -8,7 +8,7 @@ String qualificationToJson(List<Qualification> data) => json.encode(List<dynamic
 class Qualification {
     int id;
     String name;
-
+   
     Qualification({
         required this.id,
         required this.name,

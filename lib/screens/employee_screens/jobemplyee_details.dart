@@ -104,6 +104,11 @@ class EmployeJobDetails extends StatelessWidget {
                           height: screenHeight / 5.5,
                         ),
                         CustomLine(
+                          leftText: 'Job Title:',
+                          rightText: title,
+                          icon: Icons.star,
+                        ),
+                        CustomLine(
                           leftText: 'Job Role:',
                           rightText: categories.join(', '),
                           icon: Icons.work,

@@ -214,7 +214,7 @@ class _AddJobState extends State<AddJob> {
                         desc.text.isEmpty ||
                         genderSelected.isEmpty ||
                         salary.text.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         elevation: 0,
                         content: FlashMessage(
                           errorText: "All Fields Is required, please fill all",
@@ -235,6 +235,14 @@ class _AddJobState extends State<AddJob> {
                           counter.countExper,
                           counter.countMax,
                           genderSelected);
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        elevation: 0,
+                        content: FlashMessage(
+                          errorText: "Job added Wait for accept it",
+                        ),
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.transparent,
+                      ));
                     }
                   },
                   context: context,
