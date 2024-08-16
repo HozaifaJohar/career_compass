@@ -9,9 +9,10 @@ class GetLogo {
   String get pathImage => path;
 
   String url = AppString.baseUrl;
-  final urlReq = 'http://10.0.2.2:3000/company/get_logo';
+  
   String token = CashMemory().getCashData(key: 'accessToken');
   Future<String?> getLogo() async {
+    final urlReq = '$url/company/get_logo';
     var response = await http
         .get(Uri.parse(urlReq), headers: {'Authorization': 'Bearer $token'});
     if (response.statusCode == 200) {

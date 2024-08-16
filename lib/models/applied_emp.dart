@@ -9,27 +9,47 @@ class AppliedEmployee {
     int id;
     bool accepted;
     Employee employee;
-    Job job;
+    List<Certification> certifications;
 
     AppliedEmployee({
         required this.id,
         required this.accepted,
         required this.employee,
-        required this.job,
+        required this.certifications,
     });
 
     factory AppliedEmployee.fromJson(Map<String, dynamic> json) => AppliedEmployee(
         id: json["id"],
         accepted: json["accepted"],
         employee: Employee.fromJson(json["employee"]),
-        job: Job.fromJson(json["job"]),
+        certifications: List<Certification>.from(json["certifications"].map((x) => Certification.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
         "id": id,
         "accepted": accepted,
         "employee": employee.toJson(),
-        "job": job.toJson(),
+        "certifications": List<dynamic>.from(certifications.map((x) => x.toJson())),
+    };
+}
+
+class Certification {
+    String name;
+    String mark;
+
+    Certification({
+        required this.name,
+        required this.mark,
+    });
+
+    factory Certification.fromJson(Map<String, dynamic> json) => Certification(
+        name: json["name"],
+        mark: json["mark"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "name": name,
+        "mark": mark,
     };
 }
 
@@ -40,13 +60,10 @@ class Employee {
     String phone;
     String homeAddress;
     DateTime birthdayDate;
-    String hashedPassword;
-    String hashedRt;
     bool active;
-    String hashedCode;
     String description;
-    String image;
-    String resume;
+    dynamic image;
+    dynamic resume;
     String gender;
     dynamic experience;
     dynamic education;
@@ -58,10 +75,7 @@ class Employee {
         required this.phone,
         required this.homeAddress,
         required this.birthdayDate,
-        required this.hashedPassword,
-        required this.hashedRt,
         required this.active,
-        required this.hashedCode,
         required this.description,
         required this.image,
         required this.resume,
@@ -77,10 +91,7 @@ class Employee {
         phone: json["phone"],
         homeAddress: json["home_address"],
         birthdayDate: DateTime.parse(json["birthday_date"]),
-        hashedPassword: json["hashed_password"],
-        hashedRt: json["hashedRT"],
         active: json["active"],
-        hashedCode: json["hashedCode"],
         description: json["description"],
         image: json["image"],
         resume: json["resume"],
@@ -96,63 +107,12 @@ class Employee {
         "phone": phone,
         "home_address": homeAddress,
         "birthday_date": "${birthdayDate.year.toString().padLeft(4, '0')}-${birthdayDate.month.toString().padLeft(2, '0')}-${birthdayDate.day.toString().padLeft(2, '0')}",
-        "hashed_password": hashedPassword,
-        "hashedRT": hashedRt,
         "active": active,
-        "hashedCode": hashedCode,
         "description": description,
         "image": image,
         "resume": resume,
         "gender": gender,
         "experience": experience,
         "education": education,
-    };
-}
-
-class Job {
-    int id;
-    String title;
-    String description;
-    int salary;
-    int workHours;
-    int numberOfEmployees;
-    int experienceYears;
-    String wantedGender;
-    bool active;
-
-    Job({
-        required this.id,
-        required this.title,
-        required this.description,
-        required this.salary,
-        required this.workHours,
-        required this.numberOfEmployees,
-        required this.experienceYears,
-        required this.wantedGender,
-        required this.active,
-    });
-
-    factory Job.fromJson(Map<String, dynamic> json) => Job(
-        id: json["id"],
-        title: json["title"],
-        description: json["description"],
-        salary: json["salary"],
-        workHours: json["work_hours"],
-        numberOfEmployees: json["number_of_employees"],
-        experienceYears: json["experience_years"],
-        wantedGender: json["wanted_gender"],
-        active: json["active"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "id": id,
-        "title": title,
-        "description": description,
-        "salary": salary,
-        "work_hours": workHours,
-        "number_of_employees": numberOfEmployees,
-        "experience_years": experienceYears,
-        "wanted_gender": wantedGender,
-        "active": active,
     };
 }

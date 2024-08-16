@@ -1,5 +1,8 @@
+import 'package:career_compass/constant/url.dart';
 import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/provider/employee/onTap_nav_employee.dart';
+import 'package:career_compass/screens/employee_screens/drawer_employee_screens/exam_screen.dart';
+import 'package:career_compass/screens/employee_screens/drawer_employee_screens/exam_state.dart';
 import 'package:career_compass/screens/start.dart';
 import 'package:career_compass/services/employee/employee_requests/get_image.dart';
 import 'package:career_compass/style/app_colors.dart';
@@ -13,6 +16,7 @@ class DrawerEmployee extends StatelessWidget {
   String? _imagePath;
   @override
   Widget build(BuildContext context) {
+    final url = AppString.baseUrl;
     return Column(
       children: [
         Container(
@@ -35,8 +39,7 @@ class DrawerEmployee extends StatelessWidget {
                             shape: BoxShape.circle,
                             image: DecorationImage(
                               fit: BoxFit.fill,
-                              image: NetworkImage(
-                                  'http://10.0.2.2:3000/$_imagePath'),
+                              image: NetworkImage('$url/$_imagePath'),
                             ),
                           ),
                         ),
@@ -74,10 +77,12 @@ class DrawerEmployee extends StatelessWidget {
           child: ListView(
             children: [
               ListTile(
-                title: const Text('Change Password'),
-                leading: const Icon(Icons.lock),
+                title: const Text('Exams'),
+                leading: const Icon(Icons.quiz),
                 onTap: () {
-                  Navigator.pushNamed(context, '/changePassword_employee');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const ExamsState();
+                  }));
                 },
               ),
               ListTile(
@@ -129,9 +134,10 @@ class DrawerEmployee extends StatelessWidget {
                 title: const Text('Logout'),
                 leading: const Icon(Icons.login),
                 onTap: () {
-                  CashMemory()
-                      .daleteCashItem(key: 'accessToken')
-                      .then((value) => Phoenix.rebirth(context));
+                  Provider.of<OntapNavigationEmployee>(context, listen: false)
+                      .setIndex(1);
+                  CashMemory().daleteCashItem(key: 'accessToken');
+                  Navigator.pushNamed(context, '/start_screen');
                 },
               ),
               ListTile(

@@ -2,6 +2,7 @@ import 'package:career_compass/constant/url.dart';
 import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/helper/api.dart';
 import 'package:career_compass/models/acc_emp.dart';
+import 'package:career_compass/models/applied_emp.dart';
 
 class GetAccepted {
   Future<dynamic> getallApplied(int id) async {
@@ -15,9 +16,9 @@ class GetAccepted {
       print('JsonData is a List of length: ${jsonData.length}');
       print('First element in the list: ${jsonData[0]}');
 
-      List<AcceptedEmployee> employees = jsonData.map((json) {
+      List<AppliedEmployee> employees = jsonData.map((json) {
         print('Parsing JSON: $json'); // Debugging each item
-        return AcceptedEmployee.fromJson(json);
+        return AppliedEmployee.fromJson(json);
       }).toList();
 
       print(

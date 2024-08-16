@@ -44,6 +44,18 @@ class RegisterHelper with ChangeNotifier {
 ////////////////////////////////////////////////////////////////////////////////////
 
   final List<String> _allSubCategories = [];
+  final List<int> subCategoriesId = [];
+  List<int> grtSubId() => subCategoriesId;
+
+  void addSubId(int id) {
+    subCategoriesId.add(id);
+    notifyListeners();
+  }
+
+  void removeSubId(int id) {
+    subCategoriesId.remove(id);
+    notifyListeners();
+  }
 
   List<Map<String, String>> getSubCategories() {
     List<Map<String, String>> allSubCategories = [];

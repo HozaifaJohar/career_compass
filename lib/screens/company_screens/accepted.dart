@@ -41,7 +41,7 @@ class AcceptedEmpSec extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.data is List) {
               print('11');
-              List<AcceptedEmployee> emp = snapshot.data!;
+              List<AppliedEmployee> emp = snapshot.data!;
               return Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: ListView.builder(

@@ -64,7 +64,7 @@ class _AppliedEmployeesSecreenState extends State<AppliedEmployeesSecreen> {
                         onTap: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return EmployeeDetails(emp: emp[index]);
+                            return EmployeeDetails(emp: emp[index],id: widget.id,);
                           }));
                         },
                         child: NotificationCardCompany(

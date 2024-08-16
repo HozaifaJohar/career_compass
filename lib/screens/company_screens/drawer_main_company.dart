@@ -1,15 +1,22 @@
+import 'package:career_compass/constant/url.dart';
 import 'package:career_compass/core/shared_preferences.dart';
+import 'package:career_compass/provider/company/onTap_nav_company.dart';
+import 'package:career_compass/screens/company_screens/drawer_company_screens/inf_company.dart';
+import 'package:career_compass/screens/company_screens/drawer_company_screens/premium_screen.dart';
 import 'package:career_compass/screens/start.dart';
 import 'package:career_compass/services/company/get_logo.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:provider/provider.dart';
 
 class DrawerCompany extends StatelessWidget {
   DrawerCompany({super.key});
   String? _imagePath;
+
   @override
   Widget build(BuildContext context) {
+    final url = AppString.baseUrl;
     return Column(
       children: [
         Container(
@@ -32,8 +39,7 @@ class DrawerCompany extends StatelessWidget {
                             shape: BoxShape.circle,
                             image: DecorationImage(
                                 fit: BoxFit.fill,
-                                image: NetworkImage(
-                                    'http://10.0.2.2:3000/$_imagePath')
+                                image: NetworkImage('$url/$_imagePath')
                                 //           //  AssetImage('./images/profilePhoto.jpg'),
                                 ),
                           ),
@@ -87,19 +93,37 @@ class DrawerCompany extends StatelessWidget {
           child: ListView(
             children: [
               ListTile(
-                title: const Text('Change Password'),
-                leading: const Icon(Icons.lock),
+                title: const Text('Premuim account'),
+                leading: const Icon(Icons.star),
                 onTap: () {
-                  Navigator.pushNamed(context, '/changePassword_company');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const PremiumScreen();
+                  }));
                 },
               ),
+              // ListTile(
+              //   title: const Text('Change Password'),
+              //   leading: const Icon(Icons.lock),
+              //   onTap: () {
+              //     Navigator.pushNamed(context, '/changePassword_company');
+              //   },
+              // ),
+              // ListTile(
+              //   title: const Text('Company Information'),
+              //   leading: const Icon(
+              //     Icons.info,
+              //   ),
+              //   onTap: () {
+              //     Navigator.pushNamed(context, '/changeInfo_company');
+              //   },
+              // ),
               ListTile(
-                title: const Text('Company Information'),
-                leading: const Icon(
-                  Icons.info,
-                ),
+                title: const Text('Company I nformation'),
+                leading: const Icon(Icons.info),
                 onTap: () {
-                  Navigator.pushNamed(context, '/changeInfo_company');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const InformationCompany();
+                  }));
                 },
               ),
               ListTile(
@@ -120,9 +144,10 @@ class DrawerCompany extends StatelessWidget {
                 title: const Text('Logout'),
                 leading: const Icon(Icons.login),
                 onTap: () {
-                  CashMemory().daleteCashItem(key: 'accessToken').then((value) {
-                    Phoenix.rebirth(context);
-                  }).catchError((error) {});
+                  Provider.of<OntapNavigationCompany>(context, listen: false)
+                      .setIndex(0);
+                  CashMemory().daleteCashItem(key: 'accessToken');
+                  Navigator.pushNamed(context, '/start_screen');
                 },
               ),
               ListTile(
