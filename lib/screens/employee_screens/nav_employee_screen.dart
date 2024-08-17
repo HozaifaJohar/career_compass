@@ -27,8 +27,8 @@ class _NavigationEmployeeScreenState extends State<NavigationEmployeeScreen> {
   ];
   @override
   void initState() {
-    Provider.of<OntapNavigationEmployee>(context, listen: false).newIndex(1);
-    super.initState();
+    // Provider.of<OntapNavigationEmployee>(context, listen: false).newIndex(1);
+    // super.initState();
   }
 
   @override
@@ -65,8 +65,7 @@ class _NavigationEmployeeScreenState extends State<NavigationEmployeeScreen> {
               ),
             ],
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height / 1.31,
+          Expanded(
             child: PageView(
               physics: const NeverScrollableScrollPhysics(),
               controller: provider.pageController,

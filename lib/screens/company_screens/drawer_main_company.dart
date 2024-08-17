@@ -4,15 +4,27 @@ import 'package:career_compass/provider/company/onTap_nav_company.dart';
 import 'package:career_compass/screens/company_screens/drawer_company_screens/inf_company.dart';
 import 'package:career_compass/screens/company_screens/drawer_company_screens/premium_screen.dart';
 import 'package:career_compass/screens/start.dart';
+import 'package:career_compass/services/company/get_info.dart';
 import 'package:career_compass/services/company/get_logo.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:provider/provider.dart';
 
-class DrawerCompany extends StatelessWidget {
+class DrawerCompany extends StatefulWidget {
   DrawerCompany({super.key});
+
+  @override
+  State<DrawerCompany> createState() => _DrawerCompanyState();
+}
+
+class _DrawerCompanyState extends State<DrawerCompany> {
   String? _imagePath;
+  @override
+  void initState() {
+    GetInfCompany().getInfCompany();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,17 +87,32 @@ class DrawerCompany extends StatelessWidget {
               //   ),
               // ),
               const SizedBox(height: 10),
-              const Text(
-                'Company Name',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.white),
-              ),
-              Text(
-                'companyEmail@gmail.com',
-                style: TextStyle(fontSize: 16, color: Colors.grey[100]),
-              ),
+              FutureBuilder(
+                future: GetInfCompany().getInfCompany(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    var data = snapshot.data;
+                    return Column(
+                      children: [
+                        Text(
+                          data!.companyName,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.white),
+                        ),
+                        Text(
+                          data.email,
+                          style:
+                              TextStyle(fontSize: 16, color: Colors.grey[100]),
+                        ),
+                      ],
+                    );
+                  } else {
+                    return CircularProgressIndicator();
+                  }
+                },
+              )
             ],
           ),
         ),
@@ -144,19 +171,19 @@ class DrawerCompany extends StatelessWidget {
                 title: const Text('Logout'),
                 leading: const Icon(Icons.login),
                 onTap: () {
-                  Provider.of<OntapNavigationCompany>(context, listen: false)
-                      .setIndex(0);
+                  // Provider.of<OntapNavigationCompany>(context, listen: false)
+                  //     .setIndex(0);
                   CashMemory().daleteCashItem(key: 'accessToken');
                   Navigator.pushNamed(context, '/start_screen');
                 },
               ),
-              ListTile(
-                title: const Text('Change Language'),
-                leading: const Icon(Icons.language),
-                onTap: () async {
-                  // GetLogo().getLogo();
-                },
-              ),
+              // ListTile(
+              //   title: const Text('Change Language'),
+              //   leading: const Icon(Icons.language),
+              //   onTap: () async {
+              //     // GetLogo().getLogo();
+              //   },
+              // ),
             ],
           ),
         ),

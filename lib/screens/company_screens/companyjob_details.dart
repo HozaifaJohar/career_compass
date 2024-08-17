@@ -1,6 +1,7 @@
 import 'package:career_compass/models/job.dart';
 import 'package:career_compass/screens/company_screens/accepted.dart';
 import 'package:career_compass/screens/company_screens/applied_employees.dart';
+import 'package:career_compass/services/company/remove_job.dart';
 import 'package:career_compass/widgets/buttom.dart';
 import 'package:career_compass/widgets/details_container.dart';
 import 'package:career_compass/widgets/row.dart';
@@ -165,7 +166,16 @@ class CompanyJobDetails extends StatelessWidget {
                             icon: const Icon(
                               Icons.check_circle,
                               color: Colors.grey,
-                            ))
+                            )),
+                        const SizedBox(
+                          width: 40,
+                        ),
+                        IconButton(
+                            onPressed: () async {
+                              var res = await RemoveJob().removejob(job.id);
+                              print(job.id);
+                            },
+                            icon: const Icon(Icons.delete))
                       ],
                     ),
                     const SizedBox(

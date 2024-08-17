@@ -1,19 +1,47 @@
 import 'package:career_compass/constant/url.dart';
 import 'package:career_compass/core/shared_preferences.dart';
+import 'package:career_compass/models/user_employee.dart';
 import 'package:career_compass/provider/employee/onTap_nav_employee.dart';
 import 'package:career_compass/screens/employee_screens/drawer_employee_screens/exam_screen.dart';
 import 'package:career_compass/screens/employee_screens/drawer_employee_screens/exam_state.dart';
 import 'package:career_compass/screens/start.dart';
 import 'package:career_compass/services/employee/employee_requests/get_image.dart';
+import 'package:career_compass/services/employee/employee_requests/get_info.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:provider/provider.dart';
 
-class DrawerEmployee extends StatelessWidget {
+class DrawerEmployee extends StatefulWidget {
   DrawerEmployee({super.key});
+
+  @override
+  State<DrawerEmployee> createState() => _DrawerEmployeeState();
+}
+
+class _DrawerEmployeeState extends State<DrawerEmployee> {
+  late Future<UserEmployee> futureUser;
   String? _imagePath;
+  String token = CashMemory().getCashData(key: 'accessToken');
+  void initState() {
+    futureUser = Info().get(
+      token: token,
+    );
+    futureUser.then((userData) {
+      setState(() {
+        // user = userData;
+        // _name.text = user!.name;
+        // _address.text = user!.homeAddress;
+        // _phone.text = user!.phone;
+        // _birthday.text = user!.birthdayDate;
+        // selectedgender = user!.gender;
+        // print(selectedgender);
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final url = AppString.baseUrl;
@@ -102,13 +130,13 @@ class DrawerEmployee extends StatelessWidget {
                   Navigator.popAndPushNamed(context, '/filterJobs_employee');
                 },
               ),
-              ListTile(
-                title: const Text('Applied Jobs'),
-                leading: const Icon(Icons.work),
-                onTap: () {
-                  Navigator.pushNamed(context, '/appliedJobs_employee');
-                },
-              ),
+              // ListTile(
+              //   title: const Text('Applied Jobs'),
+              //   leading: const Icon(Icons.work),
+              //   onTap: () {
+              //     Navigator.pushNamed(context, '/appliedJobs_employee');
+              //   },
+              // ),
               ListTile(
                 title: const Text('Upload Profile Photo'),
                 leading: const Icon(Icons.image),
@@ -140,11 +168,11 @@ class DrawerEmployee extends StatelessWidget {
                   Navigator.pushNamed(context, '/start_screen');
                 },
               ),
-              ListTile(
-                title: const Text('Change Language'),
-                leading: const Icon(Icons.language),
-                onTap: () {},
-              ),
+              // ListTile(
+              //   title: const Text('Change Language'),
+              //   leading: const Icon(Icons.language),
+              //   onTap: () {},
+              // ),
             ],
           ),
         ),
