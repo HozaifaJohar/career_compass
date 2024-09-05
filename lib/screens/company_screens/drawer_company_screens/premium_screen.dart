@@ -1,4 +1,4 @@
-import 'dart:ffi';
+
 
 import 'package:career_compass/services/company/prem_req.dart';
 import 'package:career_compass/style/app_colors.dart';
@@ -15,7 +15,7 @@ class PremiumScreen extends StatefulWidget {
 
 class _PremiumScreenState extends State<PremiumScreen> {
   RangeValues values = const RangeValues(0.1, 0.5);
-  double currentValue = 0;
+  double currentValue = 1;
   @override
   Widget build(BuildContext context) {
     RangeLabels labels =
