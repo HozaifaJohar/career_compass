@@ -55,7 +55,7 @@ class _HomePageEmployeeState extends State<HomePageEmployee> {
               );
             }
             return SizedBox(
-              height: 130,
+              height: 135,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [

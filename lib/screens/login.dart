@@ -1,3 +1,4 @@
+import 'package:career_compass/provider/employee/onTap_nav_employee.dart';
 import 'package:career_compass/provider/type_provider.dart';
 import 'package:career_compass/screens/register.dart';
 import 'package:career_compass/services/company/auth_company.dart';
@@ -11,7 +12,7 @@ import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   BuildContext? waitingDialogOfContext;
-  Duration get loginTime => const Duration(milliseconds: 2250);
+  Duration get loginTime => const Duration(milliseconds: 10000);
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +59,8 @@ class LoginScreen extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => LoginScreen()),
                   );
                 } else {
+                  Provider.of<OntapNavigationEmployee>(context, listen: false)
+                      .newIndex(1);
                   Navigator.pushReplacementNamed(
                       context, '/navigation_employee');
                 }

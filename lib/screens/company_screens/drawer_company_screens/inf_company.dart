@@ -52,7 +52,7 @@ class _InformationCompanyState extends State<InformationCompany> {
               if (snapshot.hasData) {
                 var data = snapshot.data!;
                 return Container(
-                  height: 350,
+                  height: 450,
                   width: double.infinity,
                   decoration: const BoxDecoration(
                     color: Color.fromARGB(108, 176, 169, 169),
@@ -118,7 +118,7 @@ class _InformationCompanyState extends State<InformationCompany> {
                             onPressed: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
-                                return  EditInformation();
+                                return EditInformation();
                               }));
                             },
                             icon: const Icon(

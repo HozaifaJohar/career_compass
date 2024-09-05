@@ -26,8 +26,8 @@ class _NavigationCompanyScreenState extends State<NavigationCompanyScreen> {
   ];
   @override
   void initState() {
-    Provider.of<OntapNavigationCompany>(context, listen: false).newIndex(0);
-    super.initState();
+    // Provider.of<OntapNavigationCompany>(context, listen: false).newIndex(0);
+    // super.initState();
   }
 
   final String url = AppString.baseUrl;
@@ -67,8 +67,7 @@ class _NavigationCompanyScreenState extends State<NavigationCompanyScreen> {
               ),
             ],
           ),
-          SizedBox(
-            height: screenHeight / 1.31,
+          Expanded(
             child: PageView(
               physics: const NeverScrollableScrollPhysics(),
               controller: provider.pageController,
