@@ -33,11 +33,12 @@ Widget NotificationCardCompany({String? tiltle, String? url}) {
               decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 214, 210, 210),
                 shape: BoxShape.circle,
-                // image: DecorationImage(
-                //     fit: BoxFit.fill,
-                //     image: NetworkImage('http://10.0.2.2:3000/$url')
-                //     //           //  AssetImage('./images/profilePhoto.jpg'),
-                //     ),
+                image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: NetworkImage(
+                        'http://10.0.2.2:3000/uploadsimages/7a8297c03a45bcd96bae44a757969d46.png')
+                    //           //  AssetImage('./images/profilePhoto.jpg'),
+                    ),
               ),
             ),
             const SizedBox(
@@ -48,7 +49,11 @@ Widget NotificationCardCompany({String? tiltle, String? url}) {
 
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(tiltle!),
+                Text(
+                  tiltle!,
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
                 // SizedBox(
                 //   height: 5,
                 // ),

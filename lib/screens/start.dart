@@ -1,3 +1,4 @@
+import 'package:career_compass/core/shared_preferences.dart';
 import 'package:career_compass/provider/type_provider.dart';
 import 'package:career_compass/style/app_colors.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,7 +19,7 @@ class _StartScreenState extends State<StartScreen> {
   Widget build(BuildContext context) {
     double customOpacity = 0;
     return Scaffold(
-     // backgroundColor: AppColors.mainColor,
+      // backgroundColor: AppColors.mainColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -26,22 +27,21 @@ class _StartScreenState extends State<StartScreen> {
             const Text(
               'Wellcome! Get start with your App ',
               style: TextStyle(
-                  color: Color.fromARGB(255, 36, 83, 154),
-                  fontWeight: FontWeight.bold,
-                  ),
+                color: Color.fromARGB(255, 36, 83, 154),
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(
               height: 20,
             ),
             TweenAnimationBuilder(
-            
               curve: Curves.bounceOut,
               duration: const Duration(seconds: 2),
               tween: Tween<double>(begin: 50, end: 200),
               builder: (context, value, child) {
                 return Image.asset(
                   'images/manb.gif',
-                  height: value*2,
+                  height: value * 2,
                   // width: 200,
                 );
               },
@@ -50,7 +50,6 @@ class _StartScreenState extends State<StartScreen> {
               height: 20,
             ),
             TweenAnimationBuilder(
-            
               curve: Curves.bounceOut,
               duration: const Duration(seconds: 2),
               tween: Tween<double>(begin: 50, end: 150),
@@ -59,6 +58,7 @@ class _StartScreenState extends State<StartScreen> {
                   onTap: () {
                     Provider.of<TypeProvider>(context, listen: false)
                         .setType(true);
+                    CashMemory().insertTypeToCash(key: 'type', value: 'emp');
                     Navigator.pushNamed(context, '/login_screen');
                   },
                   child: Container(
@@ -81,7 +81,6 @@ class _StartScreenState extends State<StartScreen> {
               height: 20,
             ),
             TweenAnimationBuilder(
-                
               curve: Curves.bounceOut,
               duration: const Duration(seconds: 2),
               tween: Tween<double>(begin: 50, end: 150),
@@ -90,6 +89,7 @@ class _StartScreenState extends State<StartScreen> {
                   onTap: () {
                     Provider.of<TypeProvider>(context, listen: false)
                         .setType(false);
+                        CashMemory().insertTypeToCash(key: 'type', value: 'com');
                     Navigator.pushNamed(context, '/login_screen');
                   },
                   child: Container(

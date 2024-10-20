@@ -14,7 +14,7 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:provider/provider.dart';
 
 class DrawerEmployee extends StatefulWidget {
-  DrawerEmployee({super.key});
+  const DrawerEmployee({super.key});
 
   @override
   State<DrawerEmployee> createState() => _DrawerEmployeeState();
@@ -24,6 +24,7 @@ class _DrawerEmployeeState extends State<DrawerEmployee> {
   late Future<UserEmployee> futureUser;
   String? _imagePath;
   String token = CashMemory().getCashData(key: 'accessToken');
+  @override
   void initState() {
     futureUser = Info().get(
       token: token,
@@ -88,14 +89,14 @@ class _DrawerEmployeeState extends State<DrawerEmployee> {
                   }),
               const SizedBox(height: 10),
               const Text(
-                'Name',
+                'Hozaifa Jawhar',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                     color: Colors.white),
               ),
               Text(
-                'email@gmail.com',
+                'hozaifajawhar@gmail.com',
                 style: TextStyle(fontSize: 16, color: Colors.grey[100]),
               ),
             ],

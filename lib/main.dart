@@ -100,7 +100,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: StartScreen(),
+      home: SplashScreen(),
       navigatorKey: navigatorKey,
       //initialRoute: ,
       routes: {

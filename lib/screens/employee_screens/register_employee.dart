@@ -1,6 +1,7 @@
 import 'package:career_compass/screens/employee_screens/otp_employee.dart';
 import 'package:career_compass/services/employee/employee_auth/register_employee_service.dart';
 import 'package:career_compass/style/app_colors.dart';
+import 'package:career_compass/widgets/buttom.dart';
 import 'package:career_compass/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -113,12 +114,12 @@ class _RegisterEmployeeScreenState extends State<RegisterEmployeeScreen> {
                       ),
                       TextFormField(
                         controller: _dateController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             labelText: 'Birthday',
                             filled: true,
-                            prefixIcon: const Icon(Icons.calendar_today),
-                            enabledBorder: const OutlineInputBorder(
-                                borderSide: BorderSide.none),
+                            prefixIcon: Icon(Icons.calendar_today),
+                            enabledBorder:
+                                OutlineInputBorder(borderSide: BorderSide.none),
                             focusedBorder: OutlineInputBorder(
                                 borderSide:
                                     BorderSide(color: AppColors.amber))),
@@ -187,48 +188,36 @@ class _RegisterEmployeeScreenState extends State<RegisterEmployeeScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    if (_formKey1.currentState!.validate()) {
-                      Provider.of<RegisterEmployeeSrevice>(context,
-                              listen: false)
-                          .register(
-                        name: _fullname.text,
-                        email: widget.email,
-                        password: widget.password,
-                        gender: selectedgender,
-                        phone: _phone.text,
-                        homeAddress: homeAddress,
-                        birthDayDate: _dateController.text,
-                        description: description.text,
-                      );
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              OtpEmployee(email: widget.email),
-                        ),
-                      );
-                    }
-                  },
-                  child: Container(
-                    width: 100,
-                    decoration: BoxDecoration(
-                        color: AppColors.mainColor,
-                        borderRadius: BorderRadius.circular(50)),
-                    child: const Center(
-                      child: Text(
-                        'Continue',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                )
+                // const SizedBox(
+                //   height: 15,
+                // ),
+                customButton(
+                    tap: () {
+                      if (_formKey1.currentState!.validate()) {
+                        Provider.of<RegisterEmployeeSrevice>(context,
+                                listen: false)
+                            .register(
+                          name: _fullname.text,
+                          email: widget.email,
+                          password: widget.password,
+                          gender: selectedgender,
+                          phone: _phone.text,
+                          homeAddress: homeAddress,
+                          birthDayDate: _dateController.text,
+                          description: description.text,
+                        );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                OtpEmployee(email: widget.email),
+                          ),
+                        );
+                      }
+                    },
+                    text: 'Continue',
+                    context: context,
+                    width: double.infinity)
               ],
             ),
           ),

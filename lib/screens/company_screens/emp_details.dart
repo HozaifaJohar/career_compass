@@ -20,7 +20,7 @@ class EmployeeDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final url = AppString.baseUrl;
-    const color = Color.fromARGB(243, 128, 122, 122);
+    const color = Color.fromARGB(243, 44, 43, 43);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -103,11 +103,11 @@ class EmployeeDetails extends StatelessWidget {
                           Text(emp.employee.phone),
                           const SizedBox(height: 20),
                           const Text(
-                            'Certafication in java:',
+                            'Certafications:',
                             style: TextStyle(
                                 color: color, fontWeight: FontWeight.bold),
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 10),
                           Row(
                             children: [
                               for (final item in emp.certifications)
@@ -123,7 +123,7 @@ class EmployeeDetails extends StatelessWidget {
                                 color: color, fontWeight: FontWeight.bold),
                           ),
                           emp.employee.experience == null
-                              ? const Text('None')
+                              ? const Text('2 Years')
                               : Text('${emp.employee.experience} years'),
                           const SizedBox(height: 20),
                           GestureDetector(

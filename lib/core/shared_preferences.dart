@@ -22,4 +22,15 @@ class CashMemory {
   Future<bool> clearCash() async {
     return await preferences.clear();
   }
+    Future insertTypeToCash({required String key, required String value}) async {
+    return await preferences.setString(key, value);
+  }
+
+  String getTypeFromCash({required String key}) {
+      return preferences.getString(key) ?? '';
+  }
+
+  Future<bool> daleteTypeCashItem({required String key}) async {
+    return await preferences.remove(key);
+  }
 }
